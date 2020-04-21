@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" th:src="@{/js/public/jquery.min.js}"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#btn").click(function(){
+			$.ajax({
+				url : "[[@{/case}]]",
+				data : "POST",
+				dataType : "json",
+				success : function(data) {
+					alert(data);
+					var content = "";
+					content+='';
+				}
+			});
+		});
+	});
+</script>
+</head>
+<body>
+	<input id="btn" type="button" value="病历">
+</body>
+</html>
