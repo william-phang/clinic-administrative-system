@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ClinicAdministrativeSystemApplication {
 
 	public static void main(String[] args) {
+		System.out.println("aaa");
 		SpringApplication.run(ClinicAdministrativeSystemApplication.class, args);
 	}
 
