@@ -1,6 +1,6 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: 
-    username: 
-    password: 
+    url: jdbc:mysql:///sm65?characterEncoding=utf8
+    username: root
+    password: 123456
