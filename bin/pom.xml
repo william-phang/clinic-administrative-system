@@ -60,11 +60,14 @@
 			<artifactId>pagehelper</artifactId>
 			<version>4.1.4</version>
 		</dependency>
+<<<<<<< HEAD
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid-spring-boot-starter</artifactId>
 			<version>1.1.16</version>
 		</dependency>
+=======
+>>>>>>> branch 'master' of https://github.com/william-phang/clinic-administrative-system.git
 	</dependencies>
 
 	<build>
