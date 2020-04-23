@@ -20,9 +20,9 @@ class ClinicAdministrativeSystemApplicationTests {
 	
 	@Test
 	void contextLoads() {
-		TAdditionalFee tAdditionalFee=
-				new TAdditionalFee(null,"注射费",new BigDecimal("20"),new BigDecimal("10"),new Date(),"张三","启用");
-		additionalFeeMapper.insert(tAdditionalFee);
+//		TAdditionalFee tAdditionalFee=
+//				new TAdditionalFee(null,"注射费",new BigDecimal("20"),new BigDecimal("10"),new Date(),"张三","启用");
+//		additionalFeeMapper.insert(tAdditionalFee);
 	}
 
 	@Test
@@ -32,9 +32,9 @@ class ClinicAdministrativeSystemApplicationTests {
 	
 	@Test
 	void contextLoads02() {
-		TAdditionalFee tAdditionalFee=
-				new TAdditionalFee(1,"注射费",new BigDecimal("25"),new BigDecimal("10"),new Date(),"张三","启用");;
-		additionalFeeMapper.updateByPrimaryKey(tAdditionalFee);
+//		TAdditionalFee tAdditionalFee=
+//				new TAdditionalFee(1,"注射费",new BigDecimal("25"),new BigDecimal("10"),new Date(),"张三","启用");;
+//		additionalFeeMapper.updateByPrimaryKey(tAdditionalFee);
 	}
 	
 	@Test

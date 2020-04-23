@@ -19,7 +19,7 @@ class ClinicAdministrativeSystemApplicationTests {
 	@Test
 	void contextLoads() {
 		TAdditionalFee tAdditionalFee=new TAdditionalFee();
-		tAdditionalFee.setAdditionalName("医疗费");
+//		tAdditionalFee.setAdditionalName("医疗费");
 		tAdditionalFeeService.insertTAdditionalFee(tAdditionalFee);
 	}
 	
@@ -32,9 +32,9 @@ class ClinicAdministrativeSystemApplicationTests {
 	@Test
 	void contextLoad02() {
 		
-		TAdditionalFee tAdditionalFee=
-				new TAdditionalFee(8,"注射费",new BigDecimal("20"),new BigDecimal("10"),new Date(),"张三","禁用");
-		tAdditionalFeeService.updateTadditionalFeeById(tAdditionalFee);
+//		TAdditionalFee tAdditionalFee=
+//				new TAdditionalFee(8,"注射费",new BigDecimal("20"),new BigDecimal("10"),new Date(),"张三","禁用");
+//		tAdditionalFeeService.updateTadditionalFeeById(tAdditionalFee);
 	}
 	
 	@Test
