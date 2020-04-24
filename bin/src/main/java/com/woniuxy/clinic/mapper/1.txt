@@ -1,4 +1,0 @@
-<<<<<<< HEAD
-=======
-#无意义
->>>>>>> branch 'master' of https://github.com/william-phang/clinic-administrative-system.git
