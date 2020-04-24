@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>药品信息维护</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+</head>
+<body>
+<blockquote class="layui-elem-quote news_search">
+    <form class="layui-form">
+        <div>
+            <div class="layui-inline">
+            	&nbsp;<span>处方类别</span>&nbsp;
+            	<div class="layui-input-inline layui-form">
+                    <select name="type" class="" id="type">
+                        <option value="">全部</option>
+                        <option value="1">西/成药</option>
+                        <option value="0">中药</option>
+                    </select>
+                </div>
+            	&nbsp;<span>药品状态</span>&nbsp;
+            	<div class="layui-input-inline layui-form">
+                    <select name="status" class="" id="status">
+                        <option value="">全部</option>
+                        <option value="1">启用</option>
+                        <option value="0">停用</option>
+                    </select>
+                </div>
+            	&nbsp;<span>创建时间</span>&nbsp;
+                <div class="layui-inline">
+	                <input type="text" id="createTimeStart"
+	                       class="layui-input userName" name="createTimeStart"
+	                       placeholder="创建时间(开始)" value="">
+	            </div>
+	            <div class="layui-inline">
+	                <input type="text" id="createTimeEnd" class="layui-input userName"
+	                       name="createTimeEnd" placeholder="创建时间(结束)" value="">
+	            </div>
+	            <div class="layui-input-inline">
+                    <input type="text" id="nickname" value="" placeholder="输入药品名称/编码/生产厂家"
+                           class="layui-input search_input" style="width:300px">
+                </div>
+            </div>
+        </div>
+    </form>
+</blockquote>
+<div class="layui-form">
+    <table id="drugInfoList" lay-filter="drugInfoList"></table>
+</div>
+
+<script th:src="@{/layui/layui.js}"></script>
+<script>
+    layui.use(['table','jquery','layer','form','laypage','laytpl','laydate'],function () {
+        var table = layui.table,
+            form = layui.form,
+            $ = layui.jquery,
+            laypage = layui.laypage,
+            layer = layui.layer,
+            laytpl = layui.laytpl,
+            laydate = layui.laydate;
+
+        table.render({
+            id:'drugInfoList',
+            elem:'#drugInfoList',
+            cellMinWidth:80,
+            url:'/pharmacy/drugInfoList',
+            page:true,
+            limit:10,
+            limits:[10,10,30],
+            toolbar:true,
+            cols:[
+                [
+                    {field: 'id', title: '序号', align: 'center',width:80}
+                    ,{field: 'no', title: '编码', align: 'center'}
+                    ,{field: 'name', title: '药品名', align: 'center'}
+                    ,{field: 'specification', title: '规格', align: 'center'}
+                    ,{field: 'type', title: '收费类别', align: 'center'} 
+                    ,{field: 'purchase_price', title: '采购价', align: 'center'}
+                    ,{field: 'retail_price', title: '零售价', align: 'center'}
+                    ,{field: 'manufacturer', title: '生产厂家', align: 'center'}
+                    ,{field: 'status', title: '状态', align: 'center'}
+                    ,{field: 'creat_time', title: '创建时间', align: 'center'}
+                    ,{fixed: 'right', title: '操作', align: 'center', toolbar: '#operation'}
+                ]
+            ],
+           parseData:function (result) {//result是服务器端响应的数据
+                return {
+                    code:result.code ==200?0:result.code(),
+                    msg:result.message,
+                    data:result.data.list,
+                    count:result.data.total
+                }
+            }
+        });
+
+        //日期插件
+        var start = laydate.render({
+            elem:'#createTimeStart',
+            max:'new Date()',
+            type:'date',
+            trigger:'click',
+            done:function (value,date) {
+                end.config.min = date;
+                end.config.min.month=date.month-1;
+            }
+        })
+
+        var end = laydate.render({
+            elem:'#createTimeEnd',
+            max:'new Date()',
+            type:'date',
+            trigger:'click',
+            done:function (value,date) {
+                start.config.max = date;
+                start.config.max.month = date.month-1;
+            }
+        })
+
+        //搜索功能
+        //动态查询，使用table重新加载
+        $(".search_btn").click(function () {
+
+            // alert("1")
+
+            table.reload('userList',{
+                page:1,
+                where:{
+                    nickname:$("#nickname").val(),
+                    sex:$("#sex").val(),
+                    status:$("#status").val(),
+                    begin:$("#createTimeStart").val(),
+                    end:$("#createTimeEnd").val()
+                },
+                parseData:function (result) {
+                    return {
+                        count:result.data.total,
+                        msg:result.message,
+                        data:result.data.list,
+                        code:result.code==200?0:result.code
+                    }
+                }
+            })
+
+        });
+
+        //添加用户
+        $(".userAdd_btn").click(function () {
+            var index = layer.open({
+                type:2,
+                title:'添加用户',
+                content:'/user/addUser'
+            })
+            //窗口大小改变的事件
+            $(window).resize(function () {
+                layer.full(index);
+            })
+            layer.full(index);
+        })
+
+        //批量删除用户
+        $(".batchDel").click(function () {
+            //获取选中的行
+            var checkStatus = table.checkStatus('userList');//table中定义的id
+            var data = checkStatus.data;
+            if(data.length == 0){
+                layer.msg('请选择数据',{icon:5});
+                return ;
+            }
+            var keys = "";
+            $.each(data,function (index,obj) { //jquery中的foreach函数
+                keys += obj.uid+",";
+            })
+            keys = keys.substring(0,keys.length-1);//剪切掉最后一个逗号字符串变为1,2,3,4,
+            layer.confirm('确认删除？',function (index) {
+                $.ajax({
+                    url:'/user/delUsers/'+keys,
+                    type:'delete',
+                    dataType:'json',
+                    success:function (result) {
+                        if(result.code == 200){
+                            layer.msg('删除成功',{icon:1},function () {
+                                location.reload();//刷新数据
+                            });
+                        }else{
+                            layer.msg('删除失败');
+                        }
+                    }
+                });
+                layer.close(index);//关闭当前提示框
+            })
+
+        });
+
+        table.on('tool(userList)',function (obj) {
+            var event = obj.event;
+            var data = obj.data;
+            if(event === 'edit'){
+                layer.open({
+                    type:2,
+                    title:'编辑用户',
+                    area:['450px','560px'],
+                    content:'/user/editUsers/'+data.uid
+                });
+            }else if(event === 'del'){//执行删除
+
+                layer.confirm('确认删除',function (index) {
+
+                    $.ajax({
+                        url:'/user/deleteUsers/'+data.uid,
+                        type:'delete',
+                        dataType:'json',
+                        success:function (result) {
+                            if(result.code == 200){
+                                layer.msg("删除成功",{icon:1});
+                                location.reload();
+                            }else{
+                                layer.msg("删除失败",{icon:5});
+                            }
+                        }
+                    })
+
+                    layer.close(index);
+                })
+            }
+        })
+
+
+    });
+</script>
+<script type="text/html" id="operation">
+<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">停用</a>
+</script>
+<!-- <script type="text/html" id="barEdit">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script type="text/html" id="sexTpl">
+    {{#  if(d.sex === '0'){ }}
+    <span style="color: #F581B1;">女</span>
+    {{#  } else if(d.sex === '1'){ }}
+    男
+    {{#  } else{ }}
+    保密
+    {{#  } }}
+</script>
+<script type="text/html" id="statusTpl">
+    {{#  if(d.status === '0'){ }}
+    <span style="color: #FFB800;">未激活</span>
+    {{#  } else if(d.status === '1'){ }}
+    <span style="color: #01AAED;">正常</span>
+    {{#  } else{ }}
+    <span style="color: #FF5722;">禁用</span>
+    {{#  } }}
+</script> -->
+
+</body>
+</html>
