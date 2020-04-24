@@ -21,6 +21,9 @@ public class MyWebMvcConfig{
 				registry.addViewController("/page/icon.html").setViewName("page/icon");
 				registry.addViewController("/page/user-password.html").setViewName("page/user-password");
 				registry.addViewController("/page/user-setting.html").setViewName("page/user-setting");
+				registry.addViewController("/page/tableEdit/add.html").setViewName("page/tableEdit/add");
+				registry.addViewController("/page/tableEdit/edit.html").setViewName("page/tableEdit/edit");
+				
 			}
 		};
 	}
