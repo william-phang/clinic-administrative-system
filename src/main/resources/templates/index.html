@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -75,9 +75,18 @@
         <li class="layui-nav-item">
           <a href="javascript:;">系统设置</a>
           <dl class="layui-nav-child">
-            <dd><a href="javascript:;">列表一</a></dd>
-            <dd><a href="javascript:;">列表二</a></dd>
-            <dd><a href="">超链接</a></dd>
+            <dd>
+            	<a href="javascript:;">附加费设置</a>
+            	<dl class="layui-nav-child">
+		            <dd>
+		            	<a th:href="@{/tAdditionalFees}">附加费查询</a>
+		            </dd>
+		            <dd><a href="javascript:;">诊疗费设置</a></dd>
+		            <dd><a href="">挂号费设置</a></dd>
+	          </dl>
+            </dd>
+            <dd><a href="javascript:;">诊疗费设置</a></dd>
+            <dd><a href="">挂号费设置</a></dd>
           </dl>
         </li>
       </ul>

@@ -14,7 +14,7 @@ import com.woniuxy.clinic.entity.TAdditionalFeeExample.Criteria;
 
 @SpringBootTest
 class ClinicAdministrativeSystemApplicationTests {
-	//null,"注射费",20.00,10.00,new Date(),"章三","启用"
+	
 	@Autowired
 	TAdditionalFeeMapper additionalFeeMapper;
 	
@@ -27,7 +27,7 @@ class ClinicAdministrativeSystemApplicationTests {
 
 	@Test
 	void contextLoads01() {
-		additionalFeeMapper.deleteByPrimaryKey(5);
+		additionalFeeMapper.deleteByPrimaryKey(1);
 	}
 	
 	@Test
