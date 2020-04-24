@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link type="text/css" rel="stylesheet" th:href="@{/css/style.css}">
+<script type="text/javascript" th:src="@{/js/public/jquery.min.js}"></script>
+</head>
+<body>
+<table class="feeset" cellspacing="0">
+	<tr>
+		<td>
+			<div class="addfee">
+				<a href="">附加费用设置</a>
+			</div>
+			<div class="medicalfee">
+				<a href="">诊疗费用设置</a>
+			</div>
+			<div class="registfee">
+				<a href="">挂号费用设置</a>
+			</div>
+		</td>
+	</tr>
+</table>
+<table>
+	<tr>
+		<td>序号</td>
+		<td>附加费名称</td>
+		<td>金额(元)</td>
+		<td>成本价(元)</td>
+		<td>创建时间</td>
+		<td>创建人员</td>
+		<td>费用状态</td>
+	</tr>
+	<tr th:each="tAadditionalFee:${tAadditionalFees}">
+		<td th:text="${tAadditionalFee.additionalId}"></td>
+		<td th:text="${tAadditionalFee.additionalName}"></td>
+		<td th:text="${tAadditionalFee.additionalFee}"></td>
+		<td th:text="${tAadditionalFee.additionalCost}"></td>
+		<td th:text="${#dates.format(tAadditionalFee.additionalDate,'yyyy-MM-dd')}"></td>
+		<td th:text="${tAadditionalFee.additionalFounder}"></td>
+		<td th:text="${tAadditionalFee.additionalState}"></td>
+	</tr>
+</table>
+</body>
+</html>
