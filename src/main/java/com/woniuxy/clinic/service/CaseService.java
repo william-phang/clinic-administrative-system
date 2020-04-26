@@ -1,11 +1,10 @@
 package com.woniuxy.clinic.service;
 
-import com.woniuxy.clinic.entity.Patient;
+import com.woniuxy.clinic.entity.TCase;
 
 public interface CaseService {
 	
-	// 查询患者信息
-	Patient getPatientById(int patientID);
-	
+	// 根据工作太接诊插入的id查询是否存在
+	TCase getTCase(int case_id);
 	
 }

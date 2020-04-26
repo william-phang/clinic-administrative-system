@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.woniuxy.clinic.mapper.TCaseMapper" >
+  	<select id="selectTCase" resultMap="tCaseMapper">
+		select * from t_case where case_id=#{case_id}
+	</select>
+	<resultMap type="TCase" id="tCaseMapper">
+		<id column="case_id" property="case_id"/>
+		<!-- 一对一:体格信息 -->
+		<association property="tCaseMessage" javaType="TCaseMessage" select="selectTCaseMessageByUser" column="casemessage_id"/> 
+		<!-- 一对一:病历详情 -->
+		<association property="tPhysiqueMessage" javaType="TPhysiqueMessage" select="selectTPhysiqueMessageBycasemessage_id" column="physiquemessage_id"/> 
+		<!-- 一对一:挂号信息 -->
+		<association property="tRegistration" javaType="TRegistration" select="selectTRegistrationByregistrationId" column="registration_id"/> 
+	</resultMap>
+	
+	<!-- 一对一关系 -->
+	<select id="selectTCaseMessageByUser" resultType="TCaseMessage">
+		select * from t_case_message where casemessage_id=#{casemessage_id}
+	</select>
+	<select id="selectTPhysiqueMessageBycasemessage_id" resultType="TPhysiqueMessage">
+		select * from t_physique_message where physiquemessage_id=#{physiquemessage_id}
+	</select>
+	<select id="selectTRegistrationByregistrationId" resultMap="tRegistrationMapper">
+		select * from t_registration where registration_id=#{registration_id}
+	</select>
+	<!-- 挂号表对应患者信息 -->
+	<resultMap type="TRegistration" id="tRegistrationMapper">
+		<id column="registration_id" property="registration_id"/>
+		<result column="reception_type" property="reception_type"/>
+		<result column="reception_doctor" property="reception_doctor"/>
+		<!-- 一对一:患者信息 -->
+		<association property="tPatient" javaType="TPatient" select="selectTPatientBypatient_id" column="patient_id"/>
+	</resultMap>
+	<select id="selectTPatientBypatient_id" resultType="TPatient">
+		select * from t_patient where patient_id=#{patient_id}
+	</select>
+</mapper>

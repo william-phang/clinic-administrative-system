@@ -22,7 +22,8 @@ public class MyWebMvcConfig{
 				registry.addViewController("/page/user-setting.html").setViewName("page/user-setting");
 				registry.addViewController("/page/tableEdit/add.html").setViewName("page/tableEdit/add");
 				registry.addViewController("/page/tableEdit/edit.html").setViewName("page/tableEdit/edit");
-				
+//				case页面
+				registry.addViewController("/page/case/case.html").setViewName("page/case/case");
 			}
 		};
 	}

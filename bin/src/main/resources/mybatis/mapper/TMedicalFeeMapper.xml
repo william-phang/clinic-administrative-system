@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.woniuxy.clinic.mapper.TMedicalFeeMapper" >
   <resultMap id="BaseResultMap" type="com.woniuxy.clinic.entity.TMedicalFee" >
-    <id column="medical_id" property="medicalId" jdbcType="INTEGER" />
-    <result column="medical_name" property="medicalName" jdbcType="VARCHAR" />
-    <result column="medical_fee" property="medicalFee" jdbcType="DECIMAL" />
-    <result column="medical_cost" property="medicalCost" jdbcType="DECIMAL" />
-    <result column="medical_date" property="medicalDate" jdbcType="TIMESTAMP" />
-    <result column="medical_founder" property="medicalFounder" jdbcType="VARCHAR" />
-    <result column="medical_state" property="medicalState" jdbcType="VARCHAR" />
+    <id column="medical_id" property="medical_id" jdbcType="INTEGER" />
+    <result column="medical_name" property="medical_name" jdbcType="VARCHAR" />
+    <result column="medical_fee" property="medical_fee" jdbcType="DECIMAL" />
+    <result column="medical_cost" property="medical_cost" jdbcType="DECIMAL" />
+    <result column="medical_date" property="medical_date" jdbcType="TIMESTAMP" />
+    <result column="medical_founder" property="medical_founder" jdbcType="VARCHAR" />
+    <result column="medical_state" property="medical_state" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -90,11 +90,11 @@
     select 
     <include refid="Base_Column_List" />
     from t_medical_fee
-    where medical_id = #{medicalId,jdbcType=INTEGER}
+    where medical_id = #{medical_id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_medical_fee
-    where medical_id = #{medicalId,jdbcType=INTEGER}
+    where medical_id = #{medical_id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.woniuxy.clinic.entity.TMedicalFeeExample" >
     delete from t_medical_fee
@@ -106,56 +106,56 @@
     insert into t_medical_fee (medical_id, medical_name, medical_fee, 
       medical_cost, medical_date, medical_founder, 
       medical_state)
-    values (#{medicalId,jdbcType=INTEGER}, #{medicalName,jdbcType=VARCHAR}, #{medicalFee,jdbcType=DECIMAL}, 
-      #{medicalCost,jdbcType=DECIMAL}, #{medicalDate,jdbcType=TIMESTAMP}, #{medicalFounder,jdbcType=VARCHAR}, 
-      #{medicalState,jdbcType=VARCHAR})
+    values (#{medical_id,jdbcType=INTEGER}, #{medical_name,jdbcType=VARCHAR}, #{medical_fee,jdbcType=DECIMAL}, 
+      #{medical_cost,jdbcType=DECIMAL}, #{medical_date,jdbcType=TIMESTAMP}, #{medical_founder,jdbcType=VARCHAR}, 
+      #{medical_state,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.woniuxy.clinic.entity.TMedicalFee" >
     insert into t_medical_fee
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="medicalId != null" >
+      <if test="medical_id != null" >
         medical_id,
       </if>
-      <if test="medicalName != null" >
+      <if test="medical_name != null" >
         medical_name,
       </if>
-      <if test="medicalFee != null" >
+      <if test="medical_fee != null" >
         medical_fee,
       </if>
-      <if test="medicalCost != null" >
+      <if test="medical_cost != null" >
         medical_cost,
       </if>
-      <if test="medicalDate != null" >
+      <if test="medical_date != null" >
         medical_date,
       </if>
-      <if test="medicalFounder != null" >
+      <if test="medical_founder != null" >
         medical_founder,
       </if>
-      <if test="medicalState != null" >
+      <if test="medical_state != null" >
         medical_state,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="medicalId != null" >
-        #{medicalId,jdbcType=INTEGER},
+      <if test="medical_id != null" >
+        #{medical_id,jdbcType=INTEGER},
       </if>
-      <if test="medicalName != null" >
-        #{medicalName,jdbcType=VARCHAR},
+      <if test="medical_name != null" >
+        #{medical_name,jdbcType=VARCHAR},
       </if>
-      <if test="medicalFee != null" >
-        #{medicalFee,jdbcType=DECIMAL},
+      <if test="medical_fee != null" >
+        #{medical_fee,jdbcType=DECIMAL},
       </if>
-      <if test="medicalCost != null" >
-        #{medicalCost,jdbcType=DECIMAL},
+      <if test="medical_cost != null" >
+        #{medical_cost,jdbcType=DECIMAL},
       </if>
-      <if test="medicalDate != null" >
-        #{medicalDate,jdbcType=TIMESTAMP},
+      <if test="medical_date != null" >
+        #{medical_date,jdbcType=TIMESTAMP},
       </if>
-      <if test="medicalFounder != null" >
-        #{medicalFounder,jdbcType=VARCHAR},
+      <if test="medical_founder != null" >
+        #{medical_founder,jdbcType=VARCHAR},
       </if>
-      <if test="medicalState != null" >
-        #{medicalState,jdbcType=VARCHAR},
+      <if test="medical_state != null" >
+        #{medical_state,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -168,26 +168,26 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update t_medical_fee
     <set >
-      <if test="record.medicalId != null" >
-        medical_id = #{record.medicalId,jdbcType=INTEGER},
+      <if test="record.medical_id != null" >
+        medical_id = #{record.medical_id,jdbcType=INTEGER},
       </if>
-      <if test="record.medicalName != null" >
-        medical_name = #{record.medicalName,jdbcType=VARCHAR},
+      <if test="record.medical_name != null" >
+        medical_name = #{record.medical_name,jdbcType=VARCHAR},
       </if>
-      <if test="record.medicalFee != null" >
-        medical_fee = #{record.medicalFee,jdbcType=DECIMAL},
+      <if test="record.medical_fee != null" >
+        medical_fee = #{record.medical_fee,jdbcType=DECIMAL},
       </if>
-      <if test="record.medicalCost != null" >
-        medical_cost = #{record.medicalCost,jdbcType=DECIMAL},
+      <if test="record.medical_cost != null" >
+        medical_cost = #{record.medical_cost,jdbcType=DECIMAL},
       </if>
-      <if test="record.medicalDate != null" >
-        medical_date = #{record.medicalDate,jdbcType=TIMESTAMP},
+      <if test="record.medical_date != null" >
+        medical_date = #{record.medical_date,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.medicalFounder != null" >
-        medical_founder = #{record.medicalFounder,jdbcType=VARCHAR},
+      <if test="record.medical_founder != null" >
+        medical_founder = #{record.medical_founder,jdbcType=VARCHAR},
       </if>
-      <if test="record.medicalState != null" >
-        medical_state = #{record.medicalState,jdbcType=VARCHAR},
+      <if test="record.medical_state != null" >
+        medical_state = #{record.medical_state,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -196,13 +196,13 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update t_medical_fee
-    set medical_id = #{record.medicalId,jdbcType=INTEGER},
-      medical_name = #{record.medicalName,jdbcType=VARCHAR},
-      medical_fee = #{record.medicalFee,jdbcType=DECIMAL},
-      medical_cost = #{record.medicalCost,jdbcType=DECIMAL},
-      medical_date = #{record.medicalDate,jdbcType=TIMESTAMP},
-      medical_founder = #{record.medicalFounder,jdbcType=VARCHAR},
-      medical_state = #{record.medicalState,jdbcType=VARCHAR}
+    set medical_id = #{record.medical_id,jdbcType=INTEGER},
+      medical_name = #{record.medical_name,jdbcType=VARCHAR},
+      medical_fee = #{record.medical_fee,jdbcType=DECIMAL},
+      medical_cost = #{record.medical_cost,jdbcType=DECIMAL},
+      medical_date = #{record.medical_date,jdbcType=TIMESTAMP},
+      medical_founder = #{record.medical_founder,jdbcType=VARCHAR},
+      medical_state = #{record.medical_state,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -210,35 +210,35 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.woniuxy.clinic.entity.TMedicalFee" >
     update t_medical_fee
     <set >
-      <if test="medicalName != null" >
-        medical_name = #{medicalName,jdbcType=VARCHAR},
+      <if test="medical_name != null" >
+        medical_name = #{medical_name,jdbcType=VARCHAR},
       </if>
-      <if test="medicalFee != null" >
-        medical_fee = #{medicalFee,jdbcType=DECIMAL},
+      <if test="medical_fee != null" >
+        medical_fee = #{medical_fee,jdbcType=DECIMAL},
       </if>
-      <if test="medicalCost != null" >
-        medical_cost = #{medicalCost,jdbcType=DECIMAL},
+      <if test="medical_cost != null" >
+        medical_cost = #{medical_cost,jdbcType=DECIMAL},
       </if>
-      <if test="medicalDate != null" >
-        medical_date = #{medicalDate,jdbcType=TIMESTAMP},
+      <if test="medical_date != null" >
+        medical_date = #{medical_date,jdbcType=TIMESTAMP},
       </if>
-      <if test="medicalFounder != null" >
-        medical_founder = #{medicalFounder,jdbcType=VARCHAR},
+      <if test="medical_founder != null" >
+        medical_founder = #{medical_founder,jdbcType=VARCHAR},
       </if>
-      <if test="medicalState != null" >
-        medical_state = #{medicalState,jdbcType=VARCHAR},
+      <if test="medical_state != null" >
+        medical_state = #{medical_state,jdbcType=VARCHAR},
       </if>
     </set>
-    where medical_id = #{medicalId,jdbcType=INTEGER}
+    where medical_id = #{medical_id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.woniuxy.clinic.entity.TMedicalFee" >
     update t_medical_fee
-    set medical_name = #{medicalName,jdbcType=VARCHAR},
-      medical_fee = #{medicalFee,jdbcType=DECIMAL},
-      medical_cost = #{medicalCost,jdbcType=DECIMAL},
-      medical_date = #{medicalDate,jdbcType=TIMESTAMP},
-      medical_founder = #{medicalFounder,jdbcType=VARCHAR},
-      medical_state = #{medicalState,jdbcType=VARCHAR}
-    where medical_id = #{medicalId,jdbcType=INTEGER}
+    set medical_name = #{medical_name,jdbcType=VARCHAR},
+      medical_fee = #{medical_fee,jdbcType=DECIMAL},
+      medical_cost = #{medical_cost,jdbcType=DECIMAL},
+      medical_date = #{medical_date,jdbcType=TIMESTAMP},
+      medical_founder = #{medical_founder,jdbcType=VARCHAR},
+      medical_state = #{medical_state,jdbcType=VARCHAR}
+    where medical_id = #{medical_id,jdbcType=INTEGER}
   </update>
 </mapper>

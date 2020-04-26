@@ -1,0 +1,237 @@
+{
+  "homeInfo": {
+    "title": "首页",
+    "href": "page/welcome.html?t=2"
+  },
+  "logoInfo": {
+    "title": "诊所管理系统",
+    "image": "/layuimini/images/logo.png",
+    "href": ""
+  },
+  "menuInfo": [
+    {
+      "title": "常规管理",
+      "icon": "fa fa-address-book",
+      "href": "",
+      "target": "_self",
+      "child": [
+        {
+          "title": "经营概况",
+          "href": "page/welcome.html?t=2",
+          "icon": "fa fa-home",
+          "target": "_self"
+        },
+        {
+          "title": "工作台",
+          "href": "page/table.html?t=11",
+          "icon": "fa fa-window-maximize",
+          "target": "_self"
+        },
+        {
+          "title": "新开就诊",
+          "href": "page/table.html?t=21",
+          "icon": "fa fa-gears",
+          "target": "_self"
+        },
+        {
+          "title": "挂号管理",
+          "href": "",
+          "icon": "fa fa-file-text",
+          "target": "_self",
+          "child": [
+            {
+              "title": "新增挂号",
+              "href": "page/table.html?t=31",
+              "icon": "fa fa-list-alt",
+              "target": "_self"
+            },
+            {
+              "title": "挂号记录",
+              "href": "page/table.html?t=32",
+              "icon": "fa fa-navicon",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "药品零售",
+          "href": "page/icon.html",
+          "icon": "fa fa-calendar",
+          "target": "_self"
+         
+        },
+        {
+          "title": "收费管理",
+          "href": "page/table.html?t=41",
+          "icon": "fa fa-flag-o",
+          "target": "_self"
+        
+        },
+        {
+          "title": "患者管理",
+          "href": "page/table.html?t=42",
+          "icon": "fa fa-home",
+          "target": "_self"
+        
+        },
+        {
+          "title": "药品管理",
+          "href": "",
+          "icon": "fa fa-snowflake-o",
+          "target": "",
+          "child": [
+            {
+              "title": "药品信息维护",
+              "href": "page/table.html?t=51",
+              "icon": "fa fa-snowflake-o",
+              "target": "_self"
+            },
+            {
+              "title": "出库管理",
+              "href": "page/table.html?t=52",
+              "icon": "fa fa-shield",
+              "target": "_self"
+            },
+             {
+              "title": "入库管理",
+              "href": "page/table.html?t=53",
+              "icon": "fa fa-snowflake-o",
+              "target": "_self"
+            },
+            {
+              "title": "库存管理",
+              "href": "page/table.html?t=54",
+              "icon": "fa fa-shield",
+              "target": "_self"
+            },
+             {
+              "title": "库存盘点",
+              "href": "page/table.html?t=55",
+              "icon": "fa fa-snowflake-o",
+              "target": "_self"
+            },
+            {
+              "title": "药品调价",
+              "href": "page/table.html?t=56",
+              "icon": "fa fa-shield",
+              "target": "_self"
+            }
+          ]
+        },
+         {
+          "title": "会员管理",
+          "href": "page/table.html?t=61",
+          "icon": "fa fa-home",
+          "target": "_self"
+        
+        },
+        {
+          "title": "统计报表",
+          "href": "",
+          "icon": "fa fa-home",
+          "target": "_self",
+          "child": [
+            {
+              "title": "收费统计",
+              "href": "page/table.html?t=71",
+              "icon": "fa fa-snowflake-o",
+              "target": "_self"
+            },
+            {
+              "title": "样品统计",
+              "href": "page/table.html?t=72",
+              "icon": "fa fa-shield",
+              "target": "_self"
+            },
+             {
+              "title": "患者统计",
+              "href": "page/table.html?t=73",
+              "icon": "fa fa-snowflake-o",
+              "target": "_self"
+            }
+          ]
+        
+        },
+        {
+          "title": "系统设置",
+          "href": "",
+          "icon": "fa fa-cog",
+          "target": "_self",
+          "child": [
+            {
+              "title": "诊所信息维护",
+              "href": "page/table.html?t=81",
+              "icon": "fa fa-snowflake-o",
+              "target": "_self"
+            },
+            {
+              "title": "字典表维护",
+              "href": "page/table.html?t=82",
+              "icon": "fa fa-shield",
+              "target": "_self"
+            },
+             {
+              "title": "员工管理",
+              "href": "page/table.html?t=83",
+              "icon": "fa fa-snowflake-o",
+              "target": "_self"
+            },
+            {
+              "title": "项目检查设置",
+              "href": "page/table.html?t=84",
+              "icon": "fa fa-shield",
+              "target": "_self"
+            },
+             {
+              "title": "供应商管理",
+              "href": "page/table.html?t=85",
+              "icon": "fa fa-snowflake-o",
+              "target": "_self"
+            },
+            {
+              "title": "模板维护",
+              "href": "page/table.html?t=86",
+              "icon": "fa fa-snowflake-o",
+              "target": "_self"
+            },
+            {
+              "title": "费用设置",
+              "href": "",
+              "icon": "fa fa-shield",
+              "target": "_self",
+              "child": [
+	            {
+	              "title": "附加费用设置",
+	              "href": "/tAdditionalFees",
+	              "icon": "fa fa-list-alt",
+	              "target": "_self"
+	            },
+	            {
+	              "title": "诊疗费用设置",
+	              "href": "page/table.html?t=32",
+	              "icon": "fa fa-navicon",
+	              "target": "_self"
+	            },
+	            {
+	              "title": "挂号费用设置",
+	              "href": "page/table.html?t=32",
+	              "icon": "fa fa-navicon",
+	              "target": "_self"
+	            }
+	          ]
+            },
+             {
+              "title": "基础设置",
+              "href": "page/table.html?t=88",
+              "icon": "fa fa-shield",
+              "target": "_self"
+            }
+            
+          ]
+        
+        }
+      ]
+    }
+    
+  ]
+}
