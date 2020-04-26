@@ -6,77 +6,78 @@ import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 public class TRegistrationFee {
-    private Integer regisId;
+    private Integer regis_id;
 
-    private String regisName;
+    private String regis_name;
 
-    private BigDecimal regisFee;
+    private BigDecimal regis_fee;
 
-    private BigDecimal regisCost;
+    private BigDecimal regis_cost;
 
-    private Date regisDate;
+    private Date regis_date;
 
-    private String regisFounder;
+    private String regis_founder;
 
-    private String regisState;
+    private String regis_state;
 
-    public Integer getRegisId() {
-        return regisId;
+    public Integer getRegis_id() {
+        return regis_id;
     }
 
-    public void setRegisId(Integer regisId) {
-        this.regisId = regisId;
+    public void setRegis_id(Integer regis_id) {
+        this.regis_id = regis_id;
     }
 
-    public String getRegisName() {
-        return regisName;
+    public String getRegis_name() {
+        return regis_name;
     }
 
-    public void setRegisName(String regisName) {
-        this.regisName = regisName == null ? null : regisName.trim();
+    public void setRegis_name(String regis_name) {
+        this.regis_name = regis_name == null ? null : regis_name.trim();
     }
 
-    public BigDecimal getRegisFee() {
-        return regisFee;
+    public BigDecimal getRegis_fee() {
+        return regis_fee;
     }
 
-    public void setRegisFee(BigDecimal regisFee) {
-        this.regisFee = regisFee;
+    public void setRegis_fee(BigDecimal regis_fee) {
+        this.regis_fee = regis_fee;
     }
 
-    public BigDecimal getRegisCost() {
-        return regisCost;
+    public BigDecimal getRegis_cost() {
+        return regis_cost;
     }
 
-    public void setRegisCost(BigDecimal regisCost) {
-        this.regisCost = regisCost;
+    public void setRegis_cost(BigDecimal regis_cost) {
+        this.regis_cost = regis_cost;
     }
 
-    public Date getRegisDate() {
-        return regisDate;
+    public Date getRegis_date() {
+        return regis_date;
     }
 
-    public void setRegisDate(Date regisDate) {
-        this.regisDate = regisDate;
+    public void setRegis_date(Date regis_date) {
+        this.regis_date = regis_date;
     }
 
-    public String getRegisFounder() {
-        return regisFounder;
+    public String getRegis_founder() {
+        return regis_founder;
     }
 
-    public void setRegisFounder(String regisFounder) {
-        this.regisFounder = regisFounder == null ? null : regisFounder.trim();
+    public void setRegis_founder(String regis_founder) {
+        this.regis_founder = regis_founder == null ? null : regis_founder.trim();
     }
 
-    public String getRegisState() {
-        return regisState;
+    public String getRegis_state() {
+        return regis_state;
     }
 
-    public void setRegisState(String regisState) {
-        this.regisState = regisState == null ? null : regisState.trim();
+    public void setRegis_state(String regis_state) {
+        this.regis_state = regis_state == null ? null : regis_state.trim();
     }
 }

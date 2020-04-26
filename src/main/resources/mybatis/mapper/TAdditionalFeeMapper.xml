@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.woniuxy.clinic.mapper.TAdditionalFeeMapper" >
   <resultMap id="BaseResultMap" type="com.woniuxy.clinic.entity.TAdditionalFee" >
-    <id column="additional_id" property="additionalId" jdbcType="INTEGER" />
-    <result column="additional_name" property="additionalName" jdbcType="VARCHAR" />
-    <result column="additional_fee" property="additionalFee" jdbcType="DECIMAL" />
-    <result column="additional_cost" property="additionalCost" jdbcType="DECIMAL" />
-    <result column="additional_date" property="additionalDate" jdbcType="TIMESTAMP" />
-    <result column="additional_founder" property="additionalFounder" jdbcType="VARCHAR" />
-    <result column="additional_state" property="additionalState" jdbcType="VARCHAR" />
+    <id column="additional_id" property="additional_id" jdbcType="INTEGER" />
+    <result column="additional_name" property="additional_name" jdbcType="VARCHAR" />
+    <result column="additional_fee" property="additional_fee" jdbcType="DECIMAL" />
+    <result column="additional_cost" property="additional_cost" jdbcType="DECIMAL" />
+    <result column="additional_date" property="additional_date" jdbcType="TIMESTAMP" />
+    <result column="additional_founder" property="additional_founder" jdbcType="VARCHAR" />
+    <result column="additional_state" property="additional_state" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -90,11 +90,11 @@
     select 
     <include refid="Base_Column_List" />
     from t_additional_fee
-    where additional_id = #{additionalId,jdbcType=INTEGER}
+    where additional_id = #{additional_id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_additional_fee
-    where additional_id = #{additionalId,jdbcType=INTEGER}
+    where additional_id = #{additional_id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.woniuxy.clinic.entity.TAdditionalFeeExample" >
     delete from t_additional_fee
@@ -106,56 +106,56 @@
     insert into t_additional_fee (additional_id, additional_name, additional_fee, 
       additional_cost, additional_date, additional_founder, 
       additional_state)
-    values (#{additionalId,jdbcType=INTEGER}, #{additionalName,jdbcType=VARCHAR}, #{additionalFee,jdbcType=DECIMAL}, 
-      #{additionalCost,jdbcType=DECIMAL}, #{additionalDate,jdbcType=TIMESTAMP}, #{additionalFounder,jdbcType=VARCHAR}, 
-      #{additionalState,jdbcType=VARCHAR})
+    values (#{additional_id,jdbcType=INTEGER}, #{additional_name,jdbcType=VARCHAR}, #{additional_fee,jdbcType=DECIMAL}, 
+      #{additional_cost,jdbcType=DECIMAL}, #{additional_date,jdbcType=TIMESTAMP}, #{additional_founder,jdbcType=VARCHAR}, 
+      #{additional_state,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.woniuxy.clinic.entity.TAdditionalFee" >
     insert into t_additional_fee
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="additionalId != null" >
+      <if test="additional_id != null" >
         additional_id,
       </if>
-      <if test="additionalName != null" >
+      <if test="additional_name != null" >
         additional_name,
       </if>
-      <if test="additionalFee != null" >
+      <if test="additional_fee != null" >
         additional_fee,
       </if>
-      <if test="additionalCost != null" >
+      <if test="additional_cost != null" >
         additional_cost,
       </if>
-      <if test="additionalDate != null" >
+      <if test="additional_date != null" >
         additional_date,
       </if>
-      <if test="additionalFounder != null" >
+      <if test="additional_founder != null" >
         additional_founder,
       </if>
-      <if test="additionalState != null" >
+      <if test="additional_state != null" >
         additional_state,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="additionalId != null" >
-        #{additionalId,jdbcType=INTEGER},
+      <if test="additional_id != null" >
+        #{additional_id,jdbcType=INTEGER},
       </if>
-      <if test="additionalName != null" >
-        #{additionalName,jdbcType=VARCHAR},
+      <if test="additional_name != null" >
+        #{additional_name,jdbcType=VARCHAR},
       </if>
-      <if test="additionalFee != null" >
-        #{additionalFee,jdbcType=DECIMAL},
+      <if test="additional_fee != null" >
+        #{additional_fee,jdbcType=DECIMAL},
       </if>
-      <if test="additionalCost != null" >
-        #{additionalCost,jdbcType=DECIMAL},
+      <if test="additional_cost != null" >
+        #{additional_cost,jdbcType=DECIMAL},
       </if>
-      <if test="additionalDate != null" >
-        #{additionalDate,jdbcType=TIMESTAMP},
+      <if test="additional_date != null" >
+        #{additional_date,jdbcType=TIMESTAMP},
       </if>
-      <if test="additionalFounder != null" >
-        #{additionalFounder,jdbcType=VARCHAR},
+      <if test="additional_founder != null" >
+        #{additional_founder,jdbcType=VARCHAR},
       </if>
-      <if test="additionalState != null" >
-        #{additionalState,jdbcType=VARCHAR},
+      <if test="additional_state != null" >
+        #{additional_state,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -168,26 +168,26 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update t_additional_fee
     <set >
-      <if test="record.additionalId != null" >
-        additional_id = #{record.additionalId,jdbcType=INTEGER},
+      <if test="record.additional_id != null" >
+        additional_id = #{record.additional_id,jdbcType=INTEGER},
       </if>
-      <if test="record.additionalName != null" >
-        additional_name = #{record.additionalName,jdbcType=VARCHAR},
+      <if test="record.additional_name != null" >
+        additional_name = #{record.additional_name,jdbcType=VARCHAR},
       </if>
-      <if test="record.additionalFee != null" >
-        additional_fee = #{record.additionalFee,jdbcType=DECIMAL},
+      <if test="record.additional_fee != null" >
+        additional_fee = #{record.additional_fee,jdbcType=DECIMAL},
       </if>
-      <if test="record.additionalCost != null" >
-        additional_cost = #{record.additionalCost,jdbcType=DECIMAL},
+      <if test="record.additional_cost != null" >
+        additional_cost = #{record.additional_cost,jdbcType=DECIMAL},
       </if>
-      <if test="record.additionalDate != null" >
-        additional_date = #{record.additionalDate,jdbcType=TIMESTAMP},
+      <if test="record.additional_date != null" >
+        additional_date = #{record.additional_date,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.additionalFounder != null" >
-        additional_founder = #{record.additionalFounder,jdbcType=VARCHAR},
+      <if test="record.additional_founder != null" >
+        additional_founder = #{record.additional_founder,jdbcType=VARCHAR},
       </if>
-      <if test="record.additionalState != null" >
-        additional_state = #{record.additionalState,jdbcType=VARCHAR},
+      <if test="record.additional_state != null" >
+        additional_state = #{record.additional_state,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -196,13 +196,13 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update t_additional_fee
-    set additional_id = #{record.additionalId,jdbcType=INTEGER},
-      additional_name = #{record.additionalName,jdbcType=VARCHAR},
-      additional_fee = #{record.additionalFee,jdbcType=DECIMAL},
-      additional_cost = #{record.additionalCost,jdbcType=DECIMAL},
-      additional_date = #{record.additionalDate,jdbcType=TIMESTAMP},
-      additional_founder = #{record.additionalFounder,jdbcType=VARCHAR},
-      additional_state = #{record.additionalState,jdbcType=VARCHAR}
+    set additional_id = #{record.additional_id,jdbcType=INTEGER},
+      additional_name = #{record.additional_name,jdbcType=VARCHAR},
+      additional_fee = #{record.additional_fee,jdbcType=DECIMAL},
+      additional_cost = #{record.additional_cost,jdbcType=DECIMAL},
+      additional_date = #{record.additional_date,jdbcType=TIMESTAMP},
+      additional_founder = #{record.additional_founder,jdbcType=VARCHAR},
+      additional_state = #{record.additional_state,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -210,35 +210,58 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.woniuxy.clinic.entity.TAdditionalFee" >
     update t_additional_fee
     <set >
-      <if test="additionalName != null" >
-        additional_name = #{additionalName,jdbcType=VARCHAR},
+      <if test="additional_name != null" >
+        additional_name = #{additional_name,jdbcType=VARCHAR},
       </if>
-      <if test="additionalFee != null" >
-        additional_fee = #{additionalFee,jdbcType=DECIMAL},
+      <if test="additional_fee != null" >
+        additional_fee = #{additional_fee,jdbcType=DECIMAL},
       </if>
-      <if test="additionalCost != null" >
-        additional_cost = #{additionalCost,jdbcType=DECIMAL},
+      <if test="additional_cost != null" >
+        additional_cost = #{additional_cost,jdbcType=DECIMAL},
       </if>
-      <if test="additionalDate != null" >
-        additional_date = #{additionalDate,jdbcType=TIMESTAMP},
+      <if test="additional_date != null" >
+        additional_date = #{additional_date,jdbcType=TIMESTAMP},
       </if>
-      <if test="additionalFounder != null" >
-        additional_founder = #{additionalFounder,jdbcType=VARCHAR},
+      <if test="additional_founder != null" >
+        additional_founder = #{additional_founder,jdbcType=VARCHAR},
       </if>
-      <if test="additionalState != null" >
-        additional_state = #{additionalState,jdbcType=VARCHAR},
+      <if test="additional_state != null" >
+        additional_state = #{additional_state,jdbcType=VARCHAR},
       </if>
     </set>
-    where additional_id = #{additionalId,jdbcType=INTEGER}
+    where additional_id = #{additional_id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.woniuxy.clinic.entity.TAdditionalFee" >
     update t_additional_fee
-    set additional_name = #{additionalName,jdbcType=VARCHAR},
-      additional_fee = #{additionalFee,jdbcType=DECIMAL},
-      additional_cost = #{additionalCost,jdbcType=DECIMAL},
-      additional_date = #{additionalDate,jdbcType=TIMESTAMP},
-      additional_founder = #{additionalFounder,jdbcType=VARCHAR},
-      additional_state = #{additionalState,jdbcType=VARCHAR}
-    where additional_id = #{additionalId,jdbcType=INTEGER}
+    set additional_name = #{additional_name,jdbcType=VARCHAR},
+      additional_fee = #{additional_fee,jdbcType=DECIMAL},
+      additional_cost = #{additional_cost,jdbcType=DECIMAL},
+      additional_date = #{additional_date,jdbcType=TIMESTAMP},
+      additional_founder = #{additional_founder,jdbcType=VARCHAR},
+      additional_state = #{additional_state,jdbcType=VARCHAR}
+    where additional_id = #{additional_id,jdbcType=INTEGER}
   </update>
+  
+  <!-- 模糊查询 -->
+  
+    <select id="selectByWhere" resultType="TAdditionalFee">
+  		select * from t_additional_fee
+ 		<where>
+ 			<if test="additional_name!=null and additional_name!=''">
+ 				and additional_name like '%' #{additional_name} '%'
+	 		</if>
+	 		<if test="additional_fee>0">
+	 			and additional_fee=#{additional_fee}
+	 		</if>
+	 		<if test="additional_cost>0">
+	 			and additional_cost=#{additional_cost}
+	 		</if>
+	 		<if test="additional_founder!=null and additional_founder!=''">
+ 				and additional_founder like '%' #{additional_founder} '%'
+	 		</if>
+	 		<if test="additional_state!=null and additional_state!=''">
+ 				and additional_state like '%' #{additional_state} '%'
+	 		</if>
+ 		</where>
+  </select>
 </mapper>

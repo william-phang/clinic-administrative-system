@@ -6,13 +6,14 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
 @Mapper
 public interface TMedicalFeeMapper {
     int countByExample(TMedicalFeeExample example);
 
     int deleteByExample(TMedicalFeeExample example);
 
-    int deleteByPrimaryKey(Integer medicalId);
+    int deleteByPrimaryKey(Integer medical_id);
 
     int insert(TMedicalFee record);
 
@@ -20,7 +21,7 @@ public interface TMedicalFeeMapper {
 
     List<TMedicalFee> selectByExample(TMedicalFeeExample example);
 
-    TMedicalFee selectByPrimaryKey(Integer medicalId);
+    TMedicalFee selectByPrimaryKey(Integer medical_id);
 
     int updateByExampleSelective(@Param("record") TMedicalFee record, @Param("example") TMedicalFeeExample example);
 

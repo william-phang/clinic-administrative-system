@@ -23,8 +23,8 @@ public class TAdditionalFeeServiceImpl implements TAdditionalFeeService{
 	}
 
 	@Override
-	public void delectTadditionalFeeById(int additionalId) {
-		tAdditionalFeeMapper.deleteByPrimaryKey(additionalId);
+	public void delectTadditionalFeeById(int additional_id) {
+		tAdditionalFeeMapper.deleteByPrimaryKey(additional_id);
 		
 	}
 
@@ -38,6 +38,13 @@ public class TAdditionalFeeServiceImpl implements TAdditionalFeeService{
 	public List<TAdditionalFee> selectTadditionalFees() {
 		TAdditionalFeeExample example=new TAdditionalFeeExample();
 		List<TAdditionalFee> tAdditionalFees = tAdditionalFeeMapper.selectByExample(example);
+		return tAdditionalFees;
+	}
+
+	@Override
+	public List<TAdditionalFee> selectByWhere(TAdditionalFee tAdditionalFee) {
+		List<TAdditionalFee> tAdditionalFees = 
+				tAdditionalFeeMapper.selectByWhere(tAdditionalFee);
 		return tAdditionalFees;
 	}
 

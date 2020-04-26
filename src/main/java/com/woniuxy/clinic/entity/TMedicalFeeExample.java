@@ -106,453 +106,453 @@ public class TMedicalFeeExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andMedicalIdIsNull() {
+        public Criteria andMedical_idIsNull() {
             addCriterion("medical_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalIdIsNotNull() {
+        public Criteria andMedical_idIsNotNull() {
             addCriterion("medical_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalIdEqualTo(Integer value) {
-            addCriterion("medical_id =", value, "medicalId");
+        public Criteria andMedical_idEqualTo(Integer value) {
+            addCriterion("medical_id =", value, "medical_id");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalIdNotEqualTo(Integer value) {
-            addCriterion("medical_id <>", value, "medicalId");
+        public Criteria andMedical_idNotEqualTo(Integer value) {
+            addCriterion("medical_id <>", value, "medical_id");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalIdGreaterThan(Integer value) {
-            addCriterion("medical_id >", value, "medicalId");
+        public Criteria andMedical_idGreaterThan(Integer value) {
+            addCriterion("medical_id >", value, "medical_id");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("medical_id >=", value, "medicalId");
+        public Criteria andMedical_idGreaterThanOrEqualTo(Integer value) {
+            addCriterion("medical_id >=", value, "medical_id");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalIdLessThan(Integer value) {
-            addCriterion("medical_id <", value, "medicalId");
+        public Criteria andMedical_idLessThan(Integer value) {
+            addCriterion("medical_id <", value, "medical_id");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalIdLessThanOrEqualTo(Integer value) {
-            addCriterion("medical_id <=", value, "medicalId");
+        public Criteria andMedical_idLessThanOrEqualTo(Integer value) {
+            addCriterion("medical_id <=", value, "medical_id");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalIdIn(List<Integer> values) {
-            addCriterion("medical_id in", values, "medicalId");
+        public Criteria andMedical_idIn(List<Integer> values) {
+            addCriterion("medical_id in", values, "medical_id");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalIdNotIn(List<Integer> values) {
-            addCriterion("medical_id not in", values, "medicalId");
+        public Criteria andMedical_idNotIn(List<Integer> values) {
+            addCriterion("medical_id not in", values, "medical_id");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalIdBetween(Integer value1, Integer value2) {
-            addCriterion("medical_id between", value1, value2, "medicalId");
+        public Criteria andMedical_idBetween(Integer value1, Integer value2) {
+            addCriterion("medical_id between", value1, value2, "medical_id");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("medical_id not between", value1, value2, "medicalId");
+        public Criteria andMedical_idNotBetween(Integer value1, Integer value2) {
+            addCriterion("medical_id not between", value1, value2, "medical_id");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalNameIsNull() {
+        public Criteria andMedical_nameIsNull() {
             addCriterion("medical_name is null");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalNameIsNotNull() {
+        public Criteria andMedical_nameIsNotNull() {
             addCriterion("medical_name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalNameEqualTo(String value) {
-            addCriterion("medical_name =", value, "medicalName");
+        public Criteria andMedical_nameEqualTo(String value) {
+            addCriterion("medical_name =", value, "medical_name");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalNameNotEqualTo(String value) {
-            addCriterion("medical_name <>", value, "medicalName");
+        public Criteria andMedical_nameNotEqualTo(String value) {
+            addCriterion("medical_name <>", value, "medical_name");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalNameGreaterThan(String value) {
-            addCriterion("medical_name >", value, "medicalName");
+        public Criteria andMedical_nameGreaterThan(String value) {
+            addCriterion("medical_name >", value, "medical_name");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalNameGreaterThanOrEqualTo(String value) {
-            addCriterion("medical_name >=", value, "medicalName");
+        public Criteria andMedical_nameGreaterThanOrEqualTo(String value) {
+            addCriterion("medical_name >=", value, "medical_name");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalNameLessThan(String value) {
-            addCriterion("medical_name <", value, "medicalName");
+        public Criteria andMedical_nameLessThan(String value) {
+            addCriterion("medical_name <", value, "medical_name");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalNameLessThanOrEqualTo(String value) {
-            addCriterion("medical_name <=", value, "medicalName");
+        public Criteria andMedical_nameLessThanOrEqualTo(String value) {
+            addCriterion("medical_name <=", value, "medical_name");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalNameLike(String value) {
-            addCriterion("medical_name like", value, "medicalName");
+        public Criteria andMedical_nameLike(String value) {
+            addCriterion("medical_name like", value, "medical_name");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalNameNotLike(String value) {
-            addCriterion("medical_name not like", value, "medicalName");
+        public Criteria andMedical_nameNotLike(String value) {
+            addCriterion("medical_name not like", value, "medical_name");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalNameIn(List<String> values) {
-            addCriterion("medical_name in", values, "medicalName");
+        public Criteria andMedical_nameIn(List<String> values) {
+            addCriterion("medical_name in", values, "medical_name");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalNameNotIn(List<String> values) {
-            addCriterion("medical_name not in", values, "medicalName");
+        public Criteria andMedical_nameNotIn(List<String> values) {
+            addCriterion("medical_name not in", values, "medical_name");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalNameBetween(String value1, String value2) {
-            addCriterion("medical_name between", value1, value2, "medicalName");
+        public Criteria andMedical_nameBetween(String value1, String value2) {
+            addCriterion("medical_name between", value1, value2, "medical_name");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalNameNotBetween(String value1, String value2) {
-            addCriterion("medical_name not between", value1, value2, "medicalName");
+        public Criteria andMedical_nameNotBetween(String value1, String value2) {
+            addCriterion("medical_name not between", value1, value2, "medical_name");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalFeeIsNull() {
+        public Criteria andMedical_feeIsNull() {
             addCriterion("medical_fee is null");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalFeeIsNotNull() {
+        public Criteria andMedical_feeIsNotNull() {
             addCriterion("medical_fee is not null");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalFeeEqualTo(BigDecimal value) {
-            addCriterion("medical_fee =", value, "medicalFee");
+        public Criteria andMedical_feeEqualTo(BigDecimal value) {
+            addCriterion("medical_fee =", value, "medical_fee");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalFeeNotEqualTo(BigDecimal value) {
-            addCriterion("medical_fee <>", value, "medicalFee");
+        public Criteria andMedical_feeNotEqualTo(BigDecimal value) {
+            addCriterion("medical_fee <>", value, "medical_fee");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalFeeGreaterThan(BigDecimal value) {
-            addCriterion("medical_fee >", value, "medicalFee");
+        public Criteria andMedical_feeGreaterThan(BigDecimal value) {
+            addCriterion("medical_fee >", value, "medical_fee");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalFeeGreaterThanOrEqualTo(BigDecimal value) {
-            addCriterion("medical_fee >=", value, "medicalFee");
+        public Criteria andMedical_feeGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("medical_fee >=", value, "medical_fee");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalFeeLessThan(BigDecimal value) {
-            addCriterion("medical_fee <", value, "medicalFee");
+        public Criteria andMedical_feeLessThan(BigDecimal value) {
+            addCriterion("medical_fee <", value, "medical_fee");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalFeeLessThanOrEqualTo(BigDecimal value) {
-            addCriterion("medical_fee <=", value, "medicalFee");
+        public Criteria andMedical_feeLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("medical_fee <=", value, "medical_fee");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalFeeIn(List<BigDecimal> values) {
-            addCriterion("medical_fee in", values, "medicalFee");
+        public Criteria andMedical_feeIn(List<BigDecimal> values) {
+            addCriterion("medical_fee in", values, "medical_fee");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalFeeNotIn(List<BigDecimal> values) {
-            addCriterion("medical_fee not in", values, "medicalFee");
+        public Criteria andMedical_feeNotIn(List<BigDecimal> values) {
+            addCriterion("medical_fee not in", values, "medical_fee");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalFeeBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("medical_fee between", value1, value2, "medicalFee");
+        public Criteria andMedical_feeBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("medical_fee between", value1, value2, "medical_fee");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalFeeNotBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("medical_fee not between", value1, value2, "medicalFee");
+        public Criteria andMedical_feeNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("medical_fee not between", value1, value2, "medical_fee");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalCostIsNull() {
+        public Criteria andMedical_costIsNull() {
             addCriterion("medical_cost is null");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalCostIsNotNull() {
+        public Criteria andMedical_costIsNotNull() {
             addCriterion("medical_cost is not null");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalCostEqualTo(BigDecimal value) {
-            addCriterion("medical_cost =", value, "medicalCost");
+        public Criteria andMedical_costEqualTo(BigDecimal value) {
+            addCriterion("medical_cost =", value, "medical_cost");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalCostNotEqualTo(BigDecimal value) {
-            addCriterion("medical_cost <>", value, "medicalCost");
+        public Criteria andMedical_costNotEqualTo(BigDecimal value) {
+            addCriterion("medical_cost <>", value, "medical_cost");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalCostGreaterThan(BigDecimal value) {
-            addCriterion("medical_cost >", value, "medicalCost");
+        public Criteria andMedical_costGreaterThan(BigDecimal value) {
+            addCriterion("medical_cost >", value, "medical_cost");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalCostGreaterThanOrEqualTo(BigDecimal value) {
-            addCriterion("medical_cost >=", value, "medicalCost");
+        public Criteria andMedical_costGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("medical_cost >=", value, "medical_cost");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalCostLessThan(BigDecimal value) {
-            addCriterion("medical_cost <", value, "medicalCost");
+        public Criteria andMedical_costLessThan(BigDecimal value) {
+            addCriterion("medical_cost <", value, "medical_cost");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalCostLessThanOrEqualTo(BigDecimal value) {
-            addCriterion("medical_cost <=", value, "medicalCost");
+        public Criteria andMedical_costLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("medical_cost <=", value, "medical_cost");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalCostIn(List<BigDecimal> values) {
-            addCriterion("medical_cost in", values, "medicalCost");
+        public Criteria andMedical_costIn(List<BigDecimal> values) {
+            addCriterion("medical_cost in", values, "medical_cost");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalCostNotIn(List<BigDecimal> values) {
-            addCriterion("medical_cost not in", values, "medicalCost");
+        public Criteria andMedical_costNotIn(List<BigDecimal> values) {
+            addCriterion("medical_cost not in", values, "medical_cost");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalCostBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("medical_cost between", value1, value2, "medicalCost");
+        public Criteria andMedical_costBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("medical_cost between", value1, value2, "medical_cost");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalCostNotBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("medical_cost not between", value1, value2, "medicalCost");
+        public Criteria andMedical_costNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("medical_cost not between", value1, value2, "medical_cost");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalDateIsNull() {
+        public Criteria andMedical_dateIsNull() {
             addCriterion("medical_date is null");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalDateIsNotNull() {
+        public Criteria andMedical_dateIsNotNull() {
             addCriterion("medical_date is not null");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalDateEqualTo(Date value) {
-            addCriterion("medical_date =", value, "medicalDate");
+        public Criteria andMedical_dateEqualTo(Date value) {
+            addCriterion("medical_date =", value, "medical_date");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalDateNotEqualTo(Date value) {
-            addCriterion("medical_date <>", value, "medicalDate");
+        public Criteria andMedical_dateNotEqualTo(Date value) {
+            addCriterion("medical_date <>", value, "medical_date");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalDateGreaterThan(Date value) {
-            addCriterion("medical_date >", value, "medicalDate");
+        public Criteria andMedical_dateGreaterThan(Date value) {
+            addCriterion("medical_date >", value, "medical_date");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalDateGreaterThanOrEqualTo(Date value) {
-            addCriterion("medical_date >=", value, "medicalDate");
+        public Criteria andMedical_dateGreaterThanOrEqualTo(Date value) {
+            addCriterion("medical_date >=", value, "medical_date");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalDateLessThan(Date value) {
-            addCriterion("medical_date <", value, "medicalDate");
+        public Criteria andMedical_dateLessThan(Date value) {
+            addCriterion("medical_date <", value, "medical_date");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalDateLessThanOrEqualTo(Date value) {
-            addCriterion("medical_date <=", value, "medicalDate");
+        public Criteria andMedical_dateLessThanOrEqualTo(Date value) {
+            addCriterion("medical_date <=", value, "medical_date");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalDateIn(List<Date> values) {
-            addCriterion("medical_date in", values, "medicalDate");
+        public Criteria andMedical_dateIn(List<Date> values) {
+            addCriterion("medical_date in", values, "medical_date");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalDateNotIn(List<Date> values) {
-            addCriterion("medical_date not in", values, "medicalDate");
+        public Criteria andMedical_dateNotIn(List<Date> values) {
+            addCriterion("medical_date not in", values, "medical_date");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalDateBetween(Date value1, Date value2) {
-            addCriterion("medical_date between", value1, value2, "medicalDate");
+        public Criteria andMedical_dateBetween(Date value1, Date value2) {
+            addCriterion("medical_date between", value1, value2, "medical_date");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalDateNotBetween(Date value1, Date value2) {
-            addCriterion("medical_date not between", value1, value2, "medicalDate");
+        public Criteria andMedical_dateNotBetween(Date value1, Date value2) {
+            addCriterion("medical_date not between", value1, value2, "medical_date");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalFounderIsNull() {
+        public Criteria andMedical_founderIsNull() {
             addCriterion("medical_founder is null");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalFounderIsNotNull() {
+        public Criteria andMedical_founderIsNotNull() {
             addCriterion("medical_founder is not null");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalFounderEqualTo(String value) {
-            addCriterion("medical_founder =", value, "medicalFounder");
+        public Criteria andMedical_founderEqualTo(String value) {
+            addCriterion("medical_founder =", value, "medical_founder");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalFounderNotEqualTo(String value) {
-            addCriterion("medical_founder <>", value, "medicalFounder");
+        public Criteria andMedical_founderNotEqualTo(String value) {
+            addCriterion("medical_founder <>", value, "medical_founder");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalFounderGreaterThan(String value) {
-            addCriterion("medical_founder >", value, "medicalFounder");
+        public Criteria andMedical_founderGreaterThan(String value) {
+            addCriterion("medical_founder >", value, "medical_founder");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalFounderGreaterThanOrEqualTo(String value) {
-            addCriterion("medical_founder >=", value, "medicalFounder");
+        public Criteria andMedical_founderGreaterThanOrEqualTo(String value) {
+            addCriterion("medical_founder >=", value, "medical_founder");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalFounderLessThan(String value) {
-            addCriterion("medical_founder <", value, "medicalFounder");
+        public Criteria andMedical_founderLessThan(String value) {
+            addCriterion("medical_founder <", value, "medical_founder");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalFounderLessThanOrEqualTo(String value) {
-            addCriterion("medical_founder <=", value, "medicalFounder");
+        public Criteria andMedical_founderLessThanOrEqualTo(String value) {
+            addCriterion("medical_founder <=", value, "medical_founder");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalFounderLike(String value) {
-            addCriterion("medical_founder like", value, "medicalFounder");
+        public Criteria andMedical_founderLike(String value) {
+            addCriterion("medical_founder like", value, "medical_founder");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalFounderNotLike(String value) {
-            addCriterion("medical_founder not like", value, "medicalFounder");
+        public Criteria andMedical_founderNotLike(String value) {
+            addCriterion("medical_founder not like", value, "medical_founder");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalFounderIn(List<String> values) {
-            addCriterion("medical_founder in", values, "medicalFounder");
+        public Criteria andMedical_founderIn(List<String> values) {
+            addCriterion("medical_founder in", values, "medical_founder");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalFounderNotIn(List<String> values) {
-            addCriterion("medical_founder not in", values, "medicalFounder");
+        public Criteria andMedical_founderNotIn(List<String> values) {
+            addCriterion("medical_founder not in", values, "medical_founder");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalFounderBetween(String value1, String value2) {
-            addCriterion("medical_founder between", value1, value2, "medicalFounder");
+        public Criteria andMedical_founderBetween(String value1, String value2) {
+            addCriterion("medical_founder between", value1, value2, "medical_founder");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalFounderNotBetween(String value1, String value2) {
-            addCriterion("medical_founder not between", value1, value2, "medicalFounder");
+        public Criteria andMedical_founderNotBetween(String value1, String value2) {
+            addCriterion("medical_founder not between", value1, value2, "medical_founder");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalStateIsNull() {
+        public Criteria andMedical_stateIsNull() {
             addCriterion("medical_state is null");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalStateIsNotNull() {
+        public Criteria andMedical_stateIsNotNull() {
             addCriterion("medical_state is not null");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalStateEqualTo(String value) {
-            addCriterion("medical_state =", value, "medicalState");
+        public Criteria andMedical_stateEqualTo(String value) {
+            addCriterion("medical_state =", value, "medical_state");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalStateNotEqualTo(String value) {
-            addCriterion("medical_state <>", value, "medicalState");
+        public Criteria andMedical_stateNotEqualTo(String value) {
+            addCriterion("medical_state <>", value, "medical_state");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalStateGreaterThan(String value) {
-            addCriterion("medical_state >", value, "medicalState");
+        public Criteria andMedical_stateGreaterThan(String value) {
+            addCriterion("medical_state >", value, "medical_state");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalStateGreaterThanOrEqualTo(String value) {
-            addCriterion("medical_state >=", value, "medicalState");
+        public Criteria andMedical_stateGreaterThanOrEqualTo(String value) {
+            addCriterion("medical_state >=", value, "medical_state");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalStateLessThan(String value) {
-            addCriterion("medical_state <", value, "medicalState");
+        public Criteria andMedical_stateLessThan(String value) {
+            addCriterion("medical_state <", value, "medical_state");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalStateLessThanOrEqualTo(String value) {
-            addCriterion("medical_state <=", value, "medicalState");
+        public Criteria andMedical_stateLessThanOrEqualTo(String value) {
+            addCriterion("medical_state <=", value, "medical_state");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalStateLike(String value) {
-            addCriterion("medical_state like", value, "medicalState");
+        public Criteria andMedical_stateLike(String value) {
+            addCriterion("medical_state like", value, "medical_state");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalStateNotLike(String value) {
-            addCriterion("medical_state not like", value, "medicalState");
+        public Criteria andMedical_stateNotLike(String value) {
+            addCriterion("medical_state not like", value, "medical_state");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalStateIn(List<String> values) {
-            addCriterion("medical_state in", values, "medicalState");
+        public Criteria andMedical_stateIn(List<String> values) {
+            addCriterion("medical_state in", values, "medical_state");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalStateNotIn(List<String> values) {
-            addCriterion("medical_state not in", values, "medicalState");
+        public Criteria andMedical_stateNotIn(List<String> values) {
+            addCriterion("medical_state not in", values, "medical_state");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalStateBetween(String value1, String value2) {
-            addCriterion("medical_state between", value1, value2, "medicalState");
+        public Criteria andMedical_stateBetween(String value1, String value2) {
+            addCriterion("medical_state between", value1, value2, "medical_state");
             return (Criteria) this;
         }
 
-        public Criteria andMedicalStateNotBetween(String value1, String value2) {
-            addCriterion("medical_state not between", value1, value2, "medicalState");
+        public Criteria andMedical_stateNotBetween(String value1, String value2) {
+            addCriterion("medical_state not between", value1, value2, "medical_state");
             return (Criteria) this;
         }
     }
