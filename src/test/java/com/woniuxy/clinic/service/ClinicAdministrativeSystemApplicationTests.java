@@ -9,12 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.woniuxy.clinic.entity.TAdditionalFee;
+import com.woniuxy.clinic.entity.TRegistrationFee;
 
 @SpringBootTest
 class ClinicAdministrativeSystemApplicationTests {
 
 	@Autowired
 	TAdditionalFeeService tAdditionalFeeService;
+	
+	@Autowired
+	TRegistrationFeeService tRegistrationFeeService;
 	
 	@Test
 	void contextLoads() {
@@ -43,5 +47,21 @@ class ClinicAdministrativeSystemApplicationTests {
 		List<TAdditionalFee> tAdditionalFees = tAdditionalFeeService.selectTadditionalFees();
 		System.out.println(tAdditionalFees);
 	}
-
+	
+	@Test
+	void contextLoad04() {
+		
+		TRegistrationFee tRegistrationFee=
+				new TRegistrationFee(null,"专家挂号费",new BigDecimal("20"),new BigDecimal("10"),new Date(),"张三","启用");
+		tRegistrationFeeService.insertTRegistrationFee(tRegistrationFee);
+	}
+	
+	@Test
+	void contextLoad05() {
+		
+		TAdditionalFee tAdditionalFee=new TAdditionalFee();
+		List<TAdditionalFee> tAdditionalFees = 
+				tAdditionalFeeService.selectByWhere(tAdditionalFee);
+		System.out.println(tAdditionalFees);;
+	}
 }

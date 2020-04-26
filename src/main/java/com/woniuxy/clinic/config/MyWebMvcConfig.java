@@ -14,7 +14,6 @@ public class MyWebMvcConfig{
 			public void addViewControllers(ViewControllerRegistry registry) {
 				registry.addViewController("/").setViewName("login");
 				registry.addViewController("/index.html").setViewName("index");
-				registry.addViewController("/tAadditionalFeelist.html").setViewName("tAadditionalFeelist");
 				registry.addViewController("/login.html").setViewName("login");
 				registry.addViewController("/page/welcome.html").setViewName("page/welcome");
 				registry.addViewController("/page/table.html").setViewName("page/table");

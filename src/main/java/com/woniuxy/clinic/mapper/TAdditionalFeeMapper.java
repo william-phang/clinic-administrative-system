@@ -13,7 +13,7 @@ public interface TAdditionalFeeMapper {
 
     int deleteByExample(TAdditionalFeeExample example);
 
-    int deleteByPrimaryKey(Integer additionalId);
+    int deleteByPrimaryKey(Integer additional_id);
 
     int insert(TAdditionalFee record);
 
@@ -21,7 +21,7 @@ public interface TAdditionalFeeMapper {
 
     List<TAdditionalFee> selectByExample(TAdditionalFeeExample example);
 
-    TAdditionalFee selectByPrimaryKey(Integer additionalId);
+    TAdditionalFee selectByPrimaryKey(Integer additional_id);
 
     int updateByExampleSelective(@Param("record") TAdditionalFee record, @Param("example") TAdditionalFeeExample example);
 
@@ -30,4 +30,6 @@ public interface TAdditionalFeeMapper {
     int updateByPrimaryKeySelective(TAdditionalFee record);
 
     int updateByPrimaryKey(TAdditionalFee record);
+    
+    List<TAdditionalFee> selectByWhere(TAdditionalFee tAdditionalFee);
 }

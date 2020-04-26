@@ -6,13 +6,14 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
 @Mapper
 public interface TRegistrationFeeMapper {
     int countByExample(TRegistrationFeeExample example);
 
     int deleteByExample(TRegistrationFeeExample example);
 
-    int deleteByPrimaryKey(Integer regisId);
+    int deleteByPrimaryKey(Integer regis_id);
 
     int insert(TRegistrationFee record);
 
@@ -20,7 +21,7 @@ public interface TRegistrationFeeMapper {
 
     List<TRegistrationFee> selectByExample(TRegistrationFeeExample example);
 
-    TRegistrationFee selectByPrimaryKey(Integer regisId);
+    TRegistrationFee selectByPrimaryKey(Integer regis_id);
 
     int updateByExampleSelective(@Param("record") TRegistrationFee record, @Param("example") TRegistrationFeeExample example);
 

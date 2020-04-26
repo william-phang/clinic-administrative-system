@@ -10,73 +10,73 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class TMedicalFee {
-    private Integer medicalId;
+    private Integer medical_id;
 
-    private String medicalName;
+    private String medical_name;
 
-    private BigDecimal medicalFee;
+    private BigDecimal medical_fee;
 
-    private BigDecimal medicalCost;
+    private BigDecimal medical_cost;
 
-    private Date medicalDate;
+    private Date medical_date;
 
-    private String medicalFounder;
+    private String medical_founder;
 
-    private String medicalState;
+    private String medical_state;
 
-    public Integer getMedicalId() {
-        return medicalId;
+    public Integer getMedical_id() {
+        return medical_id;
     }
 
-    public void setMedicalId(Integer medicalId) {
-        this.medicalId = medicalId;
+    public void setMedical_id(Integer medical_id) {
+        this.medical_id = medical_id;
     }
 
-    public String getMedicalName() {
-        return medicalName;
+    public String getMedical_name() {
+        return medical_name;
     }
 
-    public void setMedicalName(String medicalName) {
-        this.medicalName = medicalName == null ? null : medicalName.trim();
+    public void setMedical_name(String medical_name) {
+        this.medical_name = medical_name == null ? null : medical_name.trim();
     }
 
-    public BigDecimal getMedicalFee() {
-        return medicalFee;
+    public BigDecimal getMedical_fee() {
+        return medical_fee;
     }
 
-    public void setMedicalFee(BigDecimal medicalFee) {
-        this.medicalFee = medicalFee;
+    public void setMedical_fee(BigDecimal medical_fee) {
+        this.medical_fee = medical_fee;
     }
 
-    public BigDecimal getMedicalCost() {
-        return medicalCost;
+    public BigDecimal getMedical_cost() {
+        return medical_cost;
     }
 
-    public void setMedicalCost(BigDecimal medicalCost) {
-        this.medicalCost = medicalCost;
+    public void setMedical_cost(BigDecimal medical_cost) {
+        this.medical_cost = medical_cost;
     }
 
-    public Date getMedicalDate() {
-        return medicalDate;
+    public Date getMedical_date() {
+        return medical_date;
     }
 
-    public void setMedicalDate(Date medicalDate) {
-        this.medicalDate = medicalDate;
+    public void setMedical_date(Date medical_date) {
+        this.medical_date = medical_date;
     }
 
-    public String getMedicalFounder() {
-        return medicalFounder;
+    public String getMedical_founder() {
+        return medical_founder;
     }
 
-    public void setMedicalFounder(String medicalFounder) {
-        this.medicalFounder = medicalFounder == null ? null : medicalFounder.trim();
+    public void setMedical_founder(String medical_founder) {
+        this.medical_founder = medical_founder == null ? null : medical_founder.trim();
     }
 
-    public String getMedicalState() {
-        return medicalState;
+    public String getMedical_state() {
+        return medical_state;
     }
 
-    public void setMedicalState(String medicalState) {
-        this.medicalState = medicalState == null ? null : medicalState.trim();
+    public void setMedical_state(String medical_state) {
+        this.medical_state = medical_state == null ? null : medical_state.trim();
     }
 }
