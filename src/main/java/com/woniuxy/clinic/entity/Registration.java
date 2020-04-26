@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TRegistration {
+public class Registration {
     private Long registration_id;
 
     private String registration_sn;
@@ -38,6 +38,6 @@ public class TRegistration {
 
     private Integer staff_id;
     
-    private TPatient tPatient; // 一对一关系：关联患者表
+    private Patient tPatient; // 一对一关系：关联患者表
 
 }

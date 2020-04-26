@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TCaseMessage {
+public class CaseMessage {
     private Integer casemessage_id;
 
     private Date casemessage_date;

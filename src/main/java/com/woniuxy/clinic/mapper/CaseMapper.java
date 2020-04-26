@@ -2,9 +2,9 @@ package com.woniuxy.clinic.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.woniuxy.clinic.entity.TCase;
+import com.woniuxy.clinic.entity.Case;
 @Mapper
-public interface TCaseMapper {
+public interface CaseMapper {
 	// 根据主键查询相关信息
-	TCase selectTCase(int case_id);
+	Case selectTCase(int case_id);
 }

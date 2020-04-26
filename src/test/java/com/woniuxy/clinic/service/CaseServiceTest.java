@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.woniuxy.clinic.entity.TCase;
+import com.woniuxy.clinic.entity.Case;
 
 @SpringBootTest
 class CaseServiceTest {
@@ -13,7 +13,7 @@ class CaseServiceTest {
 	CaseService caseService;
 	@Test
 	void contextLoads() {
-		TCase tCase = caseService.getTCase(1);
+		Case tCase = caseService.getTCase(1);
 		System.out.println(tCase);
 	}
 }

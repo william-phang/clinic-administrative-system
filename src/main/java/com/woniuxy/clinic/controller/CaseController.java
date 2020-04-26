@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.woniuxy.clinic.entity.TCase;
+import com.woniuxy.clinic.entity.Case;
 import com.woniuxy.clinic.service.CaseService;
 
 @Controller
@@ -16,7 +16,7 @@ public class CaseController {
 	
 	@ResponseBody
 	@RequestMapping("/case")
-	public TCase test1() {
+	public Case test1() {
 		return caseService.getTCase(1);
 	}
 }

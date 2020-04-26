@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TPatient {
+public class Patient {
     private Integer patient_id;
 
     private String patient_sn;

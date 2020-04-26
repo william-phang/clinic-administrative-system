@@ -24,7 +24,7 @@ class ClinicAdministrativeSystemApplicationTests {
 	TMedicalFeeMapper medicalFeeMapper;
 	
 	@Autowired
-	TCaseMapper tCaseMapper;
+	CaseMapper tCaseMapper;
 	
 	@Test
 	void contextLoads() {

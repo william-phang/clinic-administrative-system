@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TPhysiqueMessage {
+public class PhysiqueMessage {
     private Integer physiquemessage_id;
 
     private Double physiquemessage_animal;

@@ -19,13 +19,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TCase {
+public class Case {
     private Integer case_id;
 
-    private TCaseMessage tCaseMessage; // 一张病历对应以为患者的体格信息
+    private CaseMessage tCaseMessage; // 一张病历对应以为患者的体格信息
 
-    private TPhysiqueMessage tPhysiqueMessage; // 一张病历对应以为患者的病历详情信息
+    private PhysiqueMessage tPhysiqueMessage; // 一张病历对应以为患者的病历详情信息
 
-    private TRegistration tRegistration; // 一张病历对应以为患者的挂号信息
+    private Registration tRegistration; // 一张病历对应以为患者的挂号信息
 
 }
