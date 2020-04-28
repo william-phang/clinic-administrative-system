@@ -1,105 +1,37 @@
 package com.woniuxy.clinic.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
+import org.springframework.stereotype.Component;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+@Component
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class TOutputRecord {
-    private Integer outputId;
+	private Integer output_id;
 
-    private String outputSn;
+    private String output_sn;
 
-    private Date outputDate;
+    private Date output_date;
 
-    private String outputPerson;
+    private String output_person;
 
-    private String outputType;
+    private String output_type;
 
-    private String supplier;
+    private Date tabulation_date;
 
-    private Date tabulationDate;
+    private String tabulation_person;
+    
+    private BigDecimal purchase_amount;
 
-    private String tabulationPerson;
+    private BigDecimal retail_amount;
 
     private String remarks;
 
     private String status;
-
-    public Integer getOutputId() {
-        return outputId;
-    }
-
-    public void setOutputId(Integer outputId) {
-        this.outputId = outputId;
-    }
-
-    public String getOutputSn() {
-        return outputSn;
-    }
-
-    public void setOutputSn(String outputSn) {
-        this.outputSn = outputSn == null ? null : outputSn.trim();
-    }
-
-    public Date getOutputDate() {
-        return outputDate;
-    }
-
-    public void setOutputDate(Date outputDate) {
-        this.outputDate = outputDate;
-    }
-
-    public String getOutputPerson() {
-        return outputPerson;
-    }
-
-    public void setOutputPerson(String outputPerson) {
-        this.outputPerson = outputPerson == null ? null : outputPerson.trim();
-    }
-
-    public String getOutputType() {
-        return outputType;
-    }
-
-    public void setOutputType(String outputType) {
-        this.outputType = outputType == null ? null : outputType.trim();
-    }
-
-    public String getSupplier() {
-        return supplier;
-    }
-
-    public void setSupplier(String supplier) {
-        this.supplier = supplier == null ? null : supplier.trim();
-    }
-
-    public Date getTabulationDate() {
-        return tabulationDate;
-    }
-
-    public void setTabulationDate(Date tabulationDate) {
-        this.tabulationDate = tabulationDate;
-    }
-
-    public String getTabulationPerson() {
-        return tabulationPerson;
-    }
-
-    public void setTabulationPerson(String tabulationPerson) {
-        this.tabulationPerson = tabulationPerson == null ? null : tabulationPerson.trim();
-    }
-
-    public String getRemarks() {
-        return remarks;
-    }
-
-    public void setRemarks(String remarks) {
-        this.remarks = remarks == null ? null : remarks.trim();
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status == null ? null : status.trim();
-    }
 }

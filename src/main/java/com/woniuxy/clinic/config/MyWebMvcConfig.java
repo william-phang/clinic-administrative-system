@@ -25,6 +25,22 @@ public class MyWebMvcConfig{
 				
 				registry.addViewController("/page/drug_management/drug_info_list.html").setViewName("page/drug_management/drug_info_list");
 				registry.addViewController("/page/drug_management/drug_info_add.html").setViewName("page/drug_management/drug_info_add");
+				
+				registry.addViewController("/page/drug_management/output_management_list.html").setViewName("page/drug_management/output_management_list");
+				registry.addViewController("/page/drug_management/output_management_add.html").setViewName("page/drug_management/output_management_add");
+				
+				registry.addViewController("/page/drug_management/input_management_list.html").setViewName("page/drug_management/input_management_list");
+				registry.addViewController("/page/drug_management/input_management_add.html").setViewName("page/drug_management/input_management_add");
+				
+				registry.addViewController("/page/drug_management/inventory_management_list.html").setViewName("page/drug_management/inventory_management_list");
+				registry.addViewController("/page/drug_management/inventory_management_add.html").setViewName("page/drug_management/inventory_management_add");
+				
+				registry.addViewController("/page/drug_management/stock_check_list.html").setViewName("page/drug_management/stock_check_list");
+				registry.addViewController("/page/drug_management/stock_check_add.html").setViewName("page/drug_management/stock_check_add");
+				
+				registry.addViewController("/page/drug_management/price_adjustment_list.html").setViewName("page/drug_management/price_adjustment_list");
+				registry.addViewController("/page/drug_management/price_adjustment_add.html").setViewName("page/drug_management/price_adjustment_add");
+				
 			}
 		};
 	}

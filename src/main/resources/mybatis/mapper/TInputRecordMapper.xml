@@ -13,279 +13,35 @@
     <result column="remarks" property="remarks" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List" >
-    input_id, input_sn, input_date, input_person, input_type, supplier, tabulation_date, 
-    tabulation_person, remarks, status
-  </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.woniuxy.clinic.entity.TInputRecordExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from t_input_record
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
+  <select id="selectInputsNumByCondition" resultType="Integer">
+  	select count(*) from t_input_record
+  	<where>
+		<if test="input.input_type!=null and input.input_type!=''">
+			and input_type=#{input.input_type}
+		</if>
+		<if test="input.status!=null and input.status!=''">
+			and status=#{input.status}
+		</if>
+	    <if test="input.other != null and input.other!=''">
+	     	and concat(input_sn,supplier) LIKE '%' #{input.other} '%'
+	    </if>
+	</where>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from t_input_record
-    where input_id = #{inputId,jdbcType=INTEGER}
+  <select id="selectInputsByCondition" resultType="TInputRecord">
+  	select * from t_input_record
+  	<where>
+  			<if test="input.input_type!=null and input.input_type!=''">
+  				and input_type=#{input.input_type}
+  			</if>
+  			<if test="input.status!=null and input.status!=''">
+  				and status=#{input.status}
+  			</if>
+		      <if test="input.other != null and input.other!=''">
+		      	and concat(input_sn,supplier) LIKE '%' #{input.other} '%'
+		      </if>
+  		</where>
+  		<if test="beginIndex != null and pageSize != null">
+	      	<![CDATA[limit #{beginIndex},#{pageSize}]]>
+	    </if>
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from t_input_record
-    where input_id = #{inputId,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.woniuxy.clinic.entity.TInputRecordExample" >
-    delete from t_input_record
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.woniuxy.clinic.entity.TInputRecord" >
-    insert into t_input_record (input_id, input_sn, input_date, 
-      input_person, input_type, supplier, 
-      tabulation_date, tabulation_person, remarks, 
-      status)
-    values (#{inputId,jdbcType=INTEGER}, #{inputSn,jdbcType=VARCHAR}, #{inputDate,jdbcType=TIMESTAMP}, 
-      #{inputPerson,jdbcType=VARCHAR}, #{inputType,jdbcType=VARCHAR}, #{supplier,jdbcType=VARCHAR}, 
-      #{tabulationDate,jdbcType=TIMESTAMP}, #{tabulationPerson,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
-      #{status,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.woniuxy.clinic.entity.TInputRecord" >
-    insert into t_input_record
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="inputId != null" >
-        input_id,
-      </if>
-      <if test="inputSn != null" >
-        input_sn,
-      </if>
-      <if test="inputDate != null" >
-        input_date,
-      </if>
-      <if test="inputPerson != null" >
-        input_person,
-      </if>
-      <if test="inputType != null" >
-        input_type,
-      </if>
-      <if test="supplier != null" >
-        supplier,
-      </if>
-      <if test="tabulationDate != null" >
-        tabulation_date,
-      </if>
-      <if test="tabulationPerson != null" >
-        tabulation_person,
-      </if>
-      <if test="remarks != null" >
-        remarks,
-      </if>
-      <if test="status != null" >
-        status,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="inputId != null" >
-        #{inputId,jdbcType=INTEGER},
-      </if>
-      <if test="inputSn != null" >
-        #{inputSn,jdbcType=VARCHAR},
-      </if>
-      <if test="inputDate != null" >
-        #{inputDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="inputPerson != null" >
-        #{inputPerson,jdbcType=VARCHAR},
-      </if>
-      <if test="inputType != null" >
-        #{inputType,jdbcType=VARCHAR},
-      </if>
-      <if test="supplier != null" >
-        #{supplier,jdbcType=VARCHAR},
-      </if>
-      <if test="tabulationDate != null" >
-        #{tabulationDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="tabulationPerson != null" >
-        #{tabulationPerson,jdbcType=VARCHAR},
-      </if>
-      <if test="remarks != null" >
-        #{remarks,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.woniuxy.clinic.entity.TInputRecordExample" resultType="java.lang.Integer" >
-    select count(*) from t_input_record
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update t_input_record
-    <set >
-      <if test="record.inputId != null" >
-        input_id = #{record.inputId,jdbcType=INTEGER},
-      </if>
-      <if test="record.inputSn != null" >
-        input_sn = #{record.inputSn,jdbcType=VARCHAR},
-      </if>
-      <if test="record.inputDate != null" >
-        input_date = #{record.inputDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.inputPerson != null" >
-        input_person = #{record.inputPerson,jdbcType=VARCHAR},
-      </if>
-      <if test="record.inputType != null" >
-        input_type = #{record.inputType,jdbcType=VARCHAR},
-      </if>
-      <if test="record.supplier != null" >
-        supplier = #{record.supplier,jdbcType=VARCHAR},
-      </if>
-      <if test="record.tabulationDate != null" >
-        tabulation_date = #{record.tabulationDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.tabulationPerson != null" >
-        tabulation_person = #{record.tabulationPerson,jdbcType=VARCHAR},
-      </if>
-      <if test="record.remarks != null" >
-        remarks = #{record.remarks,jdbcType=VARCHAR},
-      </if>
-      <if test="record.status != null" >
-        status = #{record.status,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update t_input_record
-    set input_id = #{record.inputId,jdbcType=INTEGER},
-      input_sn = #{record.inputSn,jdbcType=VARCHAR},
-      input_date = #{record.inputDate,jdbcType=TIMESTAMP},
-      input_person = #{record.inputPerson,jdbcType=VARCHAR},
-      input_type = #{record.inputType,jdbcType=VARCHAR},
-      supplier = #{record.supplier,jdbcType=VARCHAR},
-      tabulation_date = #{record.tabulationDate,jdbcType=TIMESTAMP},
-      tabulation_person = #{record.tabulationPerson,jdbcType=VARCHAR},
-      remarks = #{record.remarks,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=VARCHAR}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.woniuxy.clinic.entity.TInputRecord" >
-    update t_input_record
-    <set >
-      <if test="inputSn != null" >
-        input_sn = #{inputSn,jdbcType=VARCHAR},
-      </if>
-      <if test="inputDate != null" >
-        input_date = #{inputDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="inputPerson != null" >
-        input_person = #{inputPerson,jdbcType=VARCHAR},
-      </if>
-      <if test="inputType != null" >
-        input_type = #{inputType,jdbcType=VARCHAR},
-      </if>
-      <if test="supplier != null" >
-        supplier = #{supplier,jdbcType=VARCHAR},
-      </if>
-      <if test="tabulationDate != null" >
-        tabulation_date = #{tabulationDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="tabulationPerson != null" >
-        tabulation_person = #{tabulationPerson,jdbcType=VARCHAR},
-      </if>
-      <if test="remarks != null" >
-        remarks = #{remarks,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where input_id = #{inputId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.woniuxy.clinic.entity.TInputRecord" >
-    update t_input_record
-    set input_sn = #{inputSn,jdbcType=VARCHAR},
-      input_date = #{inputDate,jdbcType=TIMESTAMP},
-      input_person = #{inputPerson,jdbcType=VARCHAR},
-      input_type = #{inputType,jdbcType=VARCHAR},
-      supplier = #{supplier,jdbcType=VARCHAR},
-      tabulation_date = #{tabulationDate,jdbcType=TIMESTAMP},
-      tabulation_person = #{tabulationPerson,jdbcType=VARCHAR},
-      remarks = #{remarks,jdbcType=VARCHAR},
-      status = #{status,jdbcType=VARCHAR}
-    where input_id = #{inputId,jdbcType=INTEGER}
-  </update>
 </mapper>

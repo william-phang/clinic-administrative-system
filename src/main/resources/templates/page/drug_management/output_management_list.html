@@ -18,40 +18,31 @@
             <div style="margin: 10px 10px 10px 10px">
                 <form class="layui-form layui-form-pane" action="">
                     <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">处方类别</label>
-                            <div class="layui-input-inline layui-form" style="width:100px">
-                                <select name="type" class="" id="type">
-			                        <option value="">全部</option>
-			                        <option value="西/成药">西/成药</option>
-			                        <option value="中药">中药</option>
-			                    </select>
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">药品状态</label>
+                       <!--  <div class="layui-inline">
+                            <label class="layui-form-label">审核状态</label>
                             <div class="layui-input-inline layui-form" style="width:100px">
                                 <select name="status" class="" id="status">
 			                        <option value="">全部</option>
-			                        <option value="1">启用</option>
-			                        <option value="0">停用</option>
+			                        <option value="未审核">未审核</option>
+			                        <option value="审核通过">审核通过</option>
+			                        <option value="审核未通过">审核未通过</option>
+			                    </select>
+                            </div>
+                        </div> -->
+                        <div class="layui-inline">
+                            <label class="layui-form-label">出库类型</label>
+                            <div class="layui-input-inline layui-form" style="width:100px">
+                                <select name="output_type" class="" id="output_type">
+			                        <option value="">全部</option>
+			                        <option value="科室领药">科室领药</option>
+			                        <option value="报损出库">报损出库</option>
+			                        <option value="采购退货">采购退货</option>
 			                    </select>
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">创建时间</label>
                             <div class="layui-input-inline">
-                                <input type="text" id="createTimeStart" class="layui-input " name="createTimeStart" 
-                                	placeholder="创建时间(开始)" value="" style="width:150px">
-                            </div>
-                            <div class="layui-input-inline">
-                                <input type="text" id="createTimeEnd" class="layui-input"
-	                       			name="createTimeEnd" placeholder="创建时间(结束)" value="" style="width:150px">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <div class="layui-input-inline">
-                                <input type="text" id="other" value="" placeholder="输入药品名称/编码/生产厂家"
+                                <input type="text" id="other" value="" placeholder="输入出库单号"
                            class="layui-input search_input" autocomplete="off" style="width:250px">
                             </div>
                         </div>
@@ -69,29 +60,14 @@
             </div>
         </script>
 
-        <table class="layui-hide" id="drugInfoList" lay-filter="drugInfoList"></table>
+        <table class="layui-hide" id="outputList" lay-filter="outputList"></table>
         
-        <!--  th:if="${drug.status} eq '启用'" -->
+        <!-- <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="select">查看</a> -->
         
         <script type="text/html" id="operate">
             <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
-            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="editStatus">
-				{{#  if(d.status){ }}
-    			停用
-  				{{#  } else { }}
-   				启用
-				{{#  } }}
-  			</a>
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
         </script>
-        
-        <script type="text/html" id="statusJduge">
-			{{#  if(d.status){ }}
-    			启用
-  				{{#  } else { }}
-   				停用
-				{{#  } }}
-		</script>
-        
     </div>
 </div>
 <script th:src="@{/layuimini/lib/layui-v2.5.5/layui.js}" charset="utf-8"></script>
@@ -107,8 +83,8 @@
         var util = layui.util;
 
         table.render({
-            elem: '#drugInfoList',
-            url: '/pharmacy/drugInfoList',
+            elem: '#outputList',
+            url: '/pharmacy/outputList',
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
@@ -132,15 +108,14 @@
             cols: [
             	[
             		{type: "numbers", title: '序号', align: 'center'}
-                    ,{field: 'drug_sn', title: '编码', align: 'center',width:100}
-                    ,{field: 'name', title: '药品名', align: 'center',width:200}
-                    ,{field: 'specification', title: '规格', align: 'center',width:100}
-                    ,{field: 'type', title: '收费类别', align: 'center',width:100} 
-                    ,{field: 'purchase_amount', title: '采购价', align: 'center'}
-                    ,{field: 'retail_amount', title: '零售价', align: 'center'}
-                    ,{field: 'manufacturer', title: '生产厂家', align: 'center',width:200}
-                    ,{field: 'status', title: '状态', align: 'center', templet:'#statusJduge'}
-                    ,{field: 'create_time', title: '创建时间', align: 'center',width:200,templet:function(d){return util.toDateString(d.create_time, "yyyy-MM-dd HH:mm:ss");}}
+                    ,{field: 'output_sn', title: '出库单号', align: 'center',width:100}
+                    ,{field: 'output_type', title: '出库类型', align: 'center',width:200}
+                    ,{field: 'tabulation_person', title: '制单人员', align: 'center',width:100} 
+                    ,{field: 'purchase_amount', title: '采购金额', align: 'center'}
+                    ,{field: 'retail_amount', title: '零售金额', align: 'center'}
+                    ,{field: 'input_person', title: '出库人员', align: 'center',width:200}
+                    ,{field: 'tabulation_date', title: '创建时间', align: 'center',width:200,templet:function(d){return util.toDateString(d.create_time, "yyyy-MM-dd HH:mm:ss");}}
+                    /* ,{field: 'status', title: '审核状态', align: 'center', templet:'#statusJduge'} */
                     ,{fixed: 'right', title: '操作', align: 'center', toolbar: '#operate',width:150}
             	]
             ],
@@ -153,30 +128,6 @@
                 }
             }
         });
-        
-      //日期插件
-        var start = laydate.render({
-            elem:'#createTimeStart',
-            max:'new Date()',
-            type:'date',
-            trigger:'click',
-            done:function (value,date) {
-                end.config.min = date;
-                end.config.min.month=date.month-1;
-            }
-        });
-
-        var end = laydate.render({
-            elem:'#createTimeEnd',
-            max:'new Date()',
-            type:'date',
-            trigger:'click',
-            done:function (value,date) {
-                start.config.max = date;
-                start.config.max.month = date.month-1;
-            }
-        });
-
         // 监听搜索操作
         form.on('submit(data-search-btn)', function (data) {
             var result = JSON.stringify(data.field);
@@ -185,15 +136,13 @@
             }); */
 
             //执行搜索重载
-            table.reload('drugInfoList', {
+            table.reload('outputList', {
                 page: {
                     curr: 1
                 }
                 , where: {
-                	type:$("#type").val(),
-                    status:$("#status").val(),
-                    begin:$("#createTimeStart").val(),
-                    end:$("#createTimeEnd").val(),
+                	output_type:$("#output_type").val(),
+                    /* status:$("#status").val(), */
                     other:$("#other").val()
                 },
                 parseData:function (result) {
@@ -211,16 +160,16 @@
         /**
          * toolbar监听事件
          */
-        table.on('toolbar(drugInfoList)', function (obj) {
+        table.on('toolbar(outputList)', function (obj) {
             if (obj.event === 'add') {  // 监听添加操作
                 var index = layer.open({
-                    title: '新增药品',
+                    title: '新增出库',
                     type: 2,
                     shade: 0.2,
                     maxmin:true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '/page/drug_management/drug_info_add.html',
+                    content: '/page/drug_management/output_management_add.html',
                 });
                 $(window).on("resize", function () {
                     layer.full(index);
@@ -233,26 +182,26 @@
             console.log(obj)
         });
 
-        table.on('tool(drugInfoList)', function (obj) {
+        table.on('tool(outputList)', function (obj) {
             var data = obj.data;
             if (obj.event === 'edit') {
                 var index = layer.open({
-                    title: '编辑用户',
+                    title: '编辑',
                     type: 2,
                     shade: 0.2,
                     maxmin:true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '/pharmacy/editDrugInfo/'+data.drug_sn,
+                    content: '/pharmacy/editOutput/'+data.input_sn,
                 });
                 $(window).on("resize", function () {
                     layer.full(index);
                 });
                 return false;
-            } else if (obj.event === 'editStatus') {
+            } else if (obj.event === 'delete') {
                 layer.confirm('确定么', function (index) {
                 	$.ajax({
-                        url:'/pharmacy/editDrugInfoStatus/'+data.drug_sn+'&'+data.status,
+                        url:'/pharmacy/deleteOutput/'+data.input_sn,
                         /* type:put, */
                         /* dataType:'json', */
                         success:function (result) {

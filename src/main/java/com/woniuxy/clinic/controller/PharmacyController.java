@@ -14,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.woniuxy.clinic.dto.DrugDto;
+import com.woniuxy.clinic.dto.InputDto;
+import com.woniuxy.clinic.dto.OutputDto;
 import com.woniuxy.clinic.entity.TDrug;
 import com.woniuxy.clinic.service.PharmacyService;
 import com.woniuxy.clinic.tool.CommonResult;
@@ -67,5 +69,36 @@ public class PharmacyController {
 			return CommonResult.failed("更改失败");
 		}
 		return CommonResult.success("更改成功");
+	}
+	
+	@ResponseBody
+	@RequestMapping("/pharmacy/inputList")
+	public CommonResult showInputs(@RequestParam(value="page",defaultValue = "1",required = false) Integer currentPage,
+            @RequestParam(value="limit",defaultValue = "5",required = false) Integer pageSize,
+            InputDto inputDto) {
+		PageInfo info = null;
+        try {
+        	info = pharmacyService.showInputsByCondition(inputDto,currentPage,pageSize);
+            return CommonResult.success(info);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return CommonResult.failed();
+        }
+	}
+	
+	@ResponseBody
+	@RequestMapping("/pharmacy/outputList")
+	public CommonResult showOutputs(@RequestParam(value="page",defaultValue = "1",required = false) Integer currentPage,
+            @RequestParam(value="limit",defaultValue = "5",required = false) Integer pageSize,
+            OutputDto outputDto) {
+		PageInfo info = null;
+		System.out.println(outputDto);
+        try {
+        	info = pharmacyService.showOutputsByCondition(outputDto,currentPage,pageSize);
+            return CommonResult.success(info);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return CommonResult.failed();
+        }
 	}
 }

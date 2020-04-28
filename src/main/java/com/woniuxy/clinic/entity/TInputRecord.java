@@ -1,105 +1,39 @@
 package com.woniuxy.clinic.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
+import org.springframework.stereotype.Component;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+@Component
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class TInputRecord {
-    private Integer inputId;
+	private Integer input_id;
 
-    private String inputSn;
+    private String input_sn;
 
-    private Date inputDate;
+    private Date input_date;
 
-    private String inputPerson;
+    private String input_person;
 
-    private String inputType;
+    private String input_type;
 
     private String supplier;
 
-    private Date tabulationDate;
+    private Date tabulation_date;
 
-    private String tabulationPerson;
+    private String tabulation_person;
 
+    private BigDecimal purchase_amount;
+
+    private BigDecimal retail_amount;
+    
     private String remarks;
 
     private String status;
-
-    public Integer getInputId() {
-        return inputId;
-    }
-
-    public void setInputId(Integer inputId) {
-        this.inputId = inputId;
-    }
-
-    public String getInputSn() {
-        return inputSn;
-    }
-
-    public void setInputSn(String inputSn) {
-        this.inputSn = inputSn == null ? null : inputSn.trim();
-    }
-
-    public Date getInputDate() {
-        return inputDate;
-    }
-
-    public void setInputDate(Date inputDate) {
-        this.inputDate = inputDate;
-    }
-
-    public String getInputPerson() {
-        return inputPerson;
-    }
-
-    public void setInputPerson(String inputPerson) {
-        this.inputPerson = inputPerson == null ? null : inputPerson.trim();
-    }
-
-    public String getInputType() {
-        return inputType;
-    }
-
-    public void setInputType(String inputType) {
-        this.inputType = inputType == null ? null : inputType.trim();
-    }
-
-    public String getSupplier() {
-        return supplier;
-    }
-
-    public void setSupplier(String supplier) {
-        this.supplier = supplier == null ? null : supplier.trim();
-    }
-
-    public Date getTabulationDate() {
-        return tabulationDate;
-    }
-
-    public void setTabulationDate(Date tabulationDate) {
-        this.tabulationDate = tabulationDate;
-    }
-
-    public String getTabulationPerson() {
-        return tabulationPerson;
-    }
-
-    public void setTabulationPerson(String tabulationPerson) {
-        this.tabulationPerson = tabulationPerson == null ? null : tabulationPerson.trim();
-    }
-
-    public String getRemarks() {
-        return remarks;
-    }
-
-    public void setRemarks(String remarks) {
-        this.remarks = remarks == null ? null : remarks.trim();
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status == null ? null : status.trim();
-    }
 }

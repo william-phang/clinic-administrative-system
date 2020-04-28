@@ -8,13 +8,23 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.woniuxy.clinic.dto.DrugDto;
+import com.woniuxy.clinic.dto.InputDto;
+import com.woniuxy.clinic.dto.OutputDto;
 import com.woniuxy.clinic.entity.TDrug;
+import com.woniuxy.clinic.entity.TInputRecord;
+import com.woniuxy.clinic.entity.TOutputRecord;
 import com.woniuxy.clinic.mapper.TDrugMapper;
+import com.woniuxy.clinic.mapper.TInputRecordMapper;
+import com.woniuxy.clinic.mapper.TOutputRecordMapper;
 import com.woniuxy.clinic.service.PharmacyService;
 @Service
 public class PharmacyServiceImp implements PharmacyService{
 	@Autowired
 	private TDrugMapper tDrugMapper;
+	@Autowired
+	private TInputRecordMapper tInputRecordMapper;
+	@Autowired
+	private TOutputRecordMapper tOutputRecordMapper;
 	@Override
 	public PageInfo showDrugsByCondition(DrugDto drugDto, Integer currentPage, Integer pageSize) {
 		Integer beginIndex = pageSize*(currentPage-1);
@@ -50,6 +60,36 @@ public class PharmacyServiceImp implements PharmacyService{
 			status = 1;
 		}
 		tDrugMapper.editDrugInfoStatus(drug_sn,status);
+	}
+	@Override
+	public PageInfo showInputsByCondition(InputDto inputDto, Integer currentPage, Integer pageSize) {
+		Integer beginIndex = pageSize*(currentPage-1);
+		try {
+			//查询总条数
+			Integer total = tInputRecordMapper.selectInputsNumByCondition(inputDto);
+			List<TInputRecord> inputs = tInputRecordMapper.selectInputsByCondition(inputDto, beginIndex, pageSize);
+			PageInfo<TInputRecord> pageInfo = new PageInfo<>(inputs);
+			pageInfo.setTotal(total);
+			return pageInfo;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	@Override
+	public PageInfo showOutputsByCondition(OutputDto outputDto, Integer currentPage, Integer pageSize) {
+		Integer beginIndex = pageSize*(currentPage-1);
+		try {
+			//查询总条数
+			Integer total = tOutputRecordMapper.selectOutputsNumByCondition(outputDto);
+			List<TOutputRecord> outputs = tOutputRecordMapper.selectOutputsByCondition(outputDto, beginIndex, pageSize);
+			PageInfo<TOutputRecord> pageInfo = new PageInfo<>(outputs);
+			pageInfo.setTotal(total);
+			return pageInfo;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }

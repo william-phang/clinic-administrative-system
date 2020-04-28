@@ -82,37 +82,37 @@
           "child": [
             {
               "title": "药品信息维护",
-              "href": "page/table.html?t=51",
+              "href": "page/drug_management/drug_info_list.html",
+              "icon": "fa fa-snowflake-o",
+              "target": "_self"
+            },
+            {
+              "title": "入库管理",
+              "href": "page/drug_management/input_management_list.html",
               "icon": "fa fa-snowflake-o",
               "target": "_self"
             },
             {
               "title": "出库管理",
-              "href": "page/table.html?t=52",
+              "href": "page/drug_management/output_management_list.html",
               "icon": "fa fa-shield",
-              "target": "_self"
-            },
-             {
-              "title": "入库管理",
-              "href": "page/table.html?t=53",
-              "icon": "fa fa-snowflake-o",
               "target": "_self"
             },
             {
               "title": "库存管理",
-              "href": "page/table.html?t=54",
+              "href": "page/drug_management/inventory_management_list.html",
               "icon": "fa fa-shield",
               "target": "_self"
             },
              {
               "title": "库存盘点",
-              "href": "page/table.html?t=55",
+              "href": "page/drug_management/stock_check_list.html",
               "icon": "fa fa-snowflake-o",
               "target": "_self"
             },
             {
               "title": "药品调价",
-              "href": "page/table.html?t=56",
+              "href": "page/drug_management/price_adjustment_list.html",
               "icon": "fa fa-shield",
               "target": "_self"
             }
