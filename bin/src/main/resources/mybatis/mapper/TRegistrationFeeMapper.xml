@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.woniuxy.clinic.mapper.TRegistrationFeeMapper" >
   <resultMap id="BaseResultMap" type="com.woniuxy.clinic.entity.TRegistrationFee" >
-    <id column="regis_id" property="regisId" jdbcType="INTEGER" />
-    <result column="regis_name" property="regisName" jdbcType="VARCHAR" />
-    <result column="regis_fee" property="regisFee" jdbcType="DECIMAL" />
-    <result column="regis_cost" property="regisCost" jdbcType="DECIMAL" />
-    <result column="regis_date" property="regisDate" jdbcType="TIMESTAMP" />
-    <result column="regis_founder" property="regisFounder" jdbcType="VARCHAR" />
-    <result column="regis_state" property="regisState" jdbcType="VARCHAR" />
+    <id column="regis_id" property="regis_id" jdbcType="INTEGER" />
+    <result column="regis_name" property="regis_name" jdbcType="VARCHAR" />
+    <result column="regis_fee" property="regis_fee" jdbcType="DECIMAL" />
+    <result column="regis_cost" property="regis_cost" jdbcType="DECIMAL" />
+    <result column="regis_date" property="regis_date" jdbcType="TIMESTAMP" />
+    <result column="regis_founder" property="regis_founder" jdbcType="VARCHAR" />
+    <result column="regis_state" property="regis_state" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -89,11 +89,11 @@
     select 
     <include refid="Base_Column_List" />
     from t_registration_fee
-    where regis_id = #{regisId,jdbcType=INTEGER}
+    where regis_id = #{regis_id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_registration_fee
-    where regis_id = #{regisId,jdbcType=INTEGER}
+    where regis_id = #{regis_id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.woniuxy.clinic.entity.TRegistrationFeeExample" >
     delete from t_registration_fee
@@ -105,56 +105,56 @@
     insert into t_registration_fee (regis_id, regis_name, regis_fee, 
       regis_cost, regis_date, regis_founder, 
       regis_state)
-    values (#{regisId,jdbcType=INTEGER}, #{regisName,jdbcType=VARCHAR}, #{regisFee,jdbcType=DECIMAL}, 
-      #{regisCost,jdbcType=DECIMAL}, #{regisDate,jdbcType=TIMESTAMP}, #{regisFounder,jdbcType=VARCHAR}, 
-      #{regisState,jdbcType=VARCHAR})
+    values (#{regis_id,jdbcType=INTEGER}, #{regis_name,jdbcType=VARCHAR}, #{regis_fee,jdbcType=DECIMAL}, 
+      #{regis_cost,jdbcType=DECIMAL}, #{regis_date,jdbcType=TIMESTAMP}, #{regis_founder,jdbcType=VARCHAR}, 
+      #{regis_state,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.woniuxy.clinic.entity.TRegistrationFee" >
     insert into t_registration_fee
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="regisId != null" >
+      <if test="regis_id != null" >
         regis_id,
       </if>
-      <if test="regisName != null" >
+      <if test="regis_name != null" >
         regis_name,
       </if>
-      <if test="regisFee != null" >
+      <if test="regis_fee != null" >
         regis_fee,
       </if>
-      <if test="regisCost != null" >
+      <if test="regis_cost != null" >
         regis_cost,
       </if>
-      <if test="regisDate != null" >
+      <if test="regis_date != null" >
         regis_date,
       </if>
-      <if test="regisFounder != null" >
+      <if test="regis_founder != null" >
         regis_founder,
       </if>
-      <if test="regisState != null" >
+      <if test="regis_state != null" >
         regis_state,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="regisId != null" >
-        #{regisId,jdbcType=INTEGER},
+      <if test="regis_id != null" >
+        #{regis_id,jdbcType=INTEGER},
       </if>
-      <if test="regisName != null" >
-        #{regisName,jdbcType=VARCHAR},
+      <if test="regis_name != null" >
+        #{regis_name,jdbcType=VARCHAR},
       </if>
-      <if test="regisFee != null" >
-        #{regisFee,jdbcType=DECIMAL},
+      <if test="regis_fee != null" >
+        #{regis_fee,jdbcType=DECIMAL},
       </if>
-      <if test="regisCost != null" >
-        #{regisCost,jdbcType=DECIMAL},
+      <if test="regis_cost != null" >
+        #{regis_cost,jdbcType=DECIMAL},
       </if>
-      <if test="regisDate != null" >
-        #{regisDate,jdbcType=TIMESTAMP},
+      <if test="regis_date != null" >
+        #{regis_date,jdbcType=TIMESTAMP},
       </if>
-      <if test="regisFounder != null" >
-        #{regisFounder,jdbcType=VARCHAR},
+      <if test="regis_founder != null" >
+        #{regis_founder,jdbcType=VARCHAR},
       </if>
-      <if test="regisState != null" >
-        #{regisState,jdbcType=VARCHAR},
+      <if test="regis_state != null" >
+        #{regis_state,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -167,26 +167,26 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update t_registration_fee
     <set >
-      <if test="record.regisId != null" >
-        regis_id = #{record.regisId,jdbcType=INTEGER},
+      <if test="record.regis_id != null" >
+        regis_id = #{record.regis_id,jdbcType=INTEGER},
       </if>
-      <if test="record.regisName != null" >
-        regis_name = #{record.regisName,jdbcType=VARCHAR},
+      <if test="record.regis_name != null" >
+        regis_name = #{record.regis_name,jdbcType=VARCHAR},
       </if>
-      <if test="record.regisFee != null" >
-        regis_fee = #{record.regisFee,jdbcType=DECIMAL},
+      <if test="record.regis_fee != null" >
+        regis_fee = #{record.regis_fee,jdbcType=DECIMAL},
       </if>
-      <if test="record.regisCost != null" >
-        regis_cost = #{record.regisCost,jdbcType=DECIMAL},
+      <if test="record.regis_cost != null" >
+        regis_cost = #{record.regis_cost,jdbcType=DECIMAL},
       </if>
-      <if test="record.regisDate != null" >
-        regis_date = #{record.regisDate,jdbcType=TIMESTAMP},
+      <if test="record.regis_date != null" >
+        regis_date = #{record.regis_date,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.regisFounder != null" >
-        regis_founder = #{record.regisFounder,jdbcType=VARCHAR},
+      <if test="record.regis_founder != null" >
+        regis_founder = #{record.regis_founder,jdbcType=VARCHAR},
       </if>
-      <if test="record.regisState != null" >
-        regis_state = #{record.regisState,jdbcType=VARCHAR},
+      <if test="record.regis_state != null" >
+        regis_state = #{record.regis_state,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -195,13 +195,13 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update t_registration_fee
-    set regis_id = #{record.regisId,jdbcType=INTEGER},
-      regis_name = #{record.regisName,jdbcType=VARCHAR},
-      regis_fee = #{record.regisFee,jdbcType=DECIMAL},
-      regis_cost = #{record.regisCost,jdbcType=DECIMAL},
-      regis_date = #{record.regisDate,jdbcType=TIMESTAMP},
-      regis_founder = #{record.regisFounder,jdbcType=VARCHAR},
-      regis_state = #{record.regisState,jdbcType=VARCHAR}
+    set regis_id = #{record.regis_id,jdbcType=INTEGER},
+      regis_name = #{record.regis_name,jdbcType=VARCHAR},
+      regis_fee = #{record.regis_fee,jdbcType=DECIMAL},
+      regis_cost = #{record.regis_cost,jdbcType=DECIMAL},
+      regis_date = #{record.regis_date,jdbcType=TIMESTAMP},
+      regis_founder = #{record.regis_founder,jdbcType=VARCHAR},
+      regis_state = #{record.regis_state,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -209,35 +209,35 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.woniuxy.clinic.entity.TRegistrationFee" >
     update t_registration_fee
     <set >
-      <if test="regisName != null" >
-        regis_name = #{regisName,jdbcType=VARCHAR},
+      <if test="regis_name != null" >
+        regis_name = #{regis_name,jdbcType=VARCHAR},
       </if>
-      <if test="regisFee != null" >
-        regis_fee = #{regisFee,jdbcType=DECIMAL},
+      <if test="regis_fee != null" >
+        regis_fee = #{regis_fee,jdbcType=DECIMAL},
       </if>
-      <if test="regisCost != null" >
-        regis_cost = #{regisCost,jdbcType=DECIMAL},
+      <if test="regis_cost != null" >
+        regis_cost = #{regis_cost,jdbcType=DECIMAL},
       </if>
-      <if test="regisDate != null" >
-        regis_date = #{regisDate,jdbcType=TIMESTAMP},
+      <if test="regis_date != null" >
+        regis_date = #{regis_date,jdbcType=TIMESTAMP},
       </if>
-      <if test="regisFounder != null" >
-        regis_founder = #{regisFounder,jdbcType=VARCHAR},
+      <if test="regis_founder != null" >
+        regis_founder = #{regis_founder,jdbcType=VARCHAR},
       </if>
-      <if test="regisState != null" >
-        regis_state = #{regisState,jdbcType=VARCHAR},
+      <if test="regis_state != null" >
+        regis_state = #{regis_state,jdbcType=VARCHAR},
       </if>
     </set>
-    where regis_id = #{regisId,jdbcType=INTEGER}
+    where regis_id = #{regis_id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.woniuxy.clinic.entity.TRegistrationFee" >
     update t_registration_fee
-    set regis_name = #{regisName,jdbcType=VARCHAR},
-      regis_fee = #{regisFee,jdbcType=DECIMAL},
-      regis_cost = #{regisCost,jdbcType=DECIMAL},
-      regis_date = #{regisDate,jdbcType=TIMESTAMP},
-      regis_founder = #{regisFounder,jdbcType=VARCHAR},
-      regis_state = #{regisState,jdbcType=VARCHAR}
-    where regis_id = #{regisId,jdbcType=INTEGER}
+    set regis_name = #{regis_name,jdbcType=VARCHAR},
+      regis_fee = #{regis_fee,jdbcType=DECIMAL},
+      regis_cost = #{regis_cost,jdbcType=DECIMAL},
+      regis_date = #{regis_date,jdbcType=TIMESTAMP},
+      regis_founder = #{regis_founder,jdbcType=VARCHAR},
+      regis_state = #{regis_state,jdbcType=VARCHAR}
+    where regis_id = #{regis_id,jdbcType=INTEGER}
   </update>
 </mapper>

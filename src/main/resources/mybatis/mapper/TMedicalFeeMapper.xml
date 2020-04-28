@@ -241,4 +241,74 @@
       medical_state = #{medical_state,jdbcType=VARCHAR}
     where medical_id = #{medical_id,jdbcType=INTEGER}
   </update>
+  
+  <!-- 模糊查询 -->
+  
+    <select id="selectByWhere" resultType="TMedicalFee">
+  		select * from t_medical_fee
+ 		<where>
+ 			<if test="medical_name!=null and medical_name!=''">
+ 				and medical_name like '%' #{medical_name} '%'
+	 		</if>
+	 		<if test="medical_fee>0">
+	 			and medical_fee=#{medical_fee}
+	 		</if>
+	 		<if test="medical_cost>0">
+	 			and medical_cost=#{medical_cost}
+	 		</if>
+	 		<if test="medical_founder!=null and medical_founder!=''">
+ 				and medical_founder like '%' #{medical_founder} '%'
+	 		</if>
+	 		<if test="medical_state!=null and medical_state!=''">
+ 				and medical_state like '%' #{medical_state} '%'
+	 		</if>
+ 		</where>
+  </select>
+  
+  <!-- 分页查询 -->
+  <select id="selectByPage" resultType="TMedicalFee">
+    select * from t_medical_fee
+    <include refid="pageCondition"/>
+      limit #{currentPage},#{pageSize}  
+  </select>
+  <sql id="pageCondition">
+  	<where>
+      <if test="dto.medical_name != null and dto.medical_name!=''">
+        and medical_name like concat('%',#{dto.medical_name},'%')
+      </if>
+      <if test="dto.medical_fee != null and dto.medical_fee!=''">
+        and medical_fee like concat('%',#{dto.medical_fee},'%')
+      </if>
+      <if test="dto.medical_cost != null and dto.medical_cost!=''">
+        and medical_cost like concat('%',#{dto.medical_cost},'%')
+      </if>
+      <if test="dto.medical_founder != null and  dto.medical_founder!=''">
+        and medical_founder like concat('%',#{dto.medical_founder},'%')
+      </if>
+      <if test="dto.medical_state != null and dto.medical_state!=''">
+        and medical_state like concat('%',#{dto.medical_state},'%')
+      </if>
+      <if test="dto.begin != null">
+        <if test="dto.end != null">
+          and medical_date between #{dto.begin} and #{dto.end}
+        </if>
+        <if test="dto.end == null">
+          and medical_date <![CDATA[
+              >=
+          ]]> #{dto.begin}
+        </if>
+      </if>
+      <if test="dto.begin == null">
+        <if test="dto.end != null">
+          and medical_date <![CDATA[
+                <=
+            ]]> #{dto.end}
+        </if>
+      </if>
+    </where>
+  </sql>
+  <select id="selectByPageCount" resultType="int">
+		select count(*) from t_medical_fee
+		<include refid="pageCondition"/>
+	</select>
 </mapper>
