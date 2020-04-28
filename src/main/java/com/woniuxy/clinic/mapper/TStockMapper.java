@@ -3,6 +3,8 @@ package com.woniuxy.clinic.mapper;
 import com.woniuxy.clinic.entity.TStock;
 import com.woniuxy.clinic.entity.TStockExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 public interface TStockMapper {

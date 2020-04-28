@@ -25,5 +25,3 @@ mybatis:
   type-aliases-package: com.woniuxy.clinic.entity
   mapper-locations:
   - classpath:/mybatis/mapper/*Mapper.xml
-server:
-  port: 80

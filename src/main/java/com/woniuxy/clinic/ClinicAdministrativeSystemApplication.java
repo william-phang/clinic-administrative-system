@@ -1,8 +1,9 @@
 package com.woniuxy.clinic;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
+@MapperScan("com.woniuxy.clinic.mapper")
 @SpringBootApplication
 public class ClinicAdministrativeSystemApplication {
 

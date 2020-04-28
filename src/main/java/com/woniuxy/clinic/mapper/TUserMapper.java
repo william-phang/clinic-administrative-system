@@ -3,6 +3,8 @@ package com.woniuxy.clinic.mapper;
 import com.woniuxy.clinic.entity.TUser;
 import com.woniuxy.clinic.entity.TUserExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 public interface TUserMapper {
