@@ -22,7 +22,12 @@ public class MyWebMvcConfig{
 				registry.addViewController("/page/user-setting.html").setViewName("page/user-setting");
 				registry.addViewController("/page/tableEdit/add.html").setViewName("page/tableEdit/add");
 				registry.addViewController("/page/tableEdit/edit.html").setViewName("page/tableEdit/edit");
-				
+				registry.addViewController("/page/fee/addtadditionalfee.html").setViewName("page/fee/addtadditionalfee");
+				registry.addViewController("/page/fee/edittadditionalfee.html").setViewName("page/fee/edittadditionalfee");
+				registry.addViewController("/page/fee/addTMedicalfee.html").setViewName("page/fee/addTMedicalfee");
+				registry.addViewController("/page/fee/editTMedicalFee.html").setViewName("page/fee/editTMedicalFee");
+				registry.addViewController("/page/fee/addTRegistrationfee.html").setViewName("page/fee/addTRegistrationfee");
+				registry.addViewController("/page/fee/editTRegistrationFee.html").setViewName("page/fee/editTRegistrationFee");
 			}
 		};
 	}

@@ -208,13 +208,13 @@
 	            },
 	            {
 	              "title": "诊疗费用设置",
-	              "href": "page/table.html?t=32",
+	              "href": "/tMedicalFees",
 	              "icon": "fa fa-navicon",
 	              "target": "_self"
 	            },
 	            {
 	              "title": "挂号费用设置",
-	              "href": "page/table.html?t=32",
+	              "href": "/tRegistrationFees",
 	              "icon": "fa fa-navicon",
 	              "target": "_self"
 	            }

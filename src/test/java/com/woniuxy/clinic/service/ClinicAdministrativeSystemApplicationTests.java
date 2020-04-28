@@ -30,7 +30,7 @@ class ClinicAdministrativeSystemApplicationTests {
 	@Test
 	void contextLoad01() {
 		
-		tAdditionalFeeService.delectTadditionalFeeById(8);
+		//tAdditionalFeeService.delectTadditionalFeeById(8);
 	}
 	
 	@Test
@@ -62,6 +62,17 @@ class ClinicAdministrativeSystemApplicationTests {
 		TAdditionalFee tAdditionalFee=new TAdditionalFee();
 		List<TAdditionalFee> tAdditionalFees = 
 				tAdditionalFeeService.selectByWhere(tAdditionalFee);
+		System.out.println(tAdditionalFees);;
+	}
+	
+	@Test
+	void contextLoad06() {
+		
+		TAdditionalFee tAdditionalFee=new TAdditionalFee();
+		Integer pageIndex=1;
+		Integer pageSize=3;
+		List<TAdditionalFee> tAdditionalFees = tAdditionalFeeService.selectAlltAdditionalFeesByCondition
+		(tAdditionalFee, pageIndex, pageSize);
 		System.out.println(tAdditionalFees);;
 	}
 }

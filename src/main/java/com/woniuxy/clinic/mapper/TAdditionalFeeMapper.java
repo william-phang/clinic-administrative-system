@@ -1,5 +1,6 @@
 package com.woniuxy.clinic.mapper;
 
+import com.woniuxy.clinic.dto.TAdditionalFeeDto;
 import com.woniuxy.clinic.entity.TAdditionalFee;
 import com.woniuxy.clinic.entity.TAdditionalFeeExample;
 import java.util.List;
@@ -32,4 +33,17 @@ public interface TAdditionalFeeMapper {
     int updateByPrimaryKey(TAdditionalFee record);
     
     List<TAdditionalFee> selectByWhere(TAdditionalFee tAdditionalFee);
+    
+    //分页查询
+    List<TAdditionalFee> selectAlltAdditionalFeesByCondition(
+			@Param("tAdditionalFee")TAdditionalFee tAdditionalFee,
+			@Param("pageIndex")Integer pageIndex, 
+			@Param("pageSize")Integer pageSize);
+    
+    //查询总条数
+    int selectAlltAdditionalFeesCount(@Param("tAdditionalFee")TAdditionalFee tAdditionalFee);
+    
+    List<TAdditionalFee> selectByPage(@Param("currentPage")Integer currentPage, @Param("pageSize")Integer pageSize,@Param("dto") TAdditionalFeeDto dto);
+    
+    int selectByPageCount(@Param("dto")TAdditionalFeeDto dto);
 }
