@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="../lib/layui/css/layui.css" media="all" />
+		<script src="../lib/laydate/laydate.js"></script>
+		<script src="../lib/layui/layui.js"></script>
+	</head>
+	<body>
+		<!-- 共有页面 -->
+		<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+			<legend style="color: #FFB800;">处方</legend>
+		</fieldset>
+		<form class="layui-form" action="">
+			<div class="layui-form-item">
+				<label class="layui-form-label">开关-默认关</label>
+				<div class="layui-input-block">
+					<input type="checkbox" name="close" lay-skin="switch" lay-text="ON|OFF">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">开关-默认开</label>
+				<div class="layui-input-block">
+					<input type="checkbox" checked="" name="open" lay-skin="switch" lay-filter="switchTest" lay-text="ON|OFF">
+				</div>
+			</div>
+
+
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">患者姓名</label>
+					<div class="layui-input-inline">
+						<input type="tel" name="phone" placeholder="患者姓名" lay-verify="required|phone" autocomplete="off" class="layui-input">
+						<i class="layui-icon layui-icon-search" style="position: absolute;top:8px;right: 8px;"></i>
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">患者卡号</label>
+					<div class="layui-input-inline">
+						<input type="text" placeholder="请输入病人卡号" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">患者年龄</label>
+					<div class="layui-input-inline">
+						<input type="text" placeholder="请输入患者年龄" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">出生日期</label>
+					<div class="layui-input-inline">
+						<input id="date" type="text" name="date" lay-verify="email" autocomplete="off" class="layui-input" />
+						<i class="layui-icon layui-icon-gift" style="position: absolute;top:8px;right: 8px;"></i>
+					</div>
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">性别</label>
+					<div class="layui-input-block" style="width: 190px;">
+						<select name="interest" lay-filter="aihao">
+							<option value=""></option>
+							<option value="0">男</option>
+							<option value="1" selected="">女</option>
+							<option value="2">未知</option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label style="margin-left: 10px;" class="layui-form-label">电话号码</label>
+					<div class="layui-input-inline">
+						<input type="text" placeholder="请输入手机号码" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">证件号码</label>
+					<div class="layui-input-inline">
+						<input type="tel" placeholder="请输入证件号码" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">接诊类型</label>
+					<div class="layui-input-block" style="width: 190px;">
+						<select name="interest" lay-filter="aihao">
+							<option value=""></option>
+							<option value="0">初诊</option>
+							<option value="1" selected="">复诊</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<!-- 三址联动 -->
+			<div class="layui-form">
+				<div class="layui-form-item" id="area-picker">
+					<div class="layui-form-label">地址</div>
+					<div class="layui-input-inline" style="width: 200px;">
+						<select name="province" class="province-selector" data-value="广东省" lay-filter="province-1">
+							<option value="">请选择省</option>
+							<option value="浙江" selected="">浙江省</option>
+							<option value="你的工号">江西省</option>
+							<option value="你最喜欢的老师">福建省</option>
+						</select>
+					</div>
+					<div class="layui-input-inline" style="width: 200px;">
+						<select name="city" class="city-selector" data-value="深圳市" lay-filter="city-1">
+							<option value="">请选择市</option>
+							<option value="杭州">杭州</option>
+							<option value="宁波" disabled="">宁波</option>
+							<option value="温州">温州</option>
+							<option value="温州">台州</option>
+							<option value="温州">绍兴</option>
+						</select>
+					</div>
+					<div class="layui-input-inline" style="width: 200px;">
+						<select name="county" class="county-selector" data-value="龙岗区" lay-filter="county-1">
+							<option value="">请选择县/区</option>
+							<option value="西湖区">西湖区</option>
+							<option value="余杭区">余杭区</option>
+							<option value="拱墅区">临安市</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<script>
+				//配置插件目录
+				layui.config({
+					base: './mods/',
+					version: '1.0'
+				});
+				//一般直接写在一个js文件中
+				layui.use(['layer', 'form', 'layarea'], function() {
+					var layer = layui.layer,
+						form = layui.form,
+						layarea = layui.layarea;
+
+					layarea.render({
+						elem: '#area-picker',
+						change: function(res) {
+							//选择结果
+							console.log(res);
+						}
+					});
+				});
+			</script>
+
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">诊断</label>
+					<div class="layui-input-inline" style="width: 515px;">
+						<select name="modules" lay-verify="required" lay-search="">
+							<option value="">按照拼音输入可实现相关信息</option>
+							<option value="1">流行性出热血l</option>
+							<option value="2">急性气支管炎j</option>
+							<option value="3">上呼吸感染s</option>
+							<option value="4">咽炎y</option>
+							<option value="5">急性肠胃炎j</option>
+							<option value="6">月经不调y</option>
+							<option value="7">急性扁桃体炎j</option>
+							<option value="8">流行性乙型脑炎l</option>
+							<option value="9">白喉b</option>
+							<option value="10">脑膜炎n</option>
+						</select>
+						<i class="layui-icon layui-icon-search" style="position: absolute;top:8px;right: 20px;"></i>
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">医嘱</label>
+					<div class="layui-input-inline" style="width: 515px;">
+						<select name="modules" lay-verify="required" lay-search="">
+							<option value="">按照拼音输入可实现相关信息</option>
+							<option value="1">低盐低糖饮食d</option>
+							<option value="2">忌辛冷等食物j</option>
+							<option value="3">忌受凉吹风j</option>
+							<option value="4">少糖s</option>
+							<option value="5">忌熬夜忌饮酒j</option>
+							<option value="6">多喝开水d</option>
+							<option value="7">忌辛辣j</option>
+						</select>
+						<i class="layui-icon layui-icon-search" style="position: absolute;top:8px;right: 20px;"></i>
+					</div>
+				</div>
+			</div>
+		</form>
+		<script>
+			//Demo
+			layui.use('form', function() {
+				var form = layui.form;
+				//监听提交
+				form.on('submit(formDemo)', function(data) {
+					layer.msg(JSON.stringify(data.field));
+					return false;
+				});
+			});
+		</script>
+		<script>
+			laydate.render({
+				elem: '#date',
+				calendar: true,
+				theme: 'grid',
+			});
+		</script>
+		<br /><br /><br /><br />
+		<div class="layui-container" style="width: 2000px; margin-left: 100px;">
+			<div class="layui-row">
+				<div class="layui-col-md7">
+					<div class="layui-row grid-demo grid-demo-bg1">
+						<div class="layui-col-md12">
+							<div class="grid-demo">
+								<div class="layui-input-inline" style="width: 120px; height: 40px; ">
+									<select style="height: 30px; margin-top: 5px; margin-left: 12px;" name="modules" lay-verify="required"
+									 lay-search="">
+										<option value="">添加处方</option>
+										<option value="1">西/成药处方</option>
+										<option value="2">中药处方</option>
+										<option value="3">检查项目</option>
+									</select>
+								</div>
+								<!-- <div class="layui-input-inline" style="width: 120px; height: 67px; " >
+									<input type="text" placeholder="请输入手机号码" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+								</div> -->
+							</div>
+						</div>
+						<div class="layui-col-md7" style="padding-left: 10px; height: 500px; background-color: #00F7DE;">
+							<div class="grid-demo grid-demo-bg2" style="margin-top: 10px; margin-left: 10px;">
+								<b><span style="font-size: 40px;  color: #01AAED;">Rp</span></b>
+							</div>
+							<div class="grid-demo grid-demo-bg2" style="background-color: #1E9FFF; height: 50px; margin-top: 10px; margin-left: 10px;">
+								<input type="checkbox" name="like1[write]" lay-skin="primary" style="margin-top: 15px; height: 17px; width: 17px;">
+								<span style=" font-size: 17px; padding-left: 5px;  padding-top: 10px;">序号</span>
+								<span style=" font-size: 17px; padding-left: 8px;  padding-top: 10px;">组号</span>
+								<span style=" font-size: 17px; padding-left: 20px;  padding-top: 10px;">名称</span>
+								<span style=" font-size: 17px; padding-left: 60px;  padding-top: 10px;">单次用量</span>
+								<span style=" font-size: 17px; padding-left: 10px;  padding-top: 10px;">用法</span>
+								<span style=" font-size: 17px; padding-left: 50px;  padding-top: 10px;">频度</span>
+								<span style=" font-size: 17px; padding-left: 50px;  padding-top: 10px;">天数</span>
+								<span style=" font-size: 17px; padding-left: 10px;  padding-top: 10px;">总量</span>
+								<span style=" font-size: 17px; padding-left: 15px;  padding-top: 10px;">单价</span>
+							</div>
+							<div class="grid-demo grid-demo-bg2" style=" height: 300px; margin-top: 10px; margin-left: 10px;">
+								<div class="grid-demo grid-demo-bg2" style="height: 30px; margin-top: 10px;">
+									<input type="checkbox" name="like1[write]" lay-skin="primary" style="margin-top: 5px; height: 17px; width: 17px;">
+									<span style=" font-size: 17px; padding-left: 5px;  padding-top: 10px;">1</span>
+									<span style=" font-size: 17px; padding-left: 40px;  padding-top: 10px;">1</span>
+									<span style=" font-size: 17px; padding-left: 20px;  padding-top: 10px;">哈姆雷特</span>
+									<span style=" font-size: 17px; padding-left: 40px;  padding-top: 10px;">1片</span>
+									<span style=" font-size: 17px; padding-left: 10px;  padding-top: 10px;">
+										<select name="modules" lay-verify="required" lay-search="" style="width: 90px; height: 28px;">
+											<option value="1">口服</option>
+											<option value="2">静脉注射</option>
+											<option value="3">注射药物</option>
+											<option value="4">检查</option>
+											<option value="5">皮试</option>
+											<option value="6">外用</option>
+											<option value="7">物化</option>
+										</select>
+									</span>
+									<span style=" font-size: 17px; padding-left: 2px;  padding-top: 10px;">
+										<select name="modules" lay-verify="required" lay-search="" style="width: 100px; height: 28px;">
+											<option value="1">一天1次</option>
+											<option value="2">一天2次</option>
+											<option value="3">一天3次</option>
+											<option value="4">一天4次</option>
+											<option value="5">2小时一次</option>
+											<option value="6">4小时一次</option>
+											<option value="7">6小时一次</option>
+										</select>
+									</span>
+									<span style=" font-size: 17px; padding-left: 3px;  padding-top: 10px;">
+										<select name="modules" lay-verify="required" lay-search="" style="width: 50px; height: 28px;">
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="5">5</option>
+											<option value="6">6</option>
+											<option value="7">7</option>
+										</select>
+									</span>
+									<span style=" font-size: 17px; width: 40px; padding-left: 2px; padding-top: 10px;">
+										<input type="text" value="1" style="width: 40px; height: 24px; text-align: center;" name="email" lay-verify="email"
+										 autocomplete="off">
+									</span>
+									<span style=" font-size: 17px; padding-top: 10px;">
+										<span style=" font-size: 17px; width: 40px; padding-left: 5px; padding-top: 10px;">
+											<input type="text" style="width: 40px; height: 24px; text-align: center;" name="email" lay-verify="email"
+											 autocomplete="off">
+										</span>
+									</span>
+								</div>
+							</div>
+							<div class="layui-col-md2" style="margin-top: 10px;height: 60px;">
+								<i class="layui-icon layui-icon-add-circle-fine" style="position: absolute;top:20px;right: 85px;"></i>
+								<input type="button" class="layui-btn layui-btn-normal" style="margin-left: 10px; margin-top: 10px;" value="附加费用" />
+							</div>
+							<div class="layui-col-md1" style=" margin-left: -10px; margin-top: 10px; height: 60px;">
+								<span class="layui-btn layui-bg-gray" style="margin-left: 10px; margin-top: 10px;">科室</span>
+							</div>
+							<div class=" layui-col-md2 layui-input-inline" style=" margin-left: 10px; margin-top: 10px; height: 60px;">
+								<select style="margin-left: 10px; margin-top: 10px; height: 38px; width: 80px;" name="modules" lay-verify="required"
+								 lay-search="">
+									<option value="1">骨科</option>
+									<option value="2">全科</option>
+									<option value="3">儿科</option>
+								</select>
+							</div>
+
+							<div class="layui-col-md1" style=" margin-left: -29px; margin-top: 10px; height: 60px;">
+								<span class="layui-btn layui-bg-gray" style="margin-left: 10px; margin-top: 10px;">接诊医生</span>
+							</div>
+							<div class=" layui-col-md2 layui-input-inline" style=" margin-left: 38px; margin-top: 10px; height: 60px;">
+								<select style="margin-left: 10px; margin-top: 10px; height: 38px; width: 80px;" name="modules" lay-verify="required"
+								 lay-search="">
+									<option value="1">王阳明</option>
+									<option value="2">王富贵</option>
+									<option value="3">薛诏</option>
+								</select>
+							</div>
+							<div class="layui-col-md1" style=" margin-left: -35px; margin-top: 10px; height: 60px;">
+								<span class="layui-btn " style=" padding-left: 10px; margin-top: 10px;">
+									此方合计:<span>50</span>元;共<span>3</span>个处方,共计:<span>150</span>元
+								</span>
+							</div>
+						</div>
+						<!-- 药品分类 -->
+						<div class="layui-col-md5" style="height: 500px; background-color: #01AAED;">
+							<div class="grid-demo grid-demo-bg3">
+								药品分类
+							</div>
+						</div>
+					</div>
+
+
+
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

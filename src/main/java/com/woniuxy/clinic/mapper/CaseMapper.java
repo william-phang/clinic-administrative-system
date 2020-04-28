@@ -7,4 +7,8 @@ import com.woniuxy.clinic.entity.Case;
 public interface CaseMapper {
 	// 根据主键查询相关信息
 	Case selectTCase(int case_id);
+	
+	// 关联外键
+	void insertID(int physiquemessage_id,int casemessage_id,int case_id );
+	void insertId(int casemessage_id,int case_id);
 }

@@ -10,7 +10,6 @@ import com.woniuxy.clinic.service.CaseService;
 
 @Controller
 public class CaseController {
-	
 	@Autowired
 	CaseService caseService;
 	

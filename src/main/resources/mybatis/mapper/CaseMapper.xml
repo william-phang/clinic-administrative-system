@@ -35,4 +35,12 @@
 	<select id="selectTPatientBypatient_id" resultType="Patient">
 		select * from t_patient where patient_id=#{patient_id}
 	</select>
+	
+	<!-- 关联外键 -->
+	<update id="insertID">
+		UPDATE t_case SET physiquemessage_id = #{physiquemessage_id} ,casemessage_id = #{casemessage_id}  WHERE case_id = #{case_id}
+	</update>
+	<update id="insertId">
+		UPDATE t_case SET casemessage_id = #{casemessage_id}  WHERE case_id = #{case_id}
+	</update>
 </mapper>

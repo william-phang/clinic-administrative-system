@@ -1,5 +1,7 @@
 package com.woniuxy.clinic.service;
 
+import java.util.Date;
+
 import com.woniuxy.clinic.entity.Case;
 
 public interface CaseService {

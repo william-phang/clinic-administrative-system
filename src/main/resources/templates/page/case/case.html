@@ -7,12 +7,9 @@
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1">
-<link rel="stylesheet"
-	th:href="@{/layuimini/lib/layui-v2.5.5/css/layui.css}" media="all">
-<link rel="stylesheet" th:href="@{/layuimini/css/public.css}"
-	media="all">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" th:href="@{/layuimini/lib/layui-v2.5.5/css/layui.css}" media="all">
+<link rel="stylesheet" th:href="@{/layuimini/css/public.css}" media="all">
 
 <!-- 引入data日期组件 -->
 <script th:src="@{/layui/laydate/laydate.js} " charset="utf-8"></script>
@@ -28,7 +25,7 @@
 					<label class="layui-form-label">患者姓名</label>
 					<div class="layui-input-inline">
 						<input type="text" value="{{data.tregistration.tpatient.patient_name}}" placeholder="患者姓名"  name="email" lay-verify="email" autocomplete="off" class="layui-input">
-					<i class="layui-icon layui-icon-search" style="position: absolute; top: 8px; right: 20px;" ></i>
+						<i class="layui-icon layui-icon-search" style="position: absolute; top: 8px; right: 20px;" ></i>
 					</div>
 				</div>
 				<div class="layui-inline">
@@ -132,58 +129,20 @@
 								</div>
 							</div>
 						</div>
-						
-
-						<div class="layui-form-item">
-							<div class="layui-inline">
-								<label class="layui-form-label">诊断</label>
-								<div class="layui-input-inline" style="width: 515px;">
-									<select name="modules" lay-verify="required" lay-search="">
-										<option value="">通过关键字可查询相关诊断信息</option>
-										<option value="1">流行性出热血</option>
-										<option value="2">急性气支管炎</option>
-										<option value="3">上呼吸感染</option>
-										<option value="4">咽炎</option>
-										<option value="5">急性肠胃炎</option>
-										<option value="6">月经不调</option>
-										<option value="7">急性扁桃体炎</option>
-										<option value="8">流行性乙型脑炎</option>
-										<option value="9">白喉</option>
-										<option value="10">脑膜炎</option>
-									</select> <i class="layui-icon layui-icon-search"
-										style="position: absolute; top: 8px; right: 20px;"></i>
-								</div>
-							</div>
-							<div class="layui-inline">
-								<label class="layui-form-label">医嘱</label>
-								<div class="layui-input-inline" style="width: 515px;">
-									<select name="modules" lay-verify="required" lay-search="">
-										<option value="">通过关键字可查询相关医嘱</option>
-										<option value="1">低盐低糖饮食</option>
-										<option value="2">忌辛冷等食物</option>
-										<option value="3">忌受凉吹风</option>
-										<option value="4">少糖</option>
-										<option value="5">忌熬夜忌饮酒</option>
-										<option value="6">多喝开水</option>
-										<option value="7">忌辛辣</option>
-									</select> <i class="layui-icon layui-icon-search"
-										style="position: absolute; top: 8px; right: 20px;"></i>
-								</div>
-							</div>
-						</div>
 					</form>
 	</script>
 
 	<fieldset class="layui-elem-field layui-field-title"
 		style="margin-top: 20px;">
 		<legend style="color: #FFB800;">新开就诊</legend>
-		<!-- 建立试图 -->
 	</fieldset>
 	<div class="layuimini-container">
 		<div class="layuimini-main">
 			<fieldset class="table-search-fieldset">
-				<legend>搜索信息</legend>
+				<legend>基本信息</legend>
 				<div style="margin: 10px 10px 10px 10px" id="patient_name_view">
+					<!-- 建立试图 -->
+					
 					<!-- 地址三联 -->
 					<script>
 						//配置插件目录
@@ -226,141 +185,127 @@
 		</div>
 	</div>
 
-
 	<div class="layuimini-container">
 		<div class="layuimini-main">
 			<fieldset class="table-search-fieldset">
 				<legend class="layui-form-label"
 					style="color: #1E9FFF; font-size: 20px;">体格信息</legend>
 				<div style="margin: 10px 10px 10px 10px">
-					<form class="layui-form" action="">
+					<form class="layui-form" th:action="@{/test}" method="post" >
 						<div class="layui-form-item">
 							<div class="layui-inline">
 								<label class="layui-form-label">体温</label>
 								<div class="layui-input-inline" style="width: 100px;">
-									<input type="tel" name="phone" lay-verify="required|phone"
-										autocomplete="off" class="layui-input">
+									<input type="tel"  name="physiquemessage_animal"  autocomplete="off" class="layui-input">
 								</div>
-								<div class="layui-form-mid layui-word-aux">°C</div>
+								<div class="layui-form-mid layui-word-aux">°C&nbsp;[[${physiquemessage_animalError}]]</div>
 							</div>
 							<div class="layui-inline">
 								<label class="layui-form-label">呼吸</label>
 								<div class="layui-input-inline" style="width: 100px;">
-									<input type="text" name="email" lay-verify="email"
-										autocomplete="off" class="layui-input">
+									<input type="text" name="physiquemessage_breathe" autocomplete="off" class="layui-input">
 								</div>
-								<div class="layui-form-mid layui-word-aux">次/分</div>
+								<div class="layui-form-mid layui-word-aux">次/分&nbsp;[[${physiquemessage_breatheError}]]</div>
 							</div>
 							<div class="layui-inline">
 								<label class="layui-form-label">脉搏</label>
 								<div class="layui-input-inline" style="width: 100px;">
-									<input type="text" name="email" lay-verify="email"
-										autocomplete="off" class="layui-input">
+									<input type="text" name="physiquemessage_pulse" autocomplete="off" class="layui-input">
 								</div>
-								<div class="layui-form-mid layui-word-aux">次/分</div>
+								<div class="layui-form-mid layui-word-aux">次/分&nbsp;[[${physiquemessage_pulseError}]]</div>
 							</div>
 							<div class="layui-inline">
 								<label class="layui-form-label">血压</label>
 								<div class="layui-input-inline" style="width: 100px;">
-									<input type="text" name="email" lay-verify="email"
-										autocomplete="off" class="layui-input">
+									<input type="text" name="physiquemessage_BP" autocomplete="off" class="layui-input">
 								</div>
-								<div class="layui-form-mid layui-word-aux">min/mmHg</div>
+								<div class="layui-form-mid layui-word-aux">min/mmHg&nbsp;[[${physiquemessage_BPError}]]</div>
 							</div>
 						</div>
 						<div class="layui-form-item">
 							<div class="layui-inline">
 								<label class="layui-form-label">身高</label>
 								<div class="layui-input-inline" style="width: 100px;">
-									<input type="tel" name="phone" lay-verify="required|phone"
-										autocomplete="off" class="layui-input">
+									<input type="tel" name="physiquemessage_height" autocomplete="off" class="layui-input">
 								</div>
-								<div class="layui-form-mid layui-word-aux">Cm</div>
+								<div class="layui-form-mid layui-word-aux">Cm&nbsp;[[${physiquemessage_heightError}]]</div>
 							</div>
 							<div class="layui-inline">
-								<label class="layui-form-label">体重</label>
-								<div class="layui-input-inline" style="width: 100px; margin-left: -6px;">
-									<input type="text" name="email" lay-verify="email"
-										autocomplete="off" class="layui-input">
+								<label class="layui-form-label" style="margin-left: -6px;">体重</label>
+								<div class="layui-input-inline" style="width: 100px; ">
+									<input type="tel" name="physiquemessage_weight" autocomplete="off" class="layui-input">
 								</div>
-								<div class="layui-form-mid layui-word-aux">Kg</div>
+								<div class="layui-form-mid layui-word-aux">Kg&nbsp;[[${physiquemessage_weightError}]]</div>
 							</div>
 							<div class="layui-inline">
-								<label class="layui-form-label" >血糖</label>
-								<div class="layui-input-inline" style="width: 100px; margin-left: 14px;">
-									<input type="text" name="email" lay-verify="email"
-										autocomplete="off" class="layui-input">
+								<label class="layui-form-label" style="margin-left: 14px;" >血糖</label>
+								<div class="layui-input-inline" style="width: 100px; ">
+									<input type="tel" name="physiquemessage_bg" autocomplete="off" class="layui-input">
 								</div>
-								<div class="layui-form-mid layui-word-aux">mmol/l</div>
+								<div class="layui-form-mid layui-word-aux">mmol/l&nbsp;[[${physiquemessage_bgError}]]</div>
 							</div>
 							<div class="layui-inline">
-								<label class="layui-form-label" >血脂</label>
-								<div class="layui-input-inline" style="width: 100px; margin-left: -8px;">
-									<input type="text" name="email" lay-verify="email"
-										autocomplete="off" class="layui-input">
+								<label class="layui-form-label" style="margin-left: -8px;" >血脂</label>
+								<div class="layui-input-inline" style="width: 100px; ">
+									<input type="tel"  name="physiquemessage_bf" autocomplete="off" class="layui-input">
 								</div>
-								<div class="layui-form-mid layui-word-aux">mmol/l</div>
-							</div>
+								<div class="layui-form-mid layui-word-aux">mmol/l[[${physiquemessage_bfError}]]</div>
+							</div>							
 						</div>
-
-						<label class="layui-form-label"
-							style="color: #1E9FFF; font-size: 20px;">病历信息</label>
+						<label class="layui-form-label" style="color: #1E9FFF; font-size: 20px;">病历信息</label>
 						<div class="layui-form-mid layui-word-aux">(病历信息可在系统设置-基础设置中的自定义设置)</div>
 						<br /> <br />
 						<div class="layui-form-item">
 							<div class="layui-inline">
 								<label class="layui-form-label">发病日期</label>
 								<div class="layui-input-inline" style="width: 515px;">
-									<input id="date1" type="text" name="date" lay-verify="email"
-										autocomplete="off" class="layui-input" /> <i
-										class="layui-icon layui-icon-gift"
-										style="position: absolute; top: 8px; right: 8px; color: #FF5722;"></i>
+									<input id="date1" type="text" th:text="${casemessage_dateError}" name="casemessage_date" autocomplete="off" class="layui-input" /> 
+									<i class="layui-icon layui-icon-gift" style="position: absolute; top: 8px; right: 8px; color: #FF5722;"></i>
 								</div>
 							</div>
 							<div class="layui-inline">
-								<label class="layui-form-label">医嘱</label>
+								<label class="layui-form-label">主诉</label>
 								<div class="layui-input-inline" style="width: 515px;">
-									<select name="简化多选+搜索+大小写敏感" multiple="" lay-search="required"
-										lay-case="" lay-omit="">
+									<select name="casemessage_subject" multiple="" lay-search="required" lay-case="" lay-omit="">
 										<option value="">主诉</option>
 										<optgroup label="常用症状:">
-											<option value="头疼" name="头疼">头疼</option>
-											<option value="头晕" name="头晕">头晕</option>
-											<option value="恶心" name="恶心">恶心</option>
-											<option value="鼻塞" name="鼻塞">鼻塞</option>
-											<option value="呕吐" name="呕吐">呕吐</option>
-											<option value="咳血" name="咳血">咳血</option>
-											<option value="胸闷" name="胸闷">胸闷</option>
-											<option value="心慌" name="心慌">心慌</option>
-											<option value="红疹" name="红疹">红疹</option>
-											<option value="腹胀" name="腹胀">腹胀</option>
-											<option value="便秘" name="便秘">便秘</option>
-											<option value="腰疼" name="腰疼">腰疼</option>
-											<option value="呼吸困难" name="呼吸困难">呼吸困难</option>
+											<option value="头疼" >头疼</option>
+											<option value="头晕" >头晕</option>
+											<option value="恶心" >恶心</option>
+											<option value="鼻塞" >鼻塞</option>
+											<option value="呕吐" >呕吐</option>
+											<option value="咳血" >咳血</option>
+											<option value="胸闷" >胸闷</option>
+											<option value="心慌" >心慌</option>
+											<option value="红疹" >红疹</option>
+											<option value="腹胀" >腹胀</option>
+											<option value="便秘">便秘</option>
+											<option value="腰疼" >腰疼</option>
+											<option value="呼吸困难" >呼吸困难</option>
 										</optgroup>
 										<optgroup label="常用时间:">
-											<option value="早晨" name="早晨">早晨</option>
-											<option value="中午" name="中午">中午</option>
-											<option value="傍晚" name="傍晚">傍晚</option>
-											<option value="晚上" name="晚上">晚上</option>
-											<option value="小时" name="小时">小时</option>
-											<option value="天" name="天">天</option>
-											<option value="周" name="周">周</option>
+											<option value="早晨" >早晨</option>
+											<option value="中午" >中午</option>
+											<option value="傍晚">傍晚</option>
+											<option value="晚上" >晚上</option>
+											<option value="小时" >小时</option>
+											<option value="天" >天</option>
+											<option value="周" >周</option>
 										</optgroup>
 										<optgroup label="常用标点:">
-											<option value="," name=",">,</option>
-											<option value=";" name=";">;</option>
-											<option value="。" name="。">。</option>
-											<option value=":" name=":">:</option>
-											<option value="°C" name="°C">°C</option>
+											<option value="," >,</option>
+											<option value=";" >;</option>
+											<option value="。" >。</option>
+											<option value=":" >:</option>
+											<option value="°C" >°C</option>
 										</optgroup>
 										<optgroup label="常用词汇:">
-											<option value="经常" name="经常">经常</option>
-											<option value="持续" name="持续">持续</option>
-											<option value="过敏" name="过敏">过敏</option>
-											<option value="剧烈" name="剧烈">剧烈</option>
-											<option value="轻微" name="轻微">轻微</option>
-											<option value="偶尔" name="偶尔">偶尔</option>
+											<option value="经常" >经常</option>
+											<option value="持续" >持续</option>
+											<option value="过敏" >过敏</option>
+											<option value="剧烈" >剧烈</option>
+											<option value="轻微" >轻微</option>
+											<option value="偶尔" >偶尔</option>
 										</optgroup>
 									</select>
 								</div>
@@ -370,17 +315,13 @@
 							<div class="layui-inline">
 								<label class="layui-form-label" style="margin-top: 25px;">现病史</label>
 								<div class="layui-input-inline" style="width: 515px;">
-									<input type="tel" style="height: 100px;" name="phone"
-										lay-verify="required|phone" autocomplete="off"
-										class="layui-input">
+									<input type="text" style="height: 100px;" name="casemessage_cahistory" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-inline">
 								<label class="layui-form-label" style="margin-top: 25px;">既往史</label>
 								<div class="layui-input-inline" style="width: 515px;">
-									<input type="tel" style="height: 100px;" name="phone"
-										lay-verify="required|phone" autocomplete="off"
-										class="layui-input">
+									<input type="text" style="height: 100px;" name="casemessage_previous" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 						</div>
@@ -388,17 +329,13 @@
 							<div class="layui-inline">
 								<label class="layui-form-label" style="margin-top: 25px;">过敏史</label>
 								<div class="layui-input-inline" style="width: 515px;">
-									<input type="tel" style="height: 100px;" name="phone"
-										lay-verify="required|phone" autocomplete="off"
-										class="layui-input">
+									<input type="text" style="height: 100px;" name="casemessage_allergy" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-inline">
 								<label class="layui-form-label" style="margin-top: 25px;">个人史</label>
 								<div class="layui-input-inline" style="width: 515px;">
-									<input type="tel" style="height: 100px;" name="phone"
-										lay-verify="required|phone" autocomplete="off"
-										class="layui-input">
+									<input type="text" style="height: 100px;" name="casemessage_bi" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 						</div>
@@ -406,17 +343,13 @@
 							<div class="layui-inline">
 								<label class="layui-form-label" style="margin-top: 25px;">家族史</label>
 								<div class="layui-input-inline" style="width: 515px;">
-									<input type="tel" style="height: 100px;" name="phone"
-										lay-verify="required|phone" autocomplete="off"
-										class="layui-input">
+									<input type="text" style="height: 100px;" name="casemessage_fm" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-inline">
 								<label class="layui-form-label" style="margin-top: 25px;">辅助检查</label>
 								<div class="layui-input-inline" style="width: 515px;">
-									<input type="tel" style="height: 100px;" name="phone"
-										lay-verify="required|phone" autocomplete="off"
-										class="layui-input">
+									<input type="text" style="height: 100px;" name="casemessage_help" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 						</div>
@@ -424,20 +357,17 @@
 							<div class="layui-inline">
 								<label class="layui-form-label" style="margin-top: 25px;">治疗意见</label>
 								<div class="layui-input-inline" style="width: 515px;">
-									<input type="tel" style="height: 100px;" name="phone"
-										lay-verify="required|phone" autocomplete="off"
-										class="layui-input">
+									<input type="text" style="height: 100px;" name="casemessage_idea" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-inline">
 								<label class="layui-form-label" style="margin-top: 25px;">备注</label>
 								<div class="layui-input-inline" style="width: 515px;">
-									<input type="tel" style="height: 100px;" name="phone"
-										lay-verify="required|phone" autocomplete="off"
-										class="layui-input">
+									<input type="text" style="height: 100px;" name="casemessage_ps" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 						</div>
+						<input type="submit"  value="提交" autocomplete="off" class="layui-input">
 					</form>
 					<script>
 						//Demo
@@ -461,7 +391,6 @@
 			</fieldset>
 		</div>
 	</div>
-
 	<!-- 渲染模板 -->
 	<script>
 		layui
@@ -496,6 +425,12 @@
 											});
 						});
 	</script>
+	
+	
+	
+	
+	
+	
 </body>
 
 </html>
