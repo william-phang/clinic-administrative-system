@@ -6,12 +6,24 @@ logging:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://121.43.122.154:3307/clinic?serverTimezone=GMT%2B8&characterEncoding=utf8
+    url: jdbc:mysql://121.43.122.154:3307/clinic?serverTimezone=Asia/Shanghai&characterEncoding=utf8
     username: dev_clinic
     password: devclinic
-pagehelper:
-  helperDialect: mysql
-  reasonable: true 
-  supportMethodsArguments: true 
-  pageSizeZero: false #pageSize=0 
-  params: count=countSql
+  mvc:
+    date-format: yyyy-MM-dd
+    hiddenmethod:
+      filter:
+        enabled: true
+  thymeleaf:
+    cache: false
+alisms:
+  accessKeyId: LTAI4GK2k6xdC67JEerPghZp
+  accessSecret: yXHhWt7ZJxXZiOmun4kNPmX1fZ7rD2
+  signName: 诊所管理项目
+  templateCode: SMS_189026410       
+mybatis:
+  type-aliases-package: com.woniuxy.clinic.entity
+  mapper-locations:
+  - classpath:/mybatis/mapper/*Mapper.xml
+server:
+  port: 80

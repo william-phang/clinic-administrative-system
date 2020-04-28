@@ -55,7 +55,7 @@
         },
         {
           "title": "药品零售",
-          "href": "page/icon.html",
+          "href": "page/table.png",
           "icon": "fa fa-calendar",
           "target": "_self"
          
@@ -196,9 +196,29 @@
             },
             {
               "title": "费用设置",
-              "href": "page/table.html?t=87",
+              "href": "",
               "icon": "fa fa-shield",
-              "target": "_self"
+              "target": "_self",
+              "child": [
+	            {
+	              "title": "附加费用设置",
+	              "href": "/tAdditionalFees",
+	              "icon": "fa fa-list-alt",
+	              "target": "_self"
+	            },
+	            {
+	              "title": "诊疗费用设置",
+	              "href": "page/table.html?t=32",
+	              "icon": "fa fa-navicon",
+	              "target": "_self"
+	            },
+	            {
+	              "title": "挂号费用设置",
+	              "href": "page/table.html?t=32",
+	              "icon": "fa fa-navicon",
+	              "target": "_self"
+	            }
+	          ]
             },
              {
               "title": "基础设置",
