@@ -16,7 +16,7 @@ import com.github.pagehelper.PageInfo;
 import com.woniuxy.clinic.dto.DrugDto;
 import com.woniuxy.clinic.entity.TDrug;
 import com.woniuxy.clinic.service.PharmacyService;
-import com.woniuxy.clinic.util.CommonResult;
+import com.woniuxy.clinic.tool.CommonResult;
 
 //药房
 @Controller
