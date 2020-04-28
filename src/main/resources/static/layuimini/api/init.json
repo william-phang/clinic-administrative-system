@@ -76,7 +76,7 @@
         },
         {
           "title": "药品管理",
-          "href": "",
+          "href": "page/drug_management/drug_info_list.html",
           "icon": "fa fa-snowflake-o",
           "target": "",
           "child": [

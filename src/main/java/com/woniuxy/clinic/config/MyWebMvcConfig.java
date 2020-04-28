@@ -24,6 +24,8 @@ public class MyWebMvcConfig{
 				registry.addViewController("/page/tableEdit/add.html").setViewName("page/tableEdit/add");
 				registry.addViewController("/page/tableEdit/edit.html").setViewName("page/tableEdit/edit");
 				
+				registry.addViewController("/page/drug_management/drug_info_list.html").setViewName("page/drug_management/drug_info_list");
+				registry.addViewController("/page/drug_management/drug_info_add.html").setViewName("page/drug_management/drug_info_add");
 			}
 		};
 	}

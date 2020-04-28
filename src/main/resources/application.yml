@@ -6,6 +6,12 @@ logging:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://121.43.122.154:3307/clinic?serverTimezone=Asia/Shanghai&characterEncoding=utf8
+    url: jdbc:mysql://121.43.122.154:3307/clinic?serverTimezone=GMT%2B8&characterEncoding=utf8
     username: dev_clinic
     password: devclinic
+pagehelper:
+  helperDialect: mysql
+  reasonable: true 
+  supportMethodsArguments: true 
+  pageSizeZero: false #pageSize=0 
+  params: count=countSql

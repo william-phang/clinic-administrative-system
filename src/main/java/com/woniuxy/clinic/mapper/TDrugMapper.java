@@ -1,30 +1,22 @@
 package com.woniuxy.clinic.mapper;
 
+import com.woniuxy.clinic.dto.DrugDto;
 import com.woniuxy.clinic.entity.TDrug;
-import com.woniuxy.clinic.entity.TDrugExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
+@Mapper
 public interface TDrugMapper {
-    int countByExample(TDrugExample example);
+	List<TDrug> selectDrugsByCondition(@Param("drug") DrugDto drugDto, @Param("beginIndex") Integer beginIndex, @Param("pageSize") Integer pageSize);
+	
+	Integer selectDrugsNumByCondition(@Param("drug") DrugDto drugDto);
+	
+	TDrug findDrugInfoByDrug_sn(Integer drug_sn);
 
-    int deleteByExample(TDrugExample example);
+	void updateDrugInfoByDrug_sn(@Param("tDrug")TDrug tDrug);
 
-    int deleteByPrimaryKey(Integer drugId);
+	void insertDrugInfo(@Param("tDrug")TDrug tDrug);
 
-    int insert(TDrug record);
-
-    int insertSelective(TDrug record);
-
-    List<TDrug> selectByExample(TDrugExample example);
-
-    TDrug selectByPrimaryKey(Integer drugId);
-
-    int updateByExampleSelective(@Param("record") TDrug record, @Param("example") TDrugExample example);
-
-    int updateByExample(@Param("record") TDrug record, @Param("example") TDrugExample example);
-
-    int updateByPrimaryKeySelective(TDrug record);
-
-    int updateByPrimaryKey(TDrug record);
+	void editDrugInfoStatus( @Param("drug_sn") Integer drug_sn, @Param("status") Integer status);
 }

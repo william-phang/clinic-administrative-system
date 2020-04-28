@@ -64,11 +64,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>com.github.pagehelper</groupId>
-			<artifactId>pagehelper</artifactId>
-			<version>4.1.4</version>
-		</dependency>
+		
 		
 		<!-- 添加项,添加时请及时通知组员 -->
 		
@@ -78,6 +74,14 @@
 			<artifactId>druid-spring-boot-starter</artifactId>
 			<version>1.1.16</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper-spring-boot-starter -->
+		<dependency>
+		    <groupId>com.github.pagehelper</groupId>
+		    <artifactId>pagehelper-spring-boot-starter</artifactId>
+		    <version>1.2.13</version>
+		</dependency>
+
 	</dependencies>
 	
 	<!-- 插件提供简化部署的功能 -->

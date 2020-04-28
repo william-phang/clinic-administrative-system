@@ -37,634 +37,181 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="remarks" property="remarks" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List" >
-    drug_id, drug_sn, type, status, bar_code, name, phonetic_code, specification, dosage_form, 
-    otc, invoice, approval_number, manufacturer, packing_unit, basic_coefficient, basic_unit, 
-    dose_coefficient, dose_unit, purchase_amount, retail_amount, dismounted, drug_use, 
-    single_dosage, frequency, day, total, unit, minimum_inventory, maximum_inventory, 
-    goods_location, expiration_date_warning, instruction, create_time, remarks
-  </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.woniuxy.clinic.entity.TDrugExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from t_drug
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
+  <select id="selectDrugsByCondition" resultType="TDrug">
+  	select * from t_drug
+  		<where>
+  			<if test="drug.type!=null and drug.type!=''">
+  				and type=#{drug.type}
+  			</if>
+  			<if test="drug.status!=null and drug.status!=''">
+  				and status=#{drug.status}
+  			</if>
+  			<if test="drug.begin != null">
+		        <if test="drug.end != null">
+		          and create_time between #{drug.begin} and #{drug.end}
+		        </if>
+		        <if test="drug.end == null">
+		          and create_time <![CDATA[
+		              >=
+		          ]]> #{drug.begin}
+		        </if>
+		      </if>
+		      <if test="drug.begin == null">
+		        <if test="drug.end != null">
+		          and create_time <![CDATA[
+		                <=
+		            ]]> #{drug.end}
+		        </if>
+		      </if>
+		      <if test="drug.other != null and drug.other!=''">
+		      	and concat(name,drug_sn,manufacturer) LIKE '%' #{drug.other} '%'
+		      </if>
+  		</where>
+  		<if test="beginIndex != null and pageSize != null">
+	      	<![CDATA[limit #{beginIndex},#{pageSize}]]>
+	    </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from t_drug
-    where drug_id = #{drugId,jdbcType=INTEGER}
+  <select id="selectDrugsNumByCondition" resultType="Integer">
+  	select count(*) from t_drug
+  		<where>
+  			<if test="drug.type!=null and drug.type!=''">
+  				and type=#{drug.type}
+  			</if>
+  			<if test="drug.status!=null and drug.status!=''">
+  				and status=#{drug.status}
+  			</if>
+  			<if test="drug.begin != null">
+		        <if test="drug.end != null">
+		          and create_time between #{drug.begin} and #{drug.end}
+		        </if>
+		        <if test="drug.end == null">
+		          and create_time <![CDATA[
+		              >=
+		          ]]> #{drug.begin}
+		        </if>
+		      </if>
+		      <if test="drug.begin == null">
+		        <if test="drug.end != null">
+		          and create_time <![CDATA[
+		                <=
+		            ]]> #{drug.end}
+		        </if>
+		      </if>
+		      <if test="drug.other != null and drug.other!=''">
+		      	and concat(name,drug_sn,manufacturer) LIKE '%' #{drug.other} '%'
+		      </if>
+  		</where>
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from t_drug
-    where drug_id = #{drugId,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.woniuxy.clinic.entity.TDrugExample" >
-    delete from t_drug
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.woniuxy.clinic.entity.TDrug" >
-    insert into t_drug (drug_id, drug_sn, type, 
-      status, bar_code, name, 
-      phonetic_code, specification, dosage_form, 
-      otc, invoice, approval_number, 
-      manufacturer, packing_unit, basic_coefficient, 
-      basic_unit, dose_coefficient, dose_unit, 
-      purchase_amount, retail_amount, dismounted, 
-      drug_use, single_dosage, frequency, 
-      day, total, unit, minimum_inventory, 
-      maximum_inventory, goods_location, expiration_date_warning, 
-      instruction, create_time, remarks
-      )
-    values (#{drugId,jdbcType=INTEGER}, #{drugSn,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
-      #{status,jdbcType=VARCHAR}, #{barCode,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{phoneticCode,jdbcType=VARCHAR}, #{specification,jdbcType=VARCHAR}, #{dosageForm,jdbcType=VARCHAR}, 
-      #{otc,jdbcType=INTEGER}, #{invoice,jdbcType=VARCHAR}, #{approvalNumber,jdbcType=VARCHAR}, 
-      #{manufacturer,jdbcType=VARCHAR}, #{packingUnit,jdbcType=VARCHAR}, #{basicCoefficient,jdbcType=VARCHAR}, 
-      #{basicUnit,jdbcType=VARCHAR}, #{doseCoefficient,jdbcType=VARCHAR}, #{doseUnit,jdbcType=VARCHAR}, 
-      #{purchaseAmount,jdbcType=DECIMAL}, #{retailAmount,jdbcType=DECIMAL}, #{dismounted,jdbcType=INTEGER}, 
-      #{drugUse,jdbcType=VARCHAR}, #{singleDosage,jdbcType=VARCHAR}, #{frequency,jdbcType=VARCHAR}, 
-      #{day,jdbcType=INTEGER}, #{total,jdbcType=INTEGER}, #{unit,jdbcType=VARCHAR}, #{minimumInventory,jdbcType=INTEGER}, 
-      #{maximumInventory,jdbcType=INTEGER}, #{goodsLocation,jdbcType=VARCHAR}, #{expirationDateWarning,jdbcType=INTEGER}, 
-      #{instruction,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}
-      )
+  <select  id="findDrugInfoByDrug_sn" resultType="TDrug">
+  	select * from t_drug where drug_sn=#{drug_sn}
+  </select>
+  <update id="updateDrugInfoByDrug_sn">
+  	update t_drug set
+  	<trim prefix="set" suffixOverrides=",">
+  		<if test="tDrug.type!=null">type=#{tDrug.type},</if>
+  		<if test="tDrug.status!=null">status=#{tDrug.status},</if>
+  		<if test="tDrug.bar_code!=null">bar_code=#{tDrug.bar_code},</if>
+  		<if test="tDrug.name!=null">name=#{tDrug.name},</if>
+  		<if test="tDrug.phonetic_code!=null">phonetic_code=#{tDrug.phonetic_code},</if>
+  		<if test="tDrug.specification!=null">specification=#{tDrug.specification},</if>
+  		<if test="tDrug.dosage_form!=null">dosage_form=#{tDrug.dosage_form},</if>
+  		<if test="tDrug.otc!=null">otc=#{tDrug.otc},</if>
+  		<if test="tDrug.invoice!=null">invoice=#{tDrug.invoice},</if>
+  		<if test="tDrug.approval_number!=null">approval_number=#{tDrug.approval_number},</if>
+  		<if test="tDrug.manufacturer!=null">manufacturer=#{tDrug.manufacturer},</if>
+  		<if test="tDrug.packing_unit!=null">packing_unit=#{tDrug.packing_unit},</if>
+  		<if test="tDrug.basic_coefficient!=null">basic_coefficient=#{tDrug.basic_coefficient},</if>
+  		<if test="tDrug.basic_unit!=null">basic_unit=#{tDrug.basic_unit},</if>
+  		<if test="tDrug.dose_coefficient!=null">dose_coefficient=#{tDrug.dose_coefficient},</if>
+  		<if test="tDrug.dose_unit!=null">dose_unit=#{tDrug.dose_unit},</if>
+  		<if test="tDrug.purchase_amount!=null">purchase_amount=#{tDrug.purchase_amount},</if>
+  		<if test="tDrug.retail_amount!=null">retail_amount=#{tDrug.retail_amount},</if>
+  		<if test="tDrug.dismounted!=null">dismounted=#{tDrug.dismounted},</if>
+  		<if test="tDrug.drug_use!=null">drug_use=#{tDrug.drug_use},</if>
+  		<if test="tDrug.single_dosage!=null">single_dosage=#{tDrug.single_dosage},</if>
+  		<if test="tDrug.frequency!=null">frequency=#{tDrug.frequency},</if>
+  		<if test="tDrug.day!=null">day=#{tDrug.day},</if>
+  		<if test="tDrug.total!=null">total=#{tDrug.total},</if>
+  		<if test="tDrug.unit!=null">unit=#{tDrug.unit},</if>
+  		<if test="tDrug.minimum_inventory!=null">minimum_inventory=#{tDrug.minimum_inventory},</if>
+  		<if test="tDrug.maximum_inventory!=null">maximum_inventory=#{tDrug.maximum_inventory},</if>
+  		<if test="tDrug.goods_location!=null">goods_location=#{tDrug.goods_location},</if>
+  		<if test="tDrug.expiration_date_warning!=null">expiration_date_warning=#{tDrug.expiration_date_warning},</if>
+  		<if test="tDrug.instruction!=null">instruction=#{tDrug.instruction},</if>
+  		<if test="tDrug.remarks!=null">remarks=#{tDrug.remarks},</if>
+  	</trim>
+  	where drug_sn=#{tDrug.drug_sn}
+  </update>
+  <insert id="insertDrugInfo">
+  	insert into t_drug 
+  	<trim prefix="(" suffix=")" suffixOverrides="," >
+  		<if test="tDrug.type!=null">type,</if>
+  		<if test="tDrug.status!=null">status,</if>
+  		<if test="tDrug.bar_code!=null">bar_code,</if>
+  		<if test="tDrug.name!=null">name,</if>
+  		<if test="tDrug.phonetic_code!=null">phonetic_code,</if>
+  		<if test="tDrug.specification!=null">specification,</if>
+  		<if test="tDrug.dosage_form!=null">dosage_form,</if>
+  		<if test="tDrug.otc!=null">otc,</if>
+  		<if test="tDrug.invoice!=null">invoice,</if>
+  		<if test="tDrug.approval_number!=null">approval_number,</if>
+  		<if test="tDrug.manufacturer!=null">manufacturer,</if>
+  		<if test="tDrug.packing_unit!=null">packing_unit,</if>
+  		<if test="tDrug.basic_coefficient!=null">basic_coefficient,</if>
+  		<if test="tDrug.basic_unit!=null">basic_unit,</if>
+  		<if test="tDrug.dose_coefficient!=null">dose_coefficient,</if>
+  		<if test="tDrug.dose_unit!=null">dose_unit,</if>
+  		<if test="tDrug.purchase_amount!=null">purchase_amount,</if>
+  		<if test="tDrug.retail_amount!=null">retail_amount,</if>
+  		<if test="tDrug.dismounted!=null">dismounted,</if>
+  		<if test="tDrug.drug_use!=null">drug_use,</if>
+  		<if test="tDrug.single_dosage!=null">single_dosage,</if>
+  		<if test="tDrug.frequency!=null">frequency,</if>
+  		<if test="tDrug.day!=null">day,</if>
+  		<if test="tDrug.total!=null">total,</if>
+  		<if test="tDrug.unit!=null">unit,</if>
+  		<if test="tDrug.minimum_inventory!=null">minimum_inventory,</if>
+  		<if test="tDrug.maximum_inventory!=null">maximum_inventory,</if>
+  		<if test="tDrug.goods_location!=null">goods_location,</if>
+  		<if test="tDrug.expiration_date_warning!=null">expiration_date_warning,</if>
+  		<if test="tDrug.instruction!=null">instruction,</if>
+  		<if test="tDrug.remarks!=null">remarks,</if>
+  	</trim>
+  	<trim prefix="values (" suffix=")" suffixOverrides="," >
+  		<if test="tDrug.type!=null">#{tDrug.type},</if>
+  		<if test="tDrug.status!=null">#{tDrug.status},</if>
+  		<if test="tDrug.bar_code!=null">#{tDrug.bar_code},</if>
+  		<if test="tDrug.name!=null">#{tDrug.name},</if>
+  		<if test="tDrug.phonetic_code!=null">#{tDrug.phonetic_code},</if>
+  		<if test="tDrug.specification!=null">#{tDrug.specification},</if>
+  		<if test="tDrug.dosage_form!=null">#{tDrug.dosage_form},</if>
+  		<if test="tDrug.otc!=null">#{tDrug.otc},</if>
+  		<if test="tDrug.invoice!=null">#{tDrug.invoice},</if>
+  		<if test="tDrug.approval_number!=null">#{tDrug.approval_number},</if>
+  		<if test="tDrug.manufacturer!=null">#{tDrug.manufacturer},</if>
+  		<if test="tDrug.packing_unit!=null">#{tDrug.packing_unit},</if>
+  		<if test="tDrug.basic_coefficient!=null">#{tDrug.basic_coefficient},</if>
+  		<if test="tDrug.basic_unit!=null">#{tDrug.basic_unit},</if>
+  		<if test="tDrug.dose_coefficient!=null">#{tDrug.dose_coefficient},</if>
+  		<if test="tDrug.dose_unit!=null">#{tDrug.dose_unit},</if>
+  		<if test="tDrug.purchase_amount!=null">#{tDrug.purchase_amount},</if>
+  		<if test="tDrug.retail_amount!=null">#{tDrug.retail_amount},</if>
+  		<if test="tDrug.dismounted!=null">#{tDrug.dismounted},</if>
+  		<if test="tDrug.drug_use!=null">#{tDrug.drug_use},</if>
+  		<if test="tDrug.single_dosage!=null">#{tDrug.single_dosage},</if>
+  		<if test="tDrug.frequency!=null">#{tDrug.frequency},</if>
+  		<if test="tDrug.day!=null">#{tDrug.day},</if>
+  		<if test="tDrug.total!=null">#{tDrug.total},</if>
+  		<if test="tDrug.unit!=null">#{tDrug.unit},</if>
+  		<if test="tDrug.minimum_inventory!=null">#{tDrug.minimum_inventory},</if>
+  		<if test="tDrug.maximum_inventory!=null">#{tDrug.maximum_inventory},</if>
+  		<if test="tDrug.goods_location!=null">#{tDrug.goods_location},</if>
+  		<if test="tDrug.expiration_date_warning!=null">#{tDrug.expiration_date_warning},</if>
+  		<if test="tDrug.instruction!=null">#{tDrug.instruction},</if>
+  		<if test="tDrug.remarks!=null">#{tDrug.remarks},</if>
+  	</trim>
   </insert>
-  <insert id="insertSelective" parameterType="com.woniuxy.clinic.entity.TDrug" >
-    insert into t_drug
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="drugId != null" >
-        drug_id,
-      </if>
-      <if test="drugSn != null" >
-        drug_sn,
-      </if>
-      <if test="type != null" >
-        type,
-      </if>
-      <if test="status != null" >
-        status,
-      </if>
-      <if test="barCode != null" >
-        bar_code,
-      </if>
-      <if test="name != null" >
-        name,
-      </if>
-      <if test="phoneticCode != null" >
-        phonetic_code,
-      </if>
-      <if test="specification != null" >
-        specification,
-      </if>
-      <if test="dosageForm != null" >
-        dosage_form,
-      </if>
-      <if test="otc != null" >
-        otc,
-      </if>
-      <if test="invoice != null" >
-        invoice,
-      </if>
-      <if test="approvalNumber != null" >
-        approval_number,
-      </if>
-      <if test="manufacturer != null" >
-        manufacturer,
-      </if>
-      <if test="packingUnit != null" >
-        packing_unit,
-      </if>
-      <if test="basicCoefficient != null" >
-        basic_coefficient,
-      </if>
-      <if test="basicUnit != null" >
-        basic_unit,
-      </if>
-      <if test="doseCoefficient != null" >
-        dose_coefficient,
-      </if>
-      <if test="doseUnit != null" >
-        dose_unit,
-      </if>
-      <if test="purchaseAmount != null" >
-        purchase_amount,
-      </if>
-      <if test="retailAmount != null" >
-        retail_amount,
-      </if>
-      <if test="dismounted != null" >
-        dismounted,
-      </if>
-      <if test="drugUse != null" >
-        drug_use,
-      </if>
-      <if test="singleDosage != null" >
-        single_dosage,
-      </if>
-      <if test="frequency != null" >
-        frequency,
-      </if>
-      <if test="day != null" >
-        day,
-      </if>
-      <if test="total != null" >
-        total,
-      </if>
-      <if test="unit != null" >
-        unit,
-      </if>
-      <if test="minimumInventory != null" >
-        minimum_inventory,
-      </if>
-      <if test="maximumInventory != null" >
-        maximum_inventory,
-      </if>
-      <if test="goodsLocation != null" >
-        goods_location,
-      </if>
-      <if test="expirationDateWarning != null" >
-        expiration_date_warning,
-      </if>
-      <if test="instruction != null" >
-        instruction,
-      </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="remarks != null" >
-        remarks,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="drugId != null" >
-        #{drugId,jdbcType=INTEGER},
-      </if>
-      <if test="drugSn != null" >
-        #{drugSn,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null" >
-        #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="barCode != null" >
-        #{barCode,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="phoneticCode != null" >
-        #{phoneticCode,jdbcType=VARCHAR},
-      </if>
-      <if test="specification != null" >
-        #{specification,jdbcType=VARCHAR},
-      </if>
-      <if test="dosageForm != null" >
-        #{dosageForm,jdbcType=VARCHAR},
-      </if>
-      <if test="otc != null" >
-        #{otc,jdbcType=INTEGER},
-      </if>
-      <if test="invoice != null" >
-        #{invoice,jdbcType=VARCHAR},
-      </if>
-      <if test="approvalNumber != null" >
-        #{approvalNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="manufacturer != null" >
-        #{manufacturer,jdbcType=VARCHAR},
-      </if>
-      <if test="packingUnit != null" >
-        #{packingUnit,jdbcType=VARCHAR},
-      </if>
-      <if test="basicCoefficient != null" >
-        #{basicCoefficient,jdbcType=VARCHAR},
-      </if>
-      <if test="basicUnit != null" >
-        #{basicUnit,jdbcType=VARCHAR},
-      </if>
-      <if test="doseCoefficient != null" >
-        #{doseCoefficient,jdbcType=VARCHAR},
-      </if>
-      <if test="doseUnit != null" >
-        #{doseUnit,jdbcType=VARCHAR},
-      </if>
-      <if test="purchaseAmount != null" >
-        #{purchaseAmount,jdbcType=DECIMAL},
-      </if>
-      <if test="retailAmount != null" >
-        #{retailAmount,jdbcType=DECIMAL},
-      </if>
-      <if test="dismounted != null" >
-        #{dismounted,jdbcType=INTEGER},
-      </if>
-      <if test="drugUse != null" >
-        #{drugUse,jdbcType=VARCHAR},
-      </if>
-      <if test="singleDosage != null" >
-        #{singleDosage,jdbcType=VARCHAR},
-      </if>
-      <if test="frequency != null" >
-        #{frequency,jdbcType=VARCHAR},
-      </if>
-      <if test="day != null" >
-        #{day,jdbcType=INTEGER},
-      </if>
-      <if test="total != null" >
-        #{total,jdbcType=INTEGER},
-      </if>
-      <if test="unit != null" >
-        #{unit,jdbcType=VARCHAR},
-      </if>
-      <if test="minimumInventory != null" >
-        #{minimumInventory,jdbcType=INTEGER},
-      </if>
-      <if test="maximumInventory != null" >
-        #{maximumInventory,jdbcType=INTEGER},
-      </if>
-      <if test="goodsLocation != null" >
-        #{goodsLocation,jdbcType=VARCHAR},
-      </if>
-      <if test="expirationDateWarning != null" >
-        #{expirationDateWarning,jdbcType=INTEGER},
-      </if>
-      <if test="instruction != null" >
-        #{instruction,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="remarks != null" >
-        #{remarks,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.woniuxy.clinic.entity.TDrugExample" resultType="java.lang.Integer" >
-    select count(*) from t_drug
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update t_drug
-    <set >
-      <if test="record.drugId != null" >
-        drug_id = #{record.drugId,jdbcType=INTEGER},
-      </if>
-      <if test="record.drugSn != null" >
-        drug_sn = #{record.drugSn,jdbcType=VARCHAR},
-      </if>
-      <if test="record.type != null" >
-        type = #{record.type,jdbcType=VARCHAR},
-      </if>
-      <if test="record.status != null" >
-        status = #{record.status,jdbcType=VARCHAR},
-      </if>
-      <if test="record.barCode != null" >
-        bar_code = #{record.barCode,jdbcType=VARCHAR},
-      </if>
-      <if test="record.name != null" >
-        name = #{record.name,jdbcType=VARCHAR},
-      </if>
-      <if test="record.phoneticCode != null" >
-        phonetic_code = #{record.phoneticCode,jdbcType=VARCHAR},
-      </if>
-      <if test="record.specification != null" >
-        specification = #{record.specification,jdbcType=VARCHAR},
-      </if>
-      <if test="record.dosageForm != null" >
-        dosage_form = #{record.dosageForm,jdbcType=VARCHAR},
-      </if>
-      <if test="record.otc != null" >
-        otc = #{record.otc,jdbcType=INTEGER},
-      </if>
-      <if test="record.invoice != null" >
-        invoice = #{record.invoice,jdbcType=VARCHAR},
-      </if>
-      <if test="record.approvalNumber != null" >
-        approval_number = #{record.approvalNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="record.manufacturer != null" >
-        manufacturer = #{record.manufacturer,jdbcType=VARCHAR},
-      </if>
-      <if test="record.packingUnit != null" >
-        packing_unit = #{record.packingUnit,jdbcType=VARCHAR},
-      </if>
-      <if test="record.basicCoefficient != null" >
-        basic_coefficient = #{record.basicCoefficient,jdbcType=VARCHAR},
-      </if>
-      <if test="record.basicUnit != null" >
-        basic_unit = #{record.basicUnit,jdbcType=VARCHAR},
-      </if>
-      <if test="record.doseCoefficient != null" >
-        dose_coefficient = #{record.doseCoefficient,jdbcType=VARCHAR},
-      </if>
-      <if test="record.doseUnit != null" >
-        dose_unit = #{record.doseUnit,jdbcType=VARCHAR},
-      </if>
-      <if test="record.purchaseAmount != null" >
-        purchase_amount = #{record.purchaseAmount,jdbcType=DECIMAL},
-      </if>
-      <if test="record.retailAmount != null" >
-        retail_amount = #{record.retailAmount,jdbcType=DECIMAL},
-      </if>
-      <if test="record.dismounted != null" >
-        dismounted = #{record.dismounted,jdbcType=INTEGER},
-      </if>
-      <if test="record.drugUse != null" >
-        drug_use = #{record.drugUse,jdbcType=VARCHAR},
-      </if>
-      <if test="record.singleDosage != null" >
-        single_dosage = #{record.singleDosage,jdbcType=VARCHAR},
-      </if>
-      <if test="record.frequency != null" >
-        frequency = #{record.frequency,jdbcType=VARCHAR},
-      </if>
-      <if test="record.day != null" >
-        day = #{record.day,jdbcType=INTEGER},
-      </if>
-      <if test="record.total != null" >
-        total = #{record.total,jdbcType=INTEGER},
-      </if>
-      <if test="record.unit != null" >
-        unit = #{record.unit,jdbcType=VARCHAR},
-      </if>
-      <if test="record.minimumInventory != null" >
-        minimum_inventory = #{record.minimumInventory,jdbcType=INTEGER},
-      </if>
-      <if test="record.maximumInventory != null" >
-        maximum_inventory = #{record.maximumInventory,jdbcType=INTEGER},
-      </if>
-      <if test="record.goodsLocation != null" >
-        goods_location = #{record.goodsLocation,jdbcType=VARCHAR},
-      </if>
-      <if test="record.expirationDateWarning != null" >
-        expiration_date_warning = #{record.expirationDateWarning,jdbcType=INTEGER},
-      </if>
-      <if test="record.instruction != null" >
-        instruction = #{record.instruction,jdbcType=VARCHAR},
-      </if>
-      <if test="record.createTime != null" >
-        create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.remarks != null" >
-        remarks = #{record.remarks,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update t_drug
-    set drug_id = #{record.drugId,jdbcType=INTEGER},
-      drug_sn = #{record.drugSn,jdbcType=VARCHAR},
-      type = #{record.type,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=VARCHAR},
-      bar_code = #{record.barCode,jdbcType=VARCHAR},
-      name = #{record.name,jdbcType=VARCHAR},
-      phonetic_code = #{record.phoneticCode,jdbcType=VARCHAR},
-      specification = #{record.specification,jdbcType=VARCHAR},
-      dosage_form = #{record.dosageForm,jdbcType=VARCHAR},
-      otc = #{record.otc,jdbcType=INTEGER},
-      invoice = #{record.invoice,jdbcType=VARCHAR},
-      approval_number = #{record.approvalNumber,jdbcType=VARCHAR},
-      manufacturer = #{record.manufacturer,jdbcType=VARCHAR},
-      packing_unit = #{record.packingUnit,jdbcType=VARCHAR},
-      basic_coefficient = #{record.basicCoefficient,jdbcType=VARCHAR},
-      basic_unit = #{record.basicUnit,jdbcType=VARCHAR},
-      dose_coefficient = #{record.doseCoefficient,jdbcType=VARCHAR},
-      dose_unit = #{record.doseUnit,jdbcType=VARCHAR},
-      purchase_amount = #{record.purchaseAmount,jdbcType=DECIMAL},
-      retail_amount = #{record.retailAmount,jdbcType=DECIMAL},
-      dismounted = #{record.dismounted,jdbcType=INTEGER},
-      drug_use = #{record.drugUse,jdbcType=VARCHAR},
-      single_dosage = #{record.singleDosage,jdbcType=VARCHAR},
-      frequency = #{record.frequency,jdbcType=VARCHAR},
-      day = #{record.day,jdbcType=INTEGER},
-      total = #{record.total,jdbcType=INTEGER},
-      unit = #{record.unit,jdbcType=VARCHAR},
-      minimum_inventory = #{record.minimumInventory,jdbcType=INTEGER},
-      maximum_inventory = #{record.maximumInventory,jdbcType=INTEGER},
-      goods_location = #{record.goodsLocation,jdbcType=VARCHAR},
-      expiration_date_warning = #{record.expirationDateWarning,jdbcType=INTEGER},
-      instruction = #{record.instruction,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      remarks = #{record.remarks,jdbcType=VARCHAR}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.woniuxy.clinic.entity.TDrug" >
-    update t_drug
-    <set >
-      <if test="drugSn != null" >
-        drug_sn = #{drugSn,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null" >
-        type = #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="barCode != null" >
-        bar_code = #{barCode,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="phoneticCode != null" >
-        phonetic_code = #{phoneticCode,jdbcType=VARCHAR},
-      </if>
-      <if test="specification != null" >
-        specification = #{specification,jdbcType=VARCHAR},
-      </if>
-      <if test="dosageForm != null" >
-        dosage_form = #{dosageForm,jdbcType=VARCHAR},
-      </if>
-      <if test="otc != null" >
-        otc = #{otc,jdbcType=INTEGER},
-      </if>
-      <if test="invoice != null" >
-        invoice = #{invoice,jdbcType=VARCHAR},
-      </if>
-      <if test="approvalNumber != null" >
-        approval_number = #{approvalNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="manufacturer != null" >
-        manufacturer = #{manufacturer,jdbcType=VARCHAR},
-      </if>
-      <if test="packingUnit != null" >
-        packing_unit = #{packingUnit,jdbcType=VARCHAR},
-      </if>
-      <if test="basicCoefficient != null" >
-        basic_coefficient = #{basicCoefficient,jdbcType=VARCHAR},
-      </if>
-      <if test="basicUnit != null" >
-        basic_unit = #{basicUnit,jdbcType=VARCHAR},
-      </if>
-      <if test="doseCoefficient != null" >
-        dose_coefficient = #{doseCoefficient,jdbcType=VARCHAR},
-      </if>
-      <if test="doseUnit != null" >
-        dose_unit = #{doseUnit,jdbcType=VARCHAR},
-      </if>
-      <if test="purchaseAmount != null" >
-        purchase_amount = #{purchaseAmount,jdbcType=DECIMAL},
-      </if>
-      <if test="retailAmount != null" >
-        retail_amount = #{retailAmount,jdbcType=DECIMAL},
-      </if>
-      <if test="dismounted != null" >
-        dismounted = #{dismounted,jdbcType=INTEGER},
-      </if>
-      <if test="drugUse != null" >
-        drug_use = #{drugUse,jdbcType=VARCHAR},
-      </if>
-      <if test="singleDosage != null" >
-        single_dosage = #{singleDosage,jdbcType=VARCHAR},
-      </if>
-      <if test="frequency != null" >
-        frequency = #{frequency,jdbcType=VARCHAR},
-      </if>
-      <if test="day != null" >
-        day = #{day,jdbcType=INTEGER},
-      </if>
-      <if test="total != null" >
-        total = #{total,jdbcType=INTEGER},
-      </if>
-      <if test="unit != null" >
-        unit = #{unit,jdbcType=VARCHAR},
-      </if>
-      <if test="minimumInventory != null" >
-        minimum_inventory = #{minimumInventory,jdbcType=INTEGER},
-      </if>
-      <if test="maximumInventory != null" >
-        maximum_inventory = #{maximumInventory,jdbcType=INTEGER},
-      </if>
-      <if test="goodsLocation != null" >
-        goods_location = #{goodsLocation,jdbcType=VARCHAR},
-      </if>
-      <if test="expirationDateWarning != null" >
-        expiration_date_warning = #{expirationDateWarning,jdbcType=INTEGER},
-      </if>
-      <if test="instruction != null" >
-        instruction = #{instruction,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="remarks != null" >
-        remarks = #{remarks,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where drug_id = #{drugId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.woniuxy.clinic.entity.TDrug" >
-    update t_drug
-    set drug_sn = #{drugSn,jdbcType=VARCHAR},
-      type = #{type,jdbcType=VARCHAR},
-      status = #{status,jdbcType=VARCHAR},
-      bar_code = #{barCode,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
-      phonetic_code = #{phoneticCode,jdbcType=VARCHAR},
-      specification = #{specification,jdbcType=VARCHAR},
-      dosage_form = #{dosageForm,jdbcType=VARCHAR},
-      otc = #{otc,jdbcType=INTEGER},
-      invoice = #{invoice,jdbcType=VARCHAR},
-      approval_number = #{approvalNumber,jdbcType=VARCHAR},
-      manufacturer = #{manufacturer,jdbcType=VARCHAR},
-      packing_unit = #{packingUnit,jdbcType=VARCHAR},
-      basic_coefficient = #{basicCoefficient,jdbcType=VARCHAR},
-      basic_unit = #{basicUnit,jdbcType=VARCHAR},
-      dose_coefficient = #{doseCoefficient,jdbcType=VARCHAR},
-      dose_unit = #{doseUnit,jdbcType=VARCHAR},
-      purchase_amount = #{purchaseAmount,jdbcType=DECIMAL},
-      retail_amount = #{retailAmount,jdbcType=DECIMAL},
-      dismounted = #{dismounted,jdbcType=INTEGER},
-      drug_use = #{drugUse,jdbcType=VARCHAR},
-      single_dosage = #{singleDosage,jdbcType=VARCHAR},
-      frequency = #{frequency,jdbcType=VARCHAR},
-      day = #{day,jdbcType=INTEGER},
-      total = #{total,jdbcType=INTEGER},
-      unit = #{unit,jdbcType=VARCHAR},
-      minimum_inventory = #{minimumInventory,jdbcType=INTEGER},
-      maximum_inventory = #{maximumInventory,jdbcType=INTEGER},
-      goods_location = #{goodsLocation,jdbcType=VARCHAR},
-      expiration_date_warning = #{expirationDateWarning,jdbcType=INTEGER},
-      instruction = #{instruction,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      remarks = #{remarks,jdbcType=VARCHAR}
-    where drug_id = #{drugId,jdbcType=INTEGER}
+  <update id="editDrugInfoStatus">
+  	update t_drug set status=#{status} where drug_sn=#{drug_sn}
   </update>
 </mapper>
