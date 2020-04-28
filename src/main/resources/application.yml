@@ -9,6 +9,10 @@ spring:
     url: jdbc:mysql://121.43.122.154:3307/clinic?serverTimezone=Asia/Shanghai&characterEncoding=utf8
     username: dev_clinic
     password: devclinic
+  jackson:
+    date-format: yyyy-MM-dd
+    time-zone:
+      GMT+8
   mvc:
     date-format: yyyy-MM-dd
     hiddenmethod:

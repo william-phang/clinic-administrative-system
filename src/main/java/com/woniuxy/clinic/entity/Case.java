@@ -6,15 +6,26 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-//病历
+/**
+ *  病历表
+ *  	关联
+ *  		体格信息
+ *  		病历详情信息
+ *  		挂号记录
+ * @author 14268
+ *
+ */
 @Component
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Case {
-	private Integer case_id; // 主键
-	private Patient patient; // 一个病历对应一个患者信息
-	private Case_message case_message; // 一个病历对应一个患者体格信息
-	private Physique_message physique_message; // 一个病历对应一个患者病历信息
-	
+    private Integer case_id;
+
+    private CaseMessage tCaseMessage; // 一张病历对应以为患者的体格信息
+
+    private PhysiqueMessage tPhysiqueMessage; // 一张病历对应以为患者的病历详情信息
+
+    private Registration tRegistration; // 一张病历对应以为患者的挂号信息
+
 }

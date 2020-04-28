@@ -9,3 +9,17 @@ spring:
     url: jdbc:mysql://121.43.122.154:3307/clinic?serverTimezone=Asia/Shanghai&characterEncoding=utf8
     username: dev_clinic
     password: devclinic
+  mvc:
+    date-format: yyyy-MM-dd
+    hiddenmethod:
+      filter:
+        enabled: true
+  thymeleaf:
+    cache: false
+        
+mybatis:
+  type-aliases-package: com.woniuxy.clinic.entity
+  mapper-locations:
+  - classpath:/mybatis/mapper/*Mapper.xml
+server:
+  port: 80

@@ -1,0 +1,66 @@
+{
+  "code": 200, 
+  "data": [
+    {
+      "id": 10000,
+      "username": "user-0",
+      "sex": "女",
+      "city": "城市-0"     
+    },
+    {
+      "id": 10001,
+      "username": "user-1",
+      "sex": "男",
+      "city": "城市-1",
+      "sign": "签名-1"
+    },
+    {
+      "id": 10002,
+      "username": "user-2",
+      "sex": "女",
+      "city": "城市-2"
+    },
+    {
+      "id": 10003,
+      "username": "user-3",
+      "sex": "女",
+      "city": "城市-3"
+    },
+    {
+      "id": 10004,
+      "username": "user-4",
+      "sex": "男",
+      "city": "城市-4"
+    },
+    {
+      "id": 10005,
+      "username": "user-5",
+      "sex": "女",
+      "city": "城市-5"
+    },
+    {
+      "id": 10006,
+      "username": "user-6",
+      "sex": "女",
+      "city": "城市-6"
+    },
+    {
+      "id": 10007,
+      "username": "user-7",
+      "sex": "男",
+      "city": "城市-7"
+    },
+    {
+      "id": 10008,
+      "username": "user-8",
+      "sex": "男",
+      "city": "城市-8"
+    },
+    {
+      "id": 10009,
+      "username": "user-9",
+      "sex": "女",
+      "city": "城市-9"
+    }
+  ]
+}

@@ -25,6 +25,9 @@ class ClinicAdministrativeSystemApplicationTests {
 	@Autowired
 	TMedicalFeeMapper medicalFeeMapper;
 
+	@Autowired
+	CaseMapper tCaseMapper;
+	
 	@Test
 	void contextLoads() {
 		TAdditionalFee tAdditionalFee = new TAdditionalFee(1, "心电图费", new BigDecimal("20"), new BigDecimal("10"),
@@ -39,9 +42,7 @@ class ClinicAdministrativeSystemApplicationTests {
 
 	@Test
 	void contextLoads02() {
-//		TAdditionalFee tAdditionalFee=
-//				new TAdditionalFee(1,"注射费",new BigDecimal("25"),new BigDecimal("10"),new Date(),"张三","启用");;
-//		additionalFeeMapper.updateByPrimaryKey(tAdditionalFee);
+		System.out.println("1");
 	}
 
 	@Test
@@ -81,6 +82,8 @@ class ClinicAdministrativeSystemApplicationTests {
 		TMedicalFeeExample example = new TMedicalFeeExample();
 		List<TMedicalFee> tMedicalFees = medicalFeeMapper.selectByExample(example);
 		System.out.println(tMedicalFees);
+		
+	
 	}
 
 	@Test
