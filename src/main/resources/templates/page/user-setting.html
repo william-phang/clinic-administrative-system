@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>基本资料</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/layuimini/lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="/layuimini/css/public.css" media="all">
+    <style>
+        .layui-form-item .layui-input-company {width: auto;padding-right: 10px;line-height: 38px;}
+    </style>
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <div class="layui-form layuimini-form">
+        <div class="layui-form-item">
+                <label class="layui-form-label">员工工号</label>
+                <div class="layui-input-block">
+                    <label class="layui-form-label required">[[${session.user.tstaff.staffCard}]]</label>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">账号持有人</label>
+                <div class="layui-input-block">
+                   <label class="layui-form-label required">[[${session.user.tstaff.staffName}]]</label>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">年龄</label>
+                <div class="layui-input-block">
+                    <label class="layui-form-label required">[[${session.user.tstaff.staffAge}]]</label>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">性别</label>
+                <div class="layui-input-block">
+                    <label class="layui-form-label required">[[${session.user.tstaff.staffSex}]]</label>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">手机</label>
+                <div class="layui-input-block">
+                    <label class="layui-form-label required">[[${session.user.tstaff.staffPhone}]]</label>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">职位</label>
+                <div class="layui-input-block">
+                    <label class="layui-form-label required">[[${session.user.trole.roleName}]]</label>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">所属科室</label>
+                <div class="layui-input-block">
+                    <label class="layui-form-label required">[[${session.user.tstaff.tDepartment.departmentName}]]</label>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">状态</label>
+                <div class="layui-input-block">
+                    <label class="layui-form-label required">[[${session.user.tstaff.staffStatus}]]</label>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/layuimini/lib/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
+<script src="/layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="/layuimini/js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+<script>
+function getMyName(){ 
+    
+ } 
+
+layui.use(['form'], function () {
+    var form = layui.form,
+        layer = layui.layer;
+
+        
+    $(document).ready(function(){
+    	
+    	/*  $.ajax({
+	           url:"",
+	           type:"POST",
+	           dataType:"json",
+	           success:function (data) {
+	                       $("#userId").val(data[i].userId);
+	                       $("#userAccount").val(data[i].userAccount);
+	                   }
+	              
+
+	       }) */
+    });
+});
+</script>
+</body>
+</html>
