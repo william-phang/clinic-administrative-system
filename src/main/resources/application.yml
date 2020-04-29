@@ -2,8 +2,7 @@
 logging:
   level:
     com.woniuxy.clinic.mapper: debug
-server:
-  port: 8080
+
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
@@ -16,6 +15,27 @@ alisms:
   accessSecret: yXHhWt7ZJxXZiOmun4kNPmX1fZ7rD2
   signName: 诊所管理项目
   templateCode: SMS_189026410
+mybatis:
+  type-aliases-package: com.woniuxy.clinic.entity
+  mapper-locations:
+  - classpath:/mybatis/mapper/*Mapper.xml
+    password: devclinic
+  jackson:
+    date-format: yyyy-MM-dd
+    time-zone:
+      GMT+8
+  mvc:
+    date-format: yyyy-MM-dd
+    hiddenmethod:
+      filter:
+        enabled: true
+  thymeleaf:
+    cache: false
+alisms:
+  accessKeyId: LTAI4GK2k6xdC67JEerPghZp
+  accessSecret: yXHhWt7ZJxXZiOmun4kNPmX1fZ7rD2
+  signName: 诊所管理项目
+  templateCode: SMS_189026410       
 mybatis:
   type-aliases-package: com.woniuxy.clinic.entity
   mapper-locations:

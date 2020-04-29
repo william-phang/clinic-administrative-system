@@ -1,0 +1,54 @@
+.addfee,.medicalfee,.registfee{
+		float: left;
+		font-size:0;
+	}
+	.addfee a{
+		display:block;
+		border:1px solid #CCCCCC;
+		height:30px;
+		width:120px;
+		border-top-left-radius: 5px;
+		border-bottom-left-radius: 5px;
+		text-align: center;
+		line-height:30px;
+		text-decoration: none;
+		color:#CCCCCC;
+		font-size:14px;
+		float:left;
+	}
+	 .addfee a:hover{
+		background-color: #666EE8;
+		color:white;
+	} 
+	.medicalfee a{
+		display:block;
+		border:1px solid #CCCCCC;
+		height:30px;
+		width:120px;
+		text-align: center;
+		line-height:30px;
+		text-decoration: none;
+		color:#CCCCCC;
+		font-size:14px;
+	}
+	.medicalfee a:hover{
+		background-color: #666EE8;
+		color:white;
+	}
+	.registfee a{
+		display:block;
+		border:1px solid #CCCCCC;
+		height:30px;
+		width:120px;
+		border-top-right-radius: 5px;
+		border-bottom-right-radius: 5px;
+		text-align: center;
+		line-height:30px;
+		text-decoration: none;
+		color:#CCCCCC;
+		font-size:14px;
+	}
+	.registfee a:hover{
+		background-color: #666EE8;
+		color:white;
+	}

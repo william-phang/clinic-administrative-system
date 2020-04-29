@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.woniuxy.clinic.mapper.TMedicalFeeMapper" >
+  <resultMap id="BaseResultMap" type="com.woniuxy.clinic.entity.TMedicalFee" >
+    <id column="medical_id" property="medical_id" jdbcType="INTEGER" />
+    <result column="medical_name" property="medical_name" jdbcType="VARCHAR" />
+    <result column="medical_fee" property="medical_fee" jdbcType="DECIMAL" />
+    <result column="medical_cost" property="medical_cost" jdbcType="DECIMAL" />
+    <result column="medical_date" property="medical_date" jdbcType="TIMESTAMP" />
+    <result column="medical_founder" property="medical_founder" jdbcType="VARCHAR" />
+    <result column="medical_state" property="medical_state" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    medical_id, medical_name, medical_fee, medical_cost, medical_date, medical_founder, 
+    medical_state
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.woniuxy.clinic.entity.TMedicalFeeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_medical_fee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_medical_fee
+    where medical_id = #{medical_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_medical_fee
+    where medical_id = #{medical_id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.woniuxy.clinic.entity.TMedicalFeeExample" >
+    delete from t_medical_fee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.woniuxy.clinic.entity.TMedicalFee" >
+    insert into t_medical_fee (medical_id, medical_name, medical_fee, 
+      medical_cost, medical_date, medical_founder, 
+      medical_state)
+    values (#{medical_id,jdbcType=INTEGER}, #{medical_name,jdbcType=VARCHAR}, #{medical_fee,jdbcType=DECIMAL}, 
+      #{medical_cost,jdbcType=DECIMAL}, #{medical_date,jdbcType=TIMESTAMP}, #{medical_founder,jdbcType=VARCHAR}, 
+      #{medical_state,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.woniuxy.clinic.entity.TMedicalFee" >
+    insert into t_medical_fee
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="medical_id != null" >
+        medical_id,
+      </if>
+      <if test="medical_name != null" >
+        medical_name,
+      </if>
+      <if test="medical_fee != null" >
+        medical_fee,
+      </if>
+      <if test="medical_cost != null" >
+        medical_cost,
+      </if>
+      <if test="medical_date != null" >
+        medical_date,
+      </if>
+      <if test="medical_founder != null" >
+        medical_founder,
+      </if>
+      <if test="medical_state != null" >
+        medical_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="medical_id != null" >
+        #{medical_id,jdbcType=INTEGER},
+      </if>
+      <if test="medical_name != null" >
+        #{medical_name,jdbcType=VARCHAR},
+      </if>
+      <if test="medical_fee != null" >
+        #{medical_fee,jdbcType=DECIMAL},
+      </if>
+      <if test="medical_cost != null" >
+        #{medical_cost,jdbcType=DECIMAL},
+      </if>
+      <if test="medical_date != null" >
+        #{medical_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="medical_founder != null" >
+        #{medical_founder,jdbcType=VARCHAR},
+      </if>
+      <if test="medical_state != null" >
+        #{medical_state,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.woniuxy.clinic.entity.TMedicalFeeExample" resultType="java.lang.Integer" >
+    select count(*) from t_medical_fee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_medical_fee
+    <set >
+      <if test="record.medical_id != null" >
+        medical_id = #{record.medical_id,jdbcType=INTEGER},
+      </if>
+      <if test="record.medical_name != null" >
+        medical_name = #{record.medical_name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.medical_fee != null" >
+        medical_fee = #{record.medical_fee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.medical_cost != null" >
+        medical_cost = #{record.medical_cost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.medical_date != null" >
+        medical_date = #{record.medical_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.medical_founder != null" >
+        medical_founder = #{record.medical_founder,jdbcType=VARCHAR},
+      </if>
+      <if test="record.medical_state != null" >
+        medical_state = #{record.medical_state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_medical_fee
+    set medical_id = #{record.medical_id,jdbcType=INTEGER},
+      medical_name = #{record.medical_name,jdbcType=VARCHAR},
+      medical_fee = #{record.medical_fee,jdbcType=DECIMAL},
+      medical_cost = #{record.medical_cost,jdbcType=DECIMAL},
+      medical_date = #{record.medical_date,jdbcType=TIMESTAMP},
+      medical_founder = #{record.medical_founder,jdbcType=VARCHAR},
+      medical_state = #{record.medical_state,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.woniuxy.clinic.entity.TMedicalFee" >
+    update t_medical_fee
+    <set >
+      <if test="medical_name != null" >
+        medical_name = #{medical_name,jdbcType=VARCHAR},
+      </if>
+      <if test="medical_fee != null" >
+        medical_fee = #{medical_fee,jdbcType=DECIMAL},
+      </if>
+      <if test="medical_cost != null" >
+        medical_cost = #{medical_cost,jdbcType=DECIMAL},
+      </if>
+      <if test="medical_date != null" >
+        medical_date = #{medical_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="medical_founder != null" >
+        medical_founder = #{medical_founder,jdbcType=VARCHAR},
+      </if>
+      <if test="medical_state != null" >
+        medical_state = #{medical_state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where medical_id = #{medical_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.woniuxy.clinic.entity.TMedicalFee" >
+    update t_medical_fee
+    set medical_name = #{medical_name,jdbcType=VARCHAR},
+      medical_fee = #{medical_fee,jdbcType=DECIMAL},
+      medical_cost = #{medical_cost,jdbcType=DECIMAL},
+      medical_date = #{medical_date,jdbcType=TIMESTAMP},
+      medical_founder = #{medical_founder,jdbcType=VARCHAR},
+      medical_state = #{medical_state,jdbcType=VARCHAR}
+    where medical_id = #{medical_id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.woniuxy.clinic.mapper.TRegistrationFeeMapper" >
+  <resultMap id="BaseResultMap" type="com.woniuxy.clinic.entity.TRegistrationFee" >
+    <id column="regis_id" property="regis_id" jdbcType="INTEGER" />
+    <result column="regis_name" property="regis_name" jdbcType="VARCHAR" />
+    <result column="regis_fee" property="regis_fee" jdbcType="DECIMAL" />
+    <result column="regis_cost" property="regis_cost" jdbcType="DECIMAL" />
+    <result column="regis_date" property="regis_date" jdbcType="TIMESTAMP" />
+    <result column="regis_founder" property="regis_founder" jdbcType="VARCHAR" />
+    <result column="regis_state" property="regis_state" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    regis_id, regis_name, regis_fee, regis_cost, regis_date, regis_founder, regis_state
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.woniuxy.clinic.entity.TRegistrationFeeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_registration_fee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_registration_fee
+    where regis_id = #{regis_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_registration_fee
+    where regis_id = #{regis_id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.woniuxy.clinic.entity.TRegistrationFeeExample" >
+    delete from t_registration_fee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.woniuxy.clinic.entity.TRegistrationFee" >
+    insert into t_registration_fee (regis_id, regis_name, regis_fee, 
+      regis_cost, regis_date, regis_founder, 
+      regis_state)
+    values (#{regis_id,jdbcType=INTEGER}, #{regis_name,jdbcType=VARCHAR}, #{regis_fee,jdbcType=DECIMAL}, 
+      #{regis_cost,jdbcType=DECIMAL}, #{regis_date,jdbcType=TIMESTAMP}, #{regis_founder,jdbcType=VARCHAR}, 
+      #{regis_state,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.woniuxy.clinic.entity.TRegistrationFee" >
+    insert into t_registration_fee
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="regis_id != null" >
+        regis_id,
+      </if>
+      <if test="regis_name != null" >
+        regis_name,
+      </if>
+      <if test="regis_fee != null" >
+        regis_fee,
+      </if>
+      <if test="regis_cost != null" >
+        regis_cost,
+      </if>
+      <if test="regis_date != null" >
+        regis_date,
+      </if>
+      <if test="regis_founder != null" >
+        regis_founder,
+      </if>
+      <if test="regis_state != null" >
+        regis_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="regis_id != null" >
+        #{regis_id,jdbcType=INTEGER},
+      </if>
+      <if test="regis_name != null" >
+        #{regis_name,jdbcType=VARCHAR},
+      </if>
+      <if test="regis_fee != null" >
+        #{regis_fee,jdbcType=DECIMAL},
+      </if>
+      <if test="regis_cost != null" >
+        #{regis_cost,jdbcType=DECIMAL},
+      </if>
+      <if test="regis_date != null" >
+        #{regis_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regis_founder != null" >
+        #{regis_founder,jdbcType=VARCHAR},
+      </if>
+      <if test="regis_state != null" >
+        #{regis_state,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.woniuxy.clinic.entity.TRegistrationFeeExample" resultType="java.lang.Integer" >
+    select count(*) from t_registration_fee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_registration_fee
+    <set >
+      <if test="record.regis_id != null" >
+        regis_id = #{record.regis_id,jdbcType=INTEGER},
+      </if>
+      <if test="record.regis_name != null" >
+        regis_name = #{record.regis_name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regis_fee != null" >
+        regis_fee = #{record.regis_fee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.regis_cost != null" >
+        regis_cost = #{record.regis_cost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.regis_date != null" >
+        regis_date = #{record.regis_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.regis_founder != null" >
+        regis_founder = #{record.regis_founder,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regis_state != null" >
+        regis_state = #{record.regis_state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_registration_fee
+    set regis_id = #{record.regis_id,jdbcType=INTEGER},
+      regis_name = #{record.regis_name,jdbcType=VARCHAR},
+      regis_fee = #{record.regis_fee,jdbcType=DECIMAL},
+      regis_cost = #{record.regis_cost,jdbcType=DECIMAL},
+      regis_date = #{record.regis_date,jdbcType=TIMESTAMP},
+      regis_founder = #{record.regis_founder,jdbcType=VARCHAR},
+      regis_state = #{record.regis_state,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.woniuxy.clinic.entity.TRegistrationFee" >
+    update t_registration_fee
+    <set >
+      <if test="regis_name != null" >
+        regis_name = #{regis_name,jdbcType=VARCHAR},
+      </if>
+      <if test="regis_fee != null" >
+        regis_fee = #{regis_fee,jdbcType=DECIMAL},
+      </if>
+      <if test="regis_cost != null" >
+        regis_cost = #{regis_cost,jdbcType=DECIMAL},
+      </if>
+      <if test="regis_date != null" >
+        regis_date = #{regis_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regis_founder != null" >
+        regis_founder = #{regis_founder,jdbcType=VARCHAR},
+      </if>
+      <if test="regis_state != null" >
+        regis_state = #{regis_state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where regis_id = #{regis_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.woniuxy.clinic.entity.TRegistrationFee" >
+    update t_registration_fee
+    set regis_name = #{regis_name,jdbcType=VARCHAR},
+      regis_fee = #{regis_fee,jdbcType=DECIMAL},
+      regis_cost = #{regis_cost,jdbcType=DECIMAL},
+      regis_date = #{regis_date,jdbcType=TIMESTAMP},
+      regis_founder = #{regis_founder,jdbcType=VARCHAR},
+      regis_state = #{regis_state,jdbcType=VARCHAR}
+    where regis_id = #{regis_id,jdbcType=INTEGER}
+  </update>
+</mapper>

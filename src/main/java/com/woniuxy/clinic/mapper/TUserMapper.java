@@ -3,6 +3,7 @@ package com.woniuxy.clinic.mapper;
 import com.woniuxy.clinic.entity.TUser;
 import com.woniuxy.clinic.entity.TUserExample;
 import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 public interface TUserMapper {
@@ -21,8 +22,6 @@ public interface TUserMapper {
     TUser selectByPrimaryKey(Integer userId);
     
     TUser selectByuser_account(String user_account);
-    
-    int selectidByuser_account(String user_account);
 
     int updateByExampleSelective(@Param("record") TUser record, @Param("example") TUserExample example);
 

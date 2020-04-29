@@ -9,16 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.github.pagehelper.PageInfo;
+import com.woniuxy.clinic.entity.TAdditionalFee;
 import com.woniuxy.clinic.entity.TDepartment;
-import com.woniuxy.clinic.entity.TRole;
 import com.woniuxy.clinic.entity.TStaff;
-import com.woniuxy.clinic.mapper.TDepartmentMapper;
-import com.woniuxy.clinic.mapper.TPermissionMapper;
-import com.woniuxy.clinic.mapper.TRoleMapper;
-import com.woniuxy.clinic.mapper.TStaffMapper;
-import com.woniuxy.clinic.mapper.TUserMapper;
-import com.woniuxy.clinic.tool.CommonResult;
-
 
 @SpringBootTest
 class ClinicAdministrativeSystemApplicationTests {

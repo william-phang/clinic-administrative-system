@@ -30,6 +30,40 @@ public class MyWebMvcConfig{
 				registry.addViewController("/page/tableEdit/roleedit.html").setViewName("page/tableEdit/roleedit");
 				registry.addViewController("/page/tableEdit/departmentadd.html").setViewName("page/tableEdit/departmentadd");
 				registry.addViewController("/page/tableEdit/departmentedit.html").setViewName("page/tableEdit/departmentedit");
+				registry.addViewController("/login.html").setViewName("login");
+				registry.addViewController("/page/welcome.html").setViewName("page/welcome");
+				registry.addViewController("/page/table.html").setViewName("page/table");
+				registry.addViewController("/page/icon.html").setViewName("page/icon");
+				registry.addViewController("/page/user-password.html").setViewName("page/user-password");
+				registry.addViewController("/page/user-setting.html").setViewName("page/user-setting");
+				registry.addViewController("/page/tableEdit/add.html").setViewName("page/tableEdit/add");
+				registry.addViewController("/page/tableEdit/edit.html").setViewName("page/tableEdit/edit");
+				registry.addViewController("/page/fee/addtadditionalfee.html").setViewName("page/fee/addtadditionalfee");
+				registry.addViewController("/page/fee/edittadditionalfee.html").setViewName("page/fee/edittadditionalfee");
+				registry.addViewController("/page/fee/addTMedicalfee.html").setViewName("page/fee/addTMedicalfee");
+				registry.addViewController("/page/fee/editTMedicalFee.html").setViewName("page/fee/editTMedicalFee");
+				registry.addViewController("/page/fee/addTRegistrationfee.html").setViewName("page/fee/addTRegistrationfee");
+				registry.addViewController("/page/fee/editTRegistrationFee.html").setViewName("page/fee/editTRegistrationFee");
+//				case页面
+				registry.addViewController("/page/case/case.html").setViewName("page/case/case");
+				registry.addViewController("/page/drug_management/drug_info_list.html").setViewName("page/drug_management/drug_info_list");
+				registry.addViewController("/page/drug_management/drug_info_add.html").setViewName("page/drug_management/drug_info_add");
+				
+				registry.addViewController("/page/drug_management/output_management_list.html").setViewName("page/drug_management/output_management_list");
+				registry.addViewController("/page/drug_management/output_management_add.html").setViewName("page/drug_management/output_management_add");
+				
+				registry.addViewController("/page/drug_management/input_management_list.html").setViewName("page/drug_management/input_management_list");
+				registry.addViewController("/page/drug_management/input_management_add.html").setViewName("page/drug_management/input_management_add");
+				
+				registry.addViewController("/page/drug_management/inventory_management_list.html").setViewName("page/drug_management/inventory_management_list");
+				registry.addViewController("/page/drug_management/inventory_management_add.html").setViewName("page/drug_management/inventory_management_add");
+				
+				registry.addViewController("/page/drug_management/stock_check_list.html").setViewName("page/drug_management/stock_check_list");
+				registry.addViewController("/page/drug_management/stock_check_add.html").setViewName("page/drug_management/stock_check_add");
+				
+				registry.addViewController("/page/drug_management/price_adjustment_list.html").setViewName("page/drug_management/price_adjustment_list");
+				registry.addViewController("/page/drug_management/price_adjustment_add.html").setViewName("page/drug_management/price_adjustment_add");
+				
 			}
 		};
 	}

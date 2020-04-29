@@ -294,10 +294,14 @@
     from t_staff
     where staff_name = #{staff_name,jdbcType=VARCHAR}
   </select>
+<<<<<<< HEAD
 <select id="selectBycard" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from t_staff
     where staff_card = #{staff_card,jdbcType=VARCHAR}
   </select>
+=======
+
+>>>>>>> branch 'master' of https://github.com/william-phang/clinic-administrative-system.git
 </mapper>

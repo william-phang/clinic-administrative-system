@@ -4,16 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.woniuxy.clinic.entity.TDepartment;
-import com.woniuxy.clinic.entity.TRole;
 import com.woniuxy.clinic.entity.TStaff;
 import com.woniuxy.clinic.entity.TUser;
 import com.woniuxy.clinic.entity.TUserExample;
 import com.woniuxy.clinic.entity.TUserExample.Criteria;
 import com.woniuxy.clinic.exception.UserException;
-import com.woniuxy.clinic.mapper.TDepartmentMapper;
-import com.woniuxy.clinic.mapper.TRoleMapper;
 import com.woniuxy.clinic.mapper.TStaffMapper;
 import com.woniuxy.clinic.mapper.TUserMapper;
 import com.woniuxy.clinic.service.UserService;
@@ -24,10 +19,6 @@ public class UserserviceImpl implements UserService{
 	TUserMapper userMapper;
 	@Autowired
 	TStaffMapper staffMapper;
-	@Autowired
-	TRoleMapper roleMapper;
-	@Autowired
-	TDepartmentMapper departmentMapper;
 	
 
 	@Override
@@ -45,9 +36,7 @@ public class UserserviceImpl implements UserService{
 	public TUser selectUserbyid(int userId) {
 		TUser selectByPrimaryKey = userMapper.selectByPrimaryKey(userId);
 		TStaff select = staffMapper.selectByPrimaryKey(selectByPrimaryKey.getUserStaffId());
-		TRole role = roleMapper.selectByPrimaryKey(selectByPrimaryKey.getUserRoleId());
 		selectByPrimaryKey.setTstaff(select);
-		selectByPrimaryKey.setTrole(role);
 		return selectByPrimaryKey;
 	}
 
@@ -83,12 +72,8 @@ public class UserserviceImpl implements UserService{
 		}if(!password.equals(selectByuser_account.getUserPassword())){
 			throw new UserException("密码错误");
 		}
-		TRole role = roleMapper.selectByPrimaryKey(selectByuser_account.getUserRoleId());
 		TStaff selectByPrimaryKey = staffMapper.selectByPrimaryKey(selectByuser_account.getUserStaffId());
-		TDepartment selectByPrimaryKey2 = departmentMapper.selectByPrimaryKey(selectByPrimaryKey.getDepartmentId());
-		selectByPrimaryKey.setTDepartment(selectByPrimaryKey2);
 		selectByuser_account.setTstaff(selectByPrimaryKey);
-		selectByuser_account.setTrole(role);
 		return selectByuser_account;	
 	}
 
