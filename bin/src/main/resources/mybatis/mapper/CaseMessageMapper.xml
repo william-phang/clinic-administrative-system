@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.woniuxy.clinic.mapper.CaseMessageMapper" >
+  	
+  	<insert id="insertCaseMessage">
+  		INSERT INTO t_case_message VALUES (null,#{casemessage_date},
+  		#{casemessage_subject},#{casemessage_cahistory},#{casemessage_previous},#{casemessage_allergy},
+  		#{casemessage_bi},#{casemessage_fm},#{casemessage_help},#{casemessage_idea},#{casemessage_ps})
+  	</insert>
+  	
+  	<select id="selectCaseMessageByOther" resultType="Integer">
+  		select casemessage_id from t_case_message where
+  		casemessage_cahistory=#{casemessage_cahistory} and casemessage_help=#{casemessage_help} and 
+  		casemessage_idea=#{casemessage_idea}
+  	</select>
+</mapper>

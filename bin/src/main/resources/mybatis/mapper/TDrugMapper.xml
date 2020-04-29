@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.woniuxy.clinic.mapper.TDrugMapper" >
+  <resultMap id="BaseResultMap" type="com.woniuxy.clinic.entity.TDrug" >
+    <id column="drug_id" property="drugId" jdbcType="INTEGER" />
+    <result column="drug_sn" property="drugSn" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="bar_code" property="barCode" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="phonetic_code" property="phoneticCode" jdbcType="VARCHAR" />
+    <result column="specification" property="specification" jdbcType="VARCHAR" />
+    <result column="dosage_form" property="dosageForm" jdbcType="VARCHAR" />
+    <result column="otc" property="otc" jdbcType="INTEGER" />
+    <result column="invoice" property="invoice" jdbcType="VARCHAR" />
+    <result column="approval_number" property="approvalNumber" jdbcType="VARCHAR" />
+    <result column="manufacturer" property="manufacturer" jdbcType="VARCHAR" />
+    <result column="packing_unit" property="packingUnit" jdbcType="VARCHAR" />
+    <result column="basic_coefficient" property="basicCoefficient" jdbcType="VARCHAR" />
+    <result column="basic_unit" property="basicUnit" jdbcType="VARCHAR" />
+    <result column="dose_coefficient" property="doseCoefficient" jdbcType="VARCHAR" />
+    <result column="dose_unit" property="doseUnit" jdbcType="VARCHAR" />
+    <result column="purchase_amount" property="purchaseAmount" jdbcType="DECIMAL" />
+    <result column="retail_amount" property="retailAmount" jdbcType="DECIMAL" />
+    <result column="dismounted" property="dismounted" jdbcType="INTEGER" />
+    <result column="drug_use" property="drugUse" jdbcType="VARCHAR" />
+    <result column="single_dosage" property="singleDosage" jdbcType="VARCHAR" />
+    <result column="frequency" property="frequency" jdbcType="VARCHAR" />
+    <result column="day" property="day" jdbcType="INTEGER" />
+    <result column="total" property="total" jdbcType="INTEGER" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="minimum_inventory" property="minimumInventory" jdbcType="INTEGER" />
+    <result column="maximum_inventory" property="maximumInventory" jdbcType="INTEGER" />
+    <result column="goods_location" property="goodsLocation" jdbcType="VARCHAR" />
+    <result column="expiration_date_warning" property="expirationDateWarning" jdbcType="INTEGER" />
+    <result column="instruction" property="instruction" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectDrugsByCondition" resultType="TDrug">
+  	select * from t_drug
+  		<where>
+  			<if test="drug.type!=null and drug.type!=''">
+  				and type=#{drug.type}
+  			</if>
+  			<if test="drug.status!=null and drug.status!=''">
+  				and status=#{drug.status}
+  			</if>
+  			<if test="drug.begin != null">
+		        <if test="drug.end != null">
+		          and create_time between #{drug.begin} and #{drug.end}
+		        </if>
+		        <if test="drug.end == null">
+		          and create_time <![CDATA[
+		              >=
+		          ]]> #{drug.begin}
+		        </if>
+		      </if>
+		      <if test="drug.begin == null">
+		        <if test="drug.end != null">
+		          and create_time <![CDATA[
+		                <=
+		            ]]> #{drug.end}
+		        </if>
+		      </if>
+		      <if test="drug.other != null and drug.other!=''">
+		      	and concat(name,drug_sn,manufacturer) LIKE '%' #{drug.other} '%'
+		      </if>
+  		</where>
+  		<if test="beginIndex != null and pageSize != null">
+	      	<![CDATA[limit #{beginIndex},#{pageSize}]]>
+	    </if>
+  </select>
+  <select id="selectDrugsNumByCondition" resultType="Integer">
+  	select count(*) from t_drug
+  		<where>
+  			<if test="drug.type!=null and drug.type!=''">
+  				and type=#{drug.type}
+  			</if>
+  			<if test="drug.status!=null and drug.status!=''">
+  				and status=#{drug.status}
+  			</if>
+  			<if test="drug.begin != null">
+		        <if test="drug.end != null">
+		          and create_time between #{drug.begin} and #{drug.end}
+		        </if>
+		        <if test="drug.end == null">
+		          and create_time <![CDATA[
+		              >=
+		          ]]> #{drug.begin}
+		        </if>
+		      </if>
+		      <if test="drug.begin == null">
+		        <if test="drug.end != null">
+		          and create_time <![CDATA[
+		                <=
+		            ]]> #{drug.end}
+		        </if>
+		      </if>
+		      <if test="drug.other != null and drug.other!=''">
+		      	and concat(name,drug_sn,manufacturer) LIKE '%' #{drug.other} '%'
+		      </if>
+  		</where>
+  </select>
+  <select  id="findDrugInfoByDrug_sn" resultType="TDrug">
+  	select * from t_drug where drug_sn=#{drug_sn}
+  </select>
+  <update id="updateDrugInfoByDrug_sn">
+  	update t_drug set
+  	<trim prefix="set" suffixOverrides=",">
+  		<if test="tDrug.type!=null">type=#{tDrug.type},</if>
+  		<if test="tDrug.status!=null">status=#{tDrug.status},</if>
+  		<if test="tDrug.bar_code!=null">bar_code=#{tDrug.bar_code},</if>
+  		<if test="tDrug.name!=null">name=#{tDrug.name},</if>
+  		<if test="tDrug.phonetic_code!=null">phonetic_code=#{tDrug.phonetic_code},</if>
+  		<if test="tDrug.specification!=null">specification=#{tDrug.specification},</if>
+  		<if test="tDrug.dosage_form!=null">dosage_form=#{tDrug.dosage_form},</if>
+  		<if test="tDrug.otc!=null">otc=#{tDrug.otc},</if>
+  		<if test="tDrug.invoice!=null">invoice=#{tDrug.invoice},</if>
+  		<if test="tDrug.approval_number!=null">approval_number=#{tDrug.approval_number},</if>
+  		<if test="tDrug.manufacturer!=null">manufacturer=#{tDrug.manufacturer},</if>
+  		<if test="tDrug.packing_unit!=null">packing_unit=#{tDrug.packing_unit},</if>
+  		<if test="tDrug.basic_coefficient!=null">basic_coefficient=#{tDrug.basic_coefficient},</if>
+  		<if test="tDrug.basic_unit!=null">basic_unit=#{tDrug.basic_unit},</if>
+  		<if test="tDrug.dose_coefficient!=null">dose_coefficient=#{tDrug.dose_coefficient},</if>
+  		<if test="tDrug.dose_unit!=null">dose_unit=#{tDrug.dose_unit},</if>
+  		<if test="tDrug.purchase_amount!=null">purchase_amount=#{tDrug.purchase_amount},</if>
+  		<if test="tDrug.retail_amount!=null">retail_amount=#{tDrug.retail_amount},</if>
+  		<if test="tDrug.dismounted!=null">dismounted=#{tDrug.dismounted},</if>
+  		<if test="tDrug.drug_use!=null">drug_use=#{tDrug.drug_use},</if>
+  		<if test="tDrug.single_dosage!=null">single_dosage=#{tDrug.single_dosage},</if>
+  		<if test="tDrug.frequency!=null">frequency=#{tDrug.frequency},</if>
+  		<if test="tDrug.day!=null">day=#{tDrug.day},</if>
+  		<if test="tDrug.total!=null">total=#{tDrug.total},</if>
+  		<if test="tDrug.unit!=null">unit=#{tDrug.unit},</if>
+  		<if test="tDrug.minimum_inventory!=null">minimum_inventory=#{tDrug.minimum_inventory},</if>
+  		<if test="tDrug.maximum_inventory!=null">maximum_inventory=#{tDrug.maximum_inventory},</if>
+  		<if test="tDrug.goods_location!=null">goods_location=#{tDrug.goods_location},</if>
+  		<if test="tDrug.expiration_date_warning!=null">expiration_date_warning=#{tDrug.expiration_date_warning},</if>
+  		<if test="tDrug.instruction!=null">instruction=#{tDrug.instruction},</if>
+  		<if test="tDrug.remarks!=null">remarks=#{tDrug.remarks},</if>
+  	</trim>
+  	where drug_sn=#{tDrug.drug_sn}
+  </update>
+  <insert id="insertDrugInfo">
+  	insert into t_drug 
+  	<trim prefix="(" suffix=")" suffixOverrides="," >
+  		<if test="tDrug.type!=null">type,</if>
+  		<if test="tDrug.status!=null">status,</if>
+  		<if test="tDrug.bar_code!=null">bar_code,</if>
+  		<if test="tDrug.name!=null">name,</if>
+  		<if test="tDrug.phonetic_code!=null">phonetic_code,</if>
+  		<if test="tDrug.specification!=null">specification,</if>
+  		<if test="tDrug.dosage_form!=null">dosage_form,</if>
+  		<if test="tDrug.otc!=null">otc,</if>
+  		<if test="tDrug.invoice!=null">invoice,</if>
+  		<if test="tDrug.approval_number!=null">approval_number,</if>
+  		<if test="tDrug.manufacturer!=null">manufacturer,</if>
+  		<if test="tDrug.packing_unit!=null">packing_unit,</if>
+  		<if test="tDrug.basic_coefficient!=null">basic_coefficient,</if>
+  		<if test="tDrug.basic_unit!=null">basic_unit,</if>
+  		<if test="tDrug.dose_coefficient!=null">dose_coefficient,</if>
+  		<if test="tDrug.dose_unit!=null">dose_unit,</if>
+  		<if test="tDrug.purchase_amount!=null">purchase_amount,</if>
+  		<if test="tDrug.retail_amount!=null">retail_amount,</if>
+  		<if test="tDrug.dismounted!=null">dismounted,</if>
+  		<if test="tDrug.drug_use!=null">drug_use,</if>
+  		<if test="tDrug.single_dosage!=null">single_dosage,</if>
+  		<if test="tDrug.frequency!=null">frequency,</if>
+  		<if test="tDrug.day!=null">day,</if>
+  		<if test="tDrug.total!=null">total,</if>
+  		<if test="tDrug.unit!=null">unit,</if>
+  		<if test="tDrug.minimum_inventory!=null">minimum_inventory,</if>
+  		<if test="tDrug.maximum_inventory!=null">maximum_inventory,</if>
+  		<if test="tDrug.goods_location!=null">goods_location,</if>
+  		<if test="tDrug.expiration_date_warning!=null">expiration_date_warning,</if>
+  		<if test="tDrug.instruction!=null">instruction,</if>
+  		<if test="tDrug.remarks!=null">remarks,</if>
+  	</trim>
+  	<trim prefix="values (" suffix=")" suffixOverrides="," >
+  		<if test="tDrug.type!=null">#{tDrug.type},</if>
+  		<if test="tDrug.status!=null">#{tDrug.status},</if>
+  		<if test="tDrug.bar_code!=null">#{tDrug.bar_code},</if>
+  		<if test="tDrug.name!=null">#{tDrug.name},</if>
+  		<if test="tDrug.phonetic_code!=null">#{tDrug.phonetic_code},</if>
+  		<if test="tDrug.specification!=null">#{tDrug.specification},</if>
+  		<if test="tDrug.dosage_form!=null">#{tDrug.dosage_form},</if>
+  		<if test="tDrug.otc!=null">#{tDrug.otc},</if>
+  		<if test="tDrug.invoice!=null">#{tDrug.invoice},</if>
+  		<if test="tDrug.approval_number!=null">#{tDrug.approval_number},</if>
+  		<if test="tDrug.manufacturer!=null">#{tDrug.manufacturer},</if>
+  		<if test="tDrug.packing_unit!=null">#{tDrug.packing_unit},</if>
+  		<if test="tDrug.basic_coefficient!=null">#{tDrug.basic_coefficient},</if>
+  		<if test="tDrug.basic_unit!=null">#{tDrug.basic_unit},</if>
+  		<if test="tDrug.dose_coefficient!=null">#{tDrug.dose_coefficient},</if>
+  		<if test="tDrug.dose_unit!=null">#{tDrug.dose_unit},</if>
+  		<if test="tDrug.purchase_amount!=null">#{tDrug.purchase_amount},</if>
+  		<if test="tDrug.retail_amount!=null">#{tDrug.retail_amount},</if>
+  		<if test="tDrug.dismounted!=null">#{tDrug.dismounted},</if>
+  		<if test="tDrug.drug_use!=null">#{tDrug.drug_use},</if>
+  		<if test="tDrug.single_dosage!=null">#{tDrug.single_dosage},</if>
+  		<if test="tDrug.frequency!=null">#{tDrug.frequency},</if>
+  		<if test="tDrug.day!=null">#{tDrug.day},</if>
+  		<if test="tDrug.total!=null">#{tDrug.total},</if>
+  		<if test="tDrug.unit!=null">#{tDrug.unit},</if>
+  		<if test="tDrug.minimum_inventory!=null">#{tDrug.minimum_inventory},</if>
+  		<if test="tDrug.maximum_inventory!=null">#{tDrug.maximum_inventory},</if>
+  		<if test="tDrug.goods_location!=null">#{tDrug.goods_location},</if>
+  		<if test="tDrug.expiration_date_warning!=null">#{tDrug.expiration_date_warning},</if>
+  		<if test="tDrug.instruction!=null">#{tDrug.instruction},</if>
+  		<if test="tDrug.remarks!=null">#{tDrug.remarks},</if>
+  	</trim>
+  </insert>
+  <update id="editDrugInfoStatus">
+  	update t_drug set status=#{status} where drug_sn=#{drug_sn}
+  </update>
+</mapper>

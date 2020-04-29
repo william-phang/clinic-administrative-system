@@ -1,0 +1,22 @@
+{"properties": [
+  {
+    "name": "aliyun.sms.access-key-id",
+    "type": "java.lang.String",
+    "description": "A description for 'aliyun.sms.access-key-id'"
+  },
+  {
+    "name": "aliyun.sms.access-key-secret",
+    "type": "java.lang.String",
+    "description": "A description for 'aliyun.sms.access-key-secret'"
+  },
+  {
+    "name": "aliyun.sms.template_code",
+    "type": "java.lang.String",
+    "description": "A description for 'aliyun.sms.template_code'"
+  },
+  {
+    "name": "aliyun.sms.sign_name",
+    "type": "java.lang.String",
+    "description": "A description for 'aliyun.sms.sign_name'"
+  }
+]}
