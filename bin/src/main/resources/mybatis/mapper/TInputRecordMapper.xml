@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.woniuxy.clinic.mapper.TInputRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.woniuxy.clinic.entity.TInputRecord" >
+    <id column="input_id" property="inputId" jdbcType="INTEGER" />
+    <result column="input_sn" property="inputSn" jdbcType="VARCHAR" />
+    <result column="input_date" property="inputDate" jdbcType="TIMESTAMP" />
+    <result column="input_person" property="inputPerson" jdbcType="VARCHAR" />
+    <result column="input_type" property="inputType" jdbcType="VARCHAR" />
+    <result column="supplier" property="supplier" jdbcType="VARCHAR" />
+    <result column="tabulation_date" property="tabulationDate" jdbcType="TIMESTAMP" />
+    <result column="tabulation_person" property="tabulationPerson" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectInputsNumByCondition" resultType="Integer">
+  	select count(*) from t_input_record
+  	<where>
+		<if test="input.input_type!=null and input.input_type!=''">
+			and input_type=#{input.input_type}
+		</if>
+		<if test="input.status!=null and input.status!=''">
+			and status=#{input.status}
+		</if>
+	    <if test="input.other != null and input.other!=''">
+	     	and concat(input_sn,supplier) LIKE '%' #{input.other} '%'
+	    </if>
+	</where>
+  </select>
+  <select id="selectInputsByCondition" resultType="TInputRecord">
+  	select * from t_input_record
+  	<where>
+  			<if test="input.input_type!=null and input.input_type!=''">
+  				and input_type=#{input.input_type}
+  			</if>
+  			<if test="input.status!=null and input.status!=''">
+  				and status=#{input.status}
+  			</if>
+		      <if test="input.other != null and input.other!=''">
+		      	and concat(input_sn,supplier) LIKE '%' #{input.other} '%'
+		      </if>
+  		</where>
+  		<if test="beginIndex != null and pageSize != null">
+	      	<![CDATA[limit #{beginIndex},#{pageSize}]]>
+	    </if>
+  </select>
+</mapper>

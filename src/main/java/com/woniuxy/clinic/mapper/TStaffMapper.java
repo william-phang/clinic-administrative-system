@@ -3,8 +3,6 @@ package com.woniuxy.clinic.mapper;
 import com.woniuxy.clinic.entity.TStaff;
 import com.woniuxy.clinic.entity.TStaffExample;
 import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 public interface TStaffMapper {
@@ -23,6 +21,8 @@ public interface TStaffMapper {
     TStaff selectByPrimaryKey(Integer staffId);
     
     TStaff selectByname(String staff_name);
+    
+    TStaff selectBycard(String staff_card);
 
     int updateByExampleSelective(@Param("record") TStaff record, @Param("example") TStaffExample example);
 

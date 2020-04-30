@@ -23,6 +23,8 @@ public class TUser {
     private Integer flag;
     
     private TStaff tstaff;
+    
+    private TRole trole;
 
     public Integer getUserId() {
         return userId;
