@@ -42,6 +42,15 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+    
+        <!-- 短信包-->
+        <dependency>
+	<groupId>com.aliyun</groupId>
+	<artifactId>aliyun-java-sdk-core</artifactId>
+	<version>4.4.6</version>
+</dependency>
+
 	<!-- 插件提供简化部署的功能 -->
 		<!-- SpirngBoot热部署 修改服务器代码 保存会自动重启  -->
 		<dependency>
@@ -67,12 +76,40 @@
 		
 		<!-- 添加项,添加时请及时通知组员 -->
 		
+		<dependency>
+   <groupId>log4j</groupId>
+   <artifactId>log4j</artifactId>
+   <version>1.2.7</version>
+</dependency>
+
+		
 		<!-- 配置数据源连接池,使用阿里的Druid -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid-spring-boot-starter</artifactId>
 			<version>1.1.16</version>
 		</dependency>
+		<!-- 分页插件 -->
+		<dependency>
+   <groupId>com.github.pagehelper</groupId>
+   <artifactId>pagehelper</artifactId>
+   <version>4.1.0</version>
+</dependency>
+
+
+        <!-- springboot整合shiro的依赖包 -->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring-boot-web-starter</artifactId>
+			<version>1.4.0</version>
+		</dependency>
+		<!-- thethymeleaf对权限标签的支持 -->
+		<dependency>
+			<groupId>com.github.theborakompanioni</groupId>
+			<artifactId>thymeleaf-extras-shiro</artifactId>
+			<version>2.0.0</version>
+		</dependency>
+		
 	</dependencies>
 	
 	<!-- 插件提供简化部署的功能 -->
@@ -82,6 +119,11 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>maven-bundle-plugin</artifactId>
+            <extensions>true</extensions>
+        </plugin>
 		</plugins>
 	</build>
 

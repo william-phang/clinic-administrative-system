@@ -8,41 +8,65 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.woniuxy.clinic.entity.TAdditionalFee;
-import com.woniuxy.clinic.entity.TAdditionalFeeExample;
-import com.woniuxy.clinic.entity.TAdditionalFeeExample.Criteria;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.woniuxy.clinic.entity.TDepartment;
+import com.woniuxy.clinic.entity.TPermission;
+import com.woniuxy.clinic.entity.TRole;
+import com.woniuxy.clinic.entity.TStaff;
+import com.woniuxy.clinic.entity.TStaffExample;
+import com.woniuxy.clinic.entity.TUser;
+import com.woniuxy.clinic.entity.TUserExample;
+import com.woniuxy.clinic.entity.TUserExample.Criteria;
 
+/**
+ * @author Administrator
+ *
+ */
 @SpringBootTest
 class ClinicAdministrativeSystemApplicationTests {
 	//null,"注射费",20.00,10.00,new Date(),"章三","启用"
 	@Autowired
-	TAdditionalFeeMapper additionalFeeMapper;
-	
+	TStaffMapper staffMapper;
+	@Autowired
+	TDepartmentMapper departmentMapper;
+	@Autowired
+	TRoleMapper roleMappper;
+	@Autowired
+	TPermissionMapper permissionMapper;
+	@Autowired
+	TUserMapper userMapper;
 	@Test
 	void contextLoads() {
-		TAdditionalFee tAdditionalFee=
-				new TAdditionalFee(null,"注射费",new BigDecimal("20"),new BigDecimal("10"),new Date(),"张三","启用");
-		additionalFeeMapper.insert(tAdditionalFee);
+		TStaff staff=new TStaff(4, "张燕", "女", 42, "18888888888", "110004",new Date(), 103, 4, "在职", null, null);
+		staffMapper.insert(staff);
 	}
 
 	@Test
 	void contextLoads01() {
-		additionalFeeMapper.deleteByPrimaryKey(5);
+		TUser selectByuser_account = userMapper.selectByuser_account("18888888888");
+		System.out.println(selectByuser_account);
 	}
 	
 	@Test
 	void contextLoads02() {
-		TAdditionalFee tAdditionalFee=
-				new TAdditionalFee(1,"注射费",new BigDecimal("25"),new BigDecimal("10"),new Date(),"张三","启用");;
-		additionalFeeMapper.updateByPrimaryKey(tAdditionalFee);
+		System.out.println(userMapper.selectidByuser_account("18888888888"));
 	}
 	
 	@Test
 	void contextLoads03() {
-		TAdditionalFeeExample example=new TAdditionalFeeExample();
-		Criteria criteria = example.createCriteria();
-		criteria.andAdditionalFeeGreaterThan(new BigDecimal("20"));
-		List<TAdditionalFee> additionalFees = additionalFeeMapper.selectByExample(example);
-		System.out.println(additionalFees);
+		PageHelper.startPage(1, 5);
+		TStaffExample example=new TStaffExample();
+		List<TStaff> list = staffMapper.selectByExample(example);
+		for (TStaff staff : list) {
+			TRole role = roleMappper.selectByPrimaryKey(staff.getRoleId());
+			TDepartment department=departmentMapper.selectByPrimaryKey(staff.getDepartmentId());
+			staff.setTRole(role);
+			staff.setTDepartment(department);
+		}
+		PageInfo<TStaff> staffpage=new PageInfo<>(list);
+		for (TStaff staff : staffpage.getList()) {
+			System.out.println(staff);
+		}
 	}
 }
