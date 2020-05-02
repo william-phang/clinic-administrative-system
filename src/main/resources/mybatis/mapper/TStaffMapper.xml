@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.woniuxy.clinic.mapper.TStaffMapper" >
+  <resultMap id="BaseResultMap" type="com.woniuxy.clinic.entity.TStaff" >
+    <id column="staff_id" property="staffId" jdbcType="INTEGER" />
+    <result column="staff_name" property="staffName" jdbcType="VARCHAR" />
+    <result column="staff_sex" property="staffSex" jdbcType="VARCHAR" />
+    <result column="staff_age" property="staffAge" jdbcType="INTEGER" />
+    <result column="staff_phone" property="staffPhone" jdbcType="VARCHAR" />
+    <result column="staff_card" property="staffCard" jdbcType="VARCHAR" />
+    <result column="staff_time" property="staffTime" jdbcType="TIMESTAMP" />
+    <result column="department_id" property="departmentId" jdbcType="INTEGER" />
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="staff_status" property="staffStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    staff_id, staff_name, staff_sex, staff_age, staff_phone, staff_card, staff_time, 
+    department_id, role_id, staff_status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.woniuxy.clinic.entity.TStaffExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_staff
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_staff
+    where staff_id = #{staffId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_staff
+    where staff_id = #{staffId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.woniuxy.clinic.entity.TStaffExample" >
+    delete from t_staff
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.woniuxy.clinic.entity.TStaff" >
+    insert into t_staff (staff_id, staff_name, staff_sex, 
+      staff_age, staff_phone, staff_card, 
+      staff_time, department_id, role_id, 
+      staff_status)
+    values (#{staffId,jdbcType=INTEGER}, #{staffName,jdbcType=VARCHAR}, #{staffSex,jdbcType=VARCHAR}, 
+      #{staffAge,jdbcType=INTEGER}, #{staffPhone,jdbcType=VARCHAR}, #{staffCard,jdbcType=VARCHAR}, 
+      #{staffTime,jdbcType=TIMESTAMP}, #{departmentId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, 
+      #{staffStatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.woniuxy.clinic.entity.TStaff" >
+    insert into t_staff
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="staffId != null" >
+        staff_id,
+      </if>
+      <if test="staffName != null" >
+        staff_name,
+      </if>
+      <if test="staffSex != null" >
+        staff_sex,
+      </if>
+      <if test="staffAge != null" >
+        staff_age,
+      </if>
+      <if test="staffPhone != null" >
+        staff_phone,
+      </if>
+      <if test="staffCard != null" >
+        staff_card,
+      </if>
+      <if test="staffTime != null" >
+        staff_time,
+      </if>
+      <if test="departmentId != null" >
+        department_id,
+      </if>
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="staffStatus != null" >
+        staff_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="staffId != null" >
+        #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="staffName != null" >
+        #{staffName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffSex != null" >
+        #{staffSex,jdbcType=VARCHAR},
+      </if>
+      <if test="staffAge != null" >
+        #{staffAge,jdbcType=INTEGER},
+      </if>
+      <if test="staffPhone != null" >
+        #{staffPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="staffCard != null" >
+        #{staffCard,jdbcType=VARCHAR},
+      </if>
+      <if test="staffTime != null" >
+        #{staffTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="departmentId != null" >
+        #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="staffStatus != null" >
+        #{staffStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.woniuxy.clinic.entity.TStaffExample" resultType="java.lang.Integer" >
+    select count(*) from t_staff
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_staff
+    <set >
+      <if test="record.staffId != null" >
+        staff_id = #{record.staffId,jdbcType=INTEGER},
+      </if>
+      <if test="record.staffName != null" >
+        staff_name = #{record.staffName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffSex != null" >
+        staff_sex = #{record.staffSex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffAge != null" >
+        staff_age = #{record.staffAge,jdbcType=INTEGER},
+      </if>
+      <if test="record.staffPhone != null" >
+        staff_phone = #{record.staffPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffCard != null" >
+        staff_card = #{record.staffCard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffTime != null" >
+        staff_time = #{record.staffTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.departmentId != null" >
+        department_id = #{record.departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.roleId != null" >
+        role_id = #{record.roleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.staffStatus != null" >
+        staff_status = #{record.staffStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_staff
+    set staff_id = #{record.staffId,jdbcType=INTEGER},
+      staff_name = #{record.staffName,jdbcType=VARCHAR},
+      staff_sex = #{record.staffSex,jdbcType=VARCHAR},
+      staff_age = #{record.staffAge,jdbcType=INTEGER},
+      staff_phone = #{record.staffPhone,jdbcType=VARCHAR},
+      staff_card = #{record.staffCard,jdbcType=VARCHAR},
+      staff_time = #{record.staffTime,jdbcType=TIMESTAMP},
+      department_id = #{record.departmentId,jdbcType=INTEGER},
+      role_id = #{record.roleId,jdbcType=INTEGER},
+      staff_status = #{record.staffStatus,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.woniuxy.clinic.entity.TStaff" >
+    update t_staff
+    <set >
+      <if test="staffName != null" >
+        staff_name = #{staffName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffSex != null" >
+        staff_sex = #{staffSex,jdbcType=VARCHAR},
+      </if>
+      <if test="staffAge != null" >
+        staff_age = #{staffAge,jdbcType=INTEGER},
+      </if>
+      <if test="staffPhone != null" >
+        staff_phone = #{staffPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="staffCard != null" >
+        staff_card = #{staffCard,jdbcType=VARCHAR},
+      </if>
+      <if test="staffTime != null" >
+        staff_time = #{staffTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="departmentId != null" >
+        department_id = #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null" >
+        role_id = #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="staffStatus != null" >
+        staff_status = #{staffStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where staff_id = #{staffId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.woniuxy.clinic.entity.TStaff" >
+    update t_staff
+    set staff_name = #{staffName,jdbcType=VARCHAR},
+      staff_sex = #{staffSex,jdbcType=VARCHAR},
+      staff_age = #{staffAge,jdbcType=INTEGER},
+      staff_phone = #{staffPhone,jdbcType=VARCHAR},
+      staff_card = #{staffCard,jdbcType=VARCHAR},
+      staff_time = #{staffTime,jdbcType=TIMESTAMP},
+      department_id = #{departmentId,jdbcType=INTEGER},
+      role_id = #{roleId,jdbcType=INTEGER},
+      staff_status = #{staffStatus,jdbcType=VARCHAR}
+    where staff_id = #{staffId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByname" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_staff
+    where staff_name = #{staff_name,jdbcType=VARCHAR}
+  </select>
+<select id="selectBycard" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_staff
+    where staff_card = #{staff_card,jdbcType=VARCHAR}
+  </select>
+</mapper>
