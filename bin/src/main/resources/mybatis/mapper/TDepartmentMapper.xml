@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.woniuxy.clinic.mapper.TDepartmentMapper" >
+  <resultMap id="BaseResultMap" type="com.woniuxy.clinic.entity.TDepartment" >
+    <id column="department_id" property="departmentId" jdbcType="INTEGER" />
+    <result column="department_name" property="departmentName" jdbcType="VARCHAR" />
+    <result column="department_describe" property="departmentDescribe" jdbcType="VARCHAR" />
+    <result column="department_creationtime" property="departmentCreationtime" jdbcType="TIMESTAMP" />
+    <result column="department_status" property="departmentStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    department_id, department_name, department_describe, department_creationtime, department_status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.woniuxy.clinic.entity.TDepartmentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_department
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_department
+    where department_id = #{departmentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_department
+    where department_id = #{departmentId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.woniuxy.clinic.entity.TDepartmentExample" >
+    delete from t_department
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.woniuxy.clinic.entity.TDepartment" >
+    insert into t_department (department_id, department_name, department_describe, 
+      department_creationtime, department_status
+      )
+    values (#{departmentId,jdbcType=INTEGER}, #{departmentName,jdbcType=VARCHAR}, #{departmentDescribe,jdbcType=VARCHAR}, 
+      #{departmentCreationtime,jdbcType=TIMESTAMP}, #{departmentStatus,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.woniuxy.clinic.entity.TDepartment" >
+    insert into t_department
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="departmentId != null" >
+        department_id,
+      </if>
+      <if test="departmentName != null" >
+        department_name,
+      </if>
+      <if test="departmentDescribe != null" >
+        department_describe,
+      </if>
+      <if test="departmentCreationtime != null" >
+        department_creationtime,
+      </if>
+      <if test="departmentStatus != null" >
+        department_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="departmentId != null" >
+        #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="departmentName != null" >
+        #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentDescribe != null" >
+        #{departmentDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentCreationtime != null" >
+        #{departmentCreationtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="departmentStatus != null" >
+        #{departmentStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.woniuxy.clinic.entity.TDepartmentExample" resultType="java.lang.Integer" >
+    select count(*) from t_department
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_department
+    <set >
+      <if test="record.departmentId != null" >
+        department_id = #{record.departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.departmentName != null" >
+        department_name = #{record.departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.departmentDescribe != null" >
+        department_describe = #{record.departmentDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.departmentCreationtime != null" >
+        department_creationtime = #{record.departmentCreationtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.departmentStatus != null" >
+        department_status = #{record.departmentStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_department
+    set department_id = #{record.departmentId,jdbcType=INTEGER},
+      department_name = #{record.departmentName,jdbcType=VARCHAR},
+      department_describe = #{record.departmentDescribe,jdbcType=VARCHAR},
+      department_creationtime = #{record.departmentCreationtime,jdbcType=TIMESTAMP},
+      department_status = #{record.departmentStatus,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.woniuxy.clinic.entity.TDepartment" >
+    update t_department
+    <set >
+      <if test="departmentName != null" >
+        department_name = #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentDescribe != null" >
+        department_describe = #{departmentDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentCreationtime != null" >
+        department_creationtime = #{departmentCreationtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="departmentStatus != null" >
+        department_status = #{departmentStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where department_id = #{departmentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.woniuxy.clinic.entity.TDepartment" >
+    update t_department
+    set department_name = #{departmentName,jdbcType=VARCHAR},
+      department_describe = #{departmentDescribe,jdbcType=VARCHAR},
+      department_creationtime = #{departmentCreationtime,jdbcType=TIMESTAMP},
+      department_status = #{departmentStatus,jdbcType=VARCHAR}
+    where department_id = #{departmentId,jdbcType=INTEGER}
+  </update>
+<select id="selectByname" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_department
+    where department_name = #{department_name,jdbcType=VARCHAR}
+  </select>
+</mapper>

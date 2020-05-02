@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.woniuxy.clinic.mapper.TOutputRecordMapper" >
+  <select id="selectOutputsNumByCondition" resultType="Integer">
+  	select count(*) from t_output_record
+  	<where>
+		<if test="output.output_type!=null and output.output_type!=''">
+			and output_type=#{output.output_type}
+		</if>
+		<if test="output.status!=null and output.status!=''">
+			and status=#{output.status}
+		</if>
+	    <if test="output.other != null and output.other!=''">
+	     	and output_sn LIKE '%' #{output.other} '%'
+	    </if>
+	</where>
+  </select>
+  <select id="selectOutputsByCondition" resultType="ToutputRecord">
+  	select * from t_output_record
+  	<where>
+  			<if test="output.output_type!=null and output.output_type!=''">
+  				and output_type=#{output.output_type}
+  			</if>
+  			<if test="output.status!=null and output.status!=''">
+  				and status=#{output.status}
+  			</if>
+		      <if test="output.other != null and output.other!=''">
+		      	and output_sn LIKE '%' #{output.other} '%'
+		      </if>
+  		</where>
+  		<if test="beginIndex != null and pageSize != null">
+	      	<![CDATA[limit #{beginIndex},#{pageSize}]]>
+	    </if>
+  </select>
+</mapper>

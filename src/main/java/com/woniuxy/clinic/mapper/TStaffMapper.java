@@ -31,4 +31,6 @@ public interface TStaffMapper {
     int updateByPrimaryKeySelective(TStaff record);
 
     int updateByPrimaryKey(TStaff record);
+
 }
+

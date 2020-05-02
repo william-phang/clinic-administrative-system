@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>数据表格</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/layuimini/lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="/layuimini/css/public.css" media="all">
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <fieldset class="table-search-fieldset">
+            <legend>搜索信息</legend>
+            <div style="margin: 10px 10px 10px 10px">
+                <form class="layui-form layui-form-pane" action="">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">费用名称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="regis_name" autocomplete="off" class="layui-input" id="regis_name">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">费用价格</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="regis_fee" autocomplete="off" class="layui-input" id="regis_fee">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">成本价</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="regis_cost" autocomplete="off" class="layui-input" id="regis_cost">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">创建时间</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="regis_date" autocomplete="off" class="layui-input" id="regis_date">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">创建人员</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="regis_founder" autocomplete="off" class="layui-input" id="regis_founder">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">费用状态</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="regis_state" autocomplete="off" class="layui-input" id="regis_state">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <button class="layui-btn layui-btn-primary search_btn"  lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </fieldset>
+
+        <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container demoTable">
+                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>
+                <button class="layui-btn batchDel layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 批量删除 </button>
+            </div>
+        </script>
+
+        <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+        <script type="text/html" id="currentTableBar">
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+        </script>
+
+    </div>
+</div>
+<script src="/layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script>
+    layui.use(['form', 'table'], function () {
+        var $ = layui.jquery,
+            form = layui.form,
+            table = layui.table;
+
+        table.render({
+            elem: '#currentTableId',
+            url:'/tRegistrationFeesajax',
+            toolbar: '#toolbarDemo',
+            defaultToolbar: ['filter', 'exports', 'print', {
+                title: '提示',
+                layEvent: 'LAYTABLE_TIPS',
+                icon: 'layui-icon-tips'
+            }],
+            cols: [
+            	[
+                {type: "checkbox", width: 50},
+                {field: 'regis_id', width: 150, title: '序列', sort: true},
+                {field: 'regis_name', width: 150, title: '费用名称'},
+                {field: 'regis_fee', width: 150, title: '费用价格', sort: true},
+                {field: 'regis_cost', width: 150, title: '费用成本'},
+                {field: 'regis_date', width: 150, title: '创建时间', sort: true},
+                {field: 'regis_founder', width: 150, title: '创建人员', sort: true},
+                {field: 'regis_state', width: 150, title: '费用状态'},
+                {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
+            	]
+            ],
+            limits: [8, 16, 24, 32, 40, 48],
+            limit: 8,
+            page: true,
+            skin: 'line',
+             parseData:function (result) {//result是服务器端响应的数据
+                return {
+                    code:result.code ==0?0:result.code(),
+                    msg:result.message,
+                    data:result.data.list,
+                    count:result.data.total
+                }
+            } 
+        });
+
+         // 监听搜索操作
+        form.on('submit(data-search-btn)', function (data) {
+            var regis_name = $("#regis_name").val();
+            var regis_fee = $("#regis_fee").val();
+            var regis_cost = $("#regis_cost").val();
+            var regis_date = $("#regis_date").val();
+            var regis_founder = $("#regis_founder").val();
+            var regis_state = $("#regis_state").val();
+            //执行搜索重载
+            table.reload('currentTableId', {
+                page: {
+                    curr: 1 //从第一页开始
+                }
+                , where: {//这里向后台传参
+                	regis_name: regis_name,
+                	regis_fee: regis_fee,
+                	regis_cost: regis_cost,
+                	regis_date: regis_date,
+                	regis_founder: regis_founder,
+                	regis_state: regis_state
+                },
+                 parseData:function (result) {//result是服务器端响应的数据
+                    return {
+                        code:result.code ==0?0:result.code(),
+                        msg:result.message,
+                        data:result.data.list,
+                        count:result.data.total
+                    }
+                } 
+            }, 'data');
+
+            return false;
+        }); 
+        
+
+        /**
+         * toolbar监听事件    添加费用信息
+         */
+        table.on('toolbar(currentTableFilter)', function (obj) {
+            if (obj.event === 'add') {  // 监听添加操作
+                var index = layer.open({
+                    title: '添加费用信息',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin:true,
+                    shadeClose: true,
+                    area: ['100%', '100%'],
+                    content: '/page/fee/addTRegistrationfee.html'
+                });
+                $(window).on("resize", function () {
+                    //layer.full(index);
+                });
+            } /* else if (obj.event === 'delete') {  // 监听批量删除操作
+                var checkStatus = table.checkStatus('currentTableId')
+                    , data = checkStatus.data;
+                layer.alert(JSON.stringify(data));
+            } */
+        });
+
+      //批量删除用户
+        $(".batchDel").click(function () {
+            //获取选中的行
+            var checkStatus = table.checkStatus('currentTableId');//table中定义的id
+            var data = checkStatus.data;
+            if(data.length == 0){
+                layer.msg('请选择数据',{icon:5});
+                return ;
+            }
+            var regis_ids = "";
+            $.each(data,function (index,obj) { //jquery中的foreach函数
+            	regis_ids += obj.regis_id+",";
+            })
+            regis_ids = regis_ids.substring(0,regis_ids.length-1);//剪切掉最后一个逗号字符串变为1,2,3,4,
+            layer.confirm('确认删除？',function (index) {
+                $.ajax({
+                    url:'/updateTRegistrationFeesStateByIdsajax/'+regis_ids,
+                    type:'delete',
+                    dataType:'json',
+                    success:function (result) {
+                        if(result.code == 0){
+                            layer.msg('删除成功',{icon:1},function () {
+                                location.reload();//刷新数据
+                            });
+                        }else{
+                            layer.msg('删除失败');
+                        }
+                    }
+                });
+                layer.close(index);//关闭当前提示框
+            })
+
+        });
+
+      
+      //编辑   单个 删除
+        table.on('tool(currentTableFilter)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'edit') {
+
+                var index = layer.open({
+                    title: '编辑用户',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin:true,
+                    shadeClose: true,
+                    area: ['100%', '100%'],
+                    content: '/editTRegistrationFees/'+data.regis_id,
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+                return false;
+            }  else if (obj.event === 'delete') {
+                 /* layer.confirm('真的删除行么', function (index) {
+                    obj.del();
+                    layer.close(index); 
+                    
+                }); */
+                layer.confirm('确认删除',function (index) {
+
+                    $.ajax({
+                        url:'/deleteTRegistrationFeeStateByIdajax/'+data.regis_id,
+                        type:'delete',
+                        dataType:'json',
+                        success:function (result) {
+                            if(result.code == 0){
+                                layer.msg("删除成功",{icon:1});
+                                location.reload();
+                            }else{
+                                layer.msg("删除失败",{icon:5});
+                            }
+                        }
+                    })
+
+                    layer.close(index);
+                })
+            } 
+            
+        });
+        
+    });
+    
+    //日期时间设置
+    layui.use('laydate', function(){
+    	  var laydate = layui.laydate;
+    	  
+    	  //执行一个laydate实例
+    	  laydate.render({
+    	    elem: '#medical_date' //指定元素
+    	  });
+    	});
+    
+</script>
+
+</body>
+</html>

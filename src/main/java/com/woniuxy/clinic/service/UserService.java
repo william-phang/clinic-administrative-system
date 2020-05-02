@@ -2,6 +2,7 @@ package com.woniuxy.clinic.service;
 
 import java.util.List;
 
+
 import org.apache.shiro.authc.UsernamePasswordToken;
 
 import com.woniuxy.clinic.entity.TStaff;
@@ -17,4 +18,5 @@ public interface UserService {
 	TUser selectUserbyaccount(String userAccount);//根据账号查用户
 	int updateByPrimaryKeySelective(TUser user);//修改用户
 	TUser login(UsernamePasswordToken token)throws UserException;//用户登录
+
 }

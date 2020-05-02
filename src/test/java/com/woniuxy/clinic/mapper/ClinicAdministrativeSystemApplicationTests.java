@@ -36,6 +36,7 @@ class ClinicAdministrativeSystemApplicationTests {
 	TPermissionMapper permissionMapper;
 	@Autowired
 	TUserMapper userMapper;
+
 	@Test
 	void contextLoads() {
 		TStaff staff=new TStaff(4, "张燕", "女", 42, "18888888888", "110004",new Date(), 103, 4, "在职", null, null);
@@ -51,6 +52,7 @@ class ClinicAdministrativeSystemApplicationTests {
 	@Test
 	void contextLoads02() {
 		System.out.println(userMapper.selectidByuser_account("18888888888"));
+
 	}
 	
 	@Test

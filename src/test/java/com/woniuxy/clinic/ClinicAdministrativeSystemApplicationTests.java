@@ -9,5 +9,5 @@ class ClinicAdministrativeSystemApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
+	
 }

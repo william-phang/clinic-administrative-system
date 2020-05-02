@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.woniuxy.clinic.mapper.TAdditionalFeeMapper" >
+  <resultMap id="BaseResultMap" type="com.woniuxy.clinic.entity.TAdditionalFee" >
+    <id column="additional_id" property="additional_id" jdbcType="INTEGER" />
+    <result column="additional_name" property="additional_name" jdbcType="VARCHAR" />
+    <result column="additional_fee" property="additional_fee" jdbcType="DECIMAL" />
+    <result column="additional_cost" property="additional_cost" jdbcType="DECIMAL" />
+    <result column="additional_date" property="additional_date" jdbcType="TIMESTAMP" />
+    <result column="additional_founder" property="additional_founder" jdbcType="VARCHAR" />
+    <result column="additional_state" property="additional_state" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    additional_id, additional_name, additional_fee, additional_cost, additional_date, 
+    additional_founder, additional_state
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.woniuxy.clinic.entity.TAdditionalFeeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_additional_fee 
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_additional_fee
+    where additional_id = #{additional_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_additional_fee
+    where additional_id = #{additional_id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.woniuxy.clinic.entity.TAdditionalFeeExample" >
+    delete from t_additional_fee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.woniuxy.clinic.entity.TAdditionalFee" >
+    insert into t_additional_fee (additional_id, additional_name, additional_fee, 
+      additional_cost, additional_date, additional_founder, 
+      additional_state)
+    values (#{additional_id,jdbcType=INTEGER}, #{additional_name,jdbcType=VARCHAR}, #{additional_fee,jdbcType=DECIMAL}, 
+      #{additional_cost,jdbcType=DECIMAL}, #{additional_date,jdbcType=TIMESTAMP}, #{additional_founder,jdbcType=VARCHAR}, 
+      #{additional_state,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.woniuxy.clinic.entity.TAdditionalFee" >
+    insert into t_additional_fee
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="additional_id != null" >
+        additional_id,
+      </if>
+      <if test="additional_name != null" >
+        additional_name,
+      </if>
+      <if test="additional_fee != null" >
+        additional_fee,
+      </if>
+      <if test="additional_cost != null" >
+        additional_cost,
+      </if>
+      <if test="additional_date != null" >
+        additional_date,
+      </if>
+      <if test="additional_founder != null" >
+        additional_founder,
+      </if>
+      <if test="additional_state != null" >
+        additional_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="additional_id != null" >
+        #{additional_id,jdbcType=INTEGER},
+      </if>
+      <if test="additional_name != null" >
+        #{additional_name,jdbcType=VARCHAR},
+      </if>
+      <if test="additional_fee != null" >
+        #{additional_fee,jdbcType=DECIMAL},
+      </if>
+      <if test="additional_cost != null" >
+        #{additional_cost,jdbcType=DECIMAL},
+      </if>
+      <if test="additional_date != null" >
+        #{additional_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="additional_founder != null" >
+        #{additional_founder,jdbcType=VARCHAR},
+      </if>
+      <if test="additional_state != null" >
+        #{additional_state,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.woniuxy.clinic.entity.TAdditionalFeeExample" resultType="java.lang.Integer" >
+    select count(*) from t_additional_fee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_additional_fee
+    <set >
+      <if test="record.additional_id != null" >
+        additional_id = #{record.additional_id,jdbcType=INTEGER},
+      </if>
+      <if test="record.additional_name != null" >
+        additional_name = #{record.additional_name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.additional_fee != null" >
+        additional_fee = #{record.additional_fee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.additional_cost != null" >
+        additional_cost = #{record.additional_cost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.additional_date != null" >
+        additional_date = #{record.additional_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.additional_founder != null" >
+        additional_founder = #{record.additional_founder,jdbcType=VARCHAR},
+      </if>
+      <if test="record.additional_state != null" >
+        additional_state = #{record.additional_state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_additional_fee
+    set additional_id = #{record.additional_id,jdbcType=INTEGER},
+      additional_name = #{record.additional_name,jdbcType=VARCHAR},
+      additional_fee = #{record.additional_fee,jdbcType=DECIMAL},
+      additional_cost = #{record.additional_cost,jdbcType=DECIMAL},
+      additional_date = #{record.additional_date,jdbcType=TIMESTAMP},
+      additional_founder = #{record.additional_founder,jdbcType=VARCHAR},
+      additional_state = #{record.additional_state,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.woniuxy.clinic.entity.TAdditionalFee" >
+    update t_additional_fee
+    <set >
+      <if test="additional_name != null" >
+        additional_name = #{additional_name,jdbcType=VARCHAR},
+      </if>
+      <if test="additional_fee != null" >
+        additional_fee = #{additional_fee,jdbcType=DECIMAL},
+      </if>
+      <if test="additional_cost != null" >
+        additional_cost = #{additional_cost,jdbcType=DECIMAL},
+      </if>
+      <if test="additional_date != null" >
+        additional_date = #{additional_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="additional_founder != null" >
+        additional_founder = #{additional_founder,jdbcType=VARCHAR},
+      </if>
+      <if test="additional_state != null" >
+        additional_state = #{additional_state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where additional_id = #{additional_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.woniuxy.clinic.entity.TAdditionalFee" >
+    update t_additional_fee
+    set additional_name = #{additional_name,jdbcType=VARCHAR},
+      additional_fee = #{additional_fee,jdbcType=DECIMAL},
+      additional_cost = #{additional_cost,jdbcType=DECIMAL},
+      additional_date = #{additional_date,jdbcType=TIMESTAMP},
+      additional_founder = #{additional_founder,jdbcType=VARCHAR},
+      additional_state = #{additional_state,jdbcType=VARCHAR}
+    where additional_id = #{additional_id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 分页查询 -->
+	
+	<select id="selectByPage" resultType="TAdditionalFee">
+    select * from t_additional_fee
+    <include refid="pageCondition"/>
+      limit #{currentPage},#{pageSize}  
+  </select>
+  <sql id="pageCondition">
+  	<where>
+      <if test="dto.additional_name != null and dto.additional_name!=''">
+        and additional_name like concat('%',#{dto.additional_name},'%')
+      </if>
+      <if test="dto.additional_fee != null and dto.additional_fee!=''">
+        and additional_fee like concat('%',#{dto.additional_fee},'%')
+      </if>
+      <if test="dto.additional_cost != null and dto.additional_cost!=''">
+        and additional_cost like concat('%',#{dto.additional_cost},'%')
+      </if>
+      <if test="dto.additional_founder != null and  dto.additional_founder!=''">
+        and additional_founder like concat('%',#{dto.additional_founder},'%')
+      </if>
+      <if test="dto.additional_state != null and dto.additional_state!=''">
+        and additional_state like concat('%',#{dto.additional_state},'%')
+      </if>
+      <if test="dto.begin != null">
+        <if test="dto.end != null">
+          and additional_date between #{dto.begin} and #{dto.end}
+        </if>
+        <if test="dto.end == null">
+          and additional_date <![CDATA[
+              >=
+          ]]> #{dto.begin}
+        </if>
+      </if>
+      <if test="dto.begin == null">
+        <if test="dto.end != null">
+          and additional_date <![CDATA[
+                <=
+            ]]> #{dto.end}
+        </if>
+      </if>
+    </where>
+  </sql>
+  <select id="selectByPageCount" resultType="int">
+		select count(*) from t_additional_fee
+		<include refid="pageCondition"/>
+	</select>
+</mapper>

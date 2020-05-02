@@ -10,13 +10,23 @@ spring:
     url: jdbc:mysql://121.43.122.154:3307/clinic?serverTimezone=Asia/Shanghai&characterEncoding=utf8
     username: dev_clinic
     password: devclinic
- 
+  thymeleaf:
+    cache: false
+  mvc:
+    date-format: yyyy-MM-dd
+    hiddenmethod:
+      filter:
+        enabled: true
+  jackson:
+    date-format: yyyy-MM-dd
+    time-zone:
+      GMT+8
+mybatis:
+  type-aliases-package: com.woniuxy.clinic.entity
+  mapper-locations:
+  - classpath:/mybatis/mapper/*Mapper.xml
 alisms:
   accessKeyId: LTAI4GK2k6xdC67JEerPghZp
   accessSecret: yXHhWt7ZJxXZiOmun4kNPmX1fZ7rD2
   signName: 诊所管理项目
   templateCode: SMS_189026410
-mybatis:
-  type-aliases-package: com.woniuxy.clinic.entity
-  mapper-locations:
-  - classpath:/mybatis/mapper/*Mapper.xml

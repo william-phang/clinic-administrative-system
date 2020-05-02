@@ -20,6 +20,7 @@ import com.woniuxy.clinic.mapper.TUserMapper;
 import com.woniuxy.clinic.tool.CommonResult;
 
 
+
 @SpringBootTest
 class ClinicAdministrativeSystemApplicationTests {
 	@Autowired
