@@ -26,6 +26,6 @@ public class Case {
 
     private PhysiqueMessage tPhysiqueMessage; // 一张病历对应以为患者的病历详情信息
 
-    private Registration tRegistration; // 一张病历对应以为患者的挂号信息
+    private TRegistration tRegistration; // 一张病历对应以为患者的挂号信息
 
 }
