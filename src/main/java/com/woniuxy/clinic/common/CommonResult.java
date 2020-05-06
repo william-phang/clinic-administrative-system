@@ -1,11 +1,7 @@
 package com.woniuxy.clinic.common;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
-
-import com.woniuxy.clinic.entity.TAdditionalFee;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

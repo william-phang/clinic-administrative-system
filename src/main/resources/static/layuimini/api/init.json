@@ -55,14 +55,14 @@
         },
         {
           "title": "药品零售",
-          "href": "page/icon.html",
+          "href": "page/retail/retail.html",
           "icon": "fa fa-calendar",
           "target": "_self"
          
         },
         {
           "title": "收费管理",
-          "href": "page/table.html?t=41",
+          "href": "page/retail/order_list.html",
           "icon": "fa fa-flag-o",
           "target": "_self"
         
