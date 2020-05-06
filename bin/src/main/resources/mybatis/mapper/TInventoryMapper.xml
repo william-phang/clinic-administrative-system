@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.woniuxy.clinic.mapper.TInventoryMapper" >
+  <resultMap id="BaseResultMap" type="com.woniuxy.clinic.entity.TInventory" >
+    <id column="inventory_id" property="inventoryId" jdbcType="INTEGER" />
+    <result column="inventory_sn" property="inventorySn" jdbcType="VARCHAR" />
+    <result column="inventory_date" property="inventoryDate" jdbcType="TIMESTAMP" />
+    <result column="tabulation_person" property="tabulationPerson" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    inventory_id, inventory_sn, inventory_date, tabulation_person, status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.woniuxy.clinic.entity.TInventoryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_inventory
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_inventory
+    where inventory_id = #{inventoryId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_inventory
+    where inventory_id = #{inventoryId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.woniuxy.clinic.entity.TInventoryExample" >
+    delete from t_inventory
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.woniuxy.clinic.entity.TInventory" >
+    insert into t_inventory (inventory_id, inventory_sn, inventory_date, 
+      tabulation_person, status)
+    values (#{inventoryId,jdbcType=INTEGER}, #{inventorySn,jdbcType=VARCHAR}, #{inventoryDate,jdbcType=TIMESTAMP}, 
+      #{tabulationPerson,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.woniuxy.clinic.entity.TInventory" >
+    insert into t_inventory
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="inventoryId != null" >
+        inventory_id,
+      </if>
+      <if test="inventorySn != null" >
+        inventory_sn,
+      </if>
+      <if test="inventoryDate != null" >
+        inventory_date,
+      </if>
+      <if test="tabulationPerson != null" >
+        tabulation_person,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="inventoryId != null" >
+        #{inventoryId,jdbcType=INTEGER},
+      </if>
+      <if test="inventorySn != null" >
+        #{inventorySn,jdbcType=VARCHAR},
+      </if>
+      <if test="inventoryDate != null" >
+        #{inventoryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tabulationPerson != null" >
+        #{tabulationPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.woniuxy.clinic.entity.TInventoryExample" resultType="java.lang.Integer" >
+    select count(*) from t_inventory
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_inventory
+    <set >
+      <if test="record.inventoryId != null" >
+        inventory_id = #{record.inventoryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.inventorySn != null" >
+        inventory_sn = #{record.inventorySn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inventoryDate != null" >
+        inventory_date = #{record.inventoryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.tabulationPerson != null" >
+        tabulation_person = #{record.tabulationPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_inventory
+    set inventory_id = #{record.inventoryId,jdbcType=INTEGER},
+      inventory_sn = #{record.inventorySn,jdbcType=VARCHAR},
+      inventory_date = #{record.inventoryDate,jdbcType=TIMESTAMP},
+      tabulation_person = #{record.tabulationPerson,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.woniuxy.clinic.entity.TInventory" >
+    update t_inventory
+    <set >
+      <if test="inventorySn != null" >
+        inventory_sn = #{inventorySn,jdbcType=VARCHAR},
+      </if>
+      <if test="inventoryDate != null" >
+        inventory_date = #{inventoryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tabulationPerson != null" >
+        tabulation_person = #{tabulationPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where inventory_id = #{inventoryId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.woniuxy.clinic.entity.TInventory" >
+    update t_inventory
+    set inventory_sn = #{inventorySn,jdbcType=VARCHAR},
+      inventory_date = #{inventoryDate,jdbcType=TIMESTAMP},
+      tabulation_person = #{tabulationPerson,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR}
+    where inventory_id = #{inventoryId,jdbcType=INTEGER}
+  </update>
+</mapper>

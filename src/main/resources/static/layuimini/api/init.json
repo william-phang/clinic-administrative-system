@@ -172,7 +172,19 @@
             },
              {
               "title": "员工管理",
-              "href": "page/table.html?t=83",
+              "href": "page/user_module/stafftable.html?t=83",
+              "icon": "fa fa-snowflake-o",
+              "target": "_self"
+            },
+            {
+              "title": "科室管理",
+              "href": "page/user_module/departmenttable.html?t=83",
+              "icon": "fa fa-snowflake-o",
+              "target": "_self"
+            },
+            {
+              "title": "角色管理",
+              "href": "page/user_module/roletable.html?t=83",
               "icon": "fa fa-snowflake-o",
               "target": "_self"
             },
@@ -196,29 +208,9 @@
             },
             {
               "title": "费用设置",
-              "href": "",
+              "href": "page/table.html?t=87",
               "icon": "fa fa-shield",
-              "target": "_self",
-              "child": [
-	            {
-	              "title": "附加费用设置",
-	              "href": "/tAdditionalFees",
-	              "icon": "fa fa-list-alt",
-	              "target": "_self"
-	            },
-	            {
-	              "title": "诊疗费用设置",
-	              "href": "page/table.html?t=32",
-	              "icon": "fa fa-navicon",
-	              "target": "_self"
-	            },
-	            {
-	              "title": "挂号费用设置",
-	              "href": "page/table.html?t=32",
-	              "icon": "fa fa-navicon",
-	              "target": "_self"
-	            }
-	          ]
+              "target": "_self"
             },
              {
               "title": "基础设置",
@@ -228,7 +220,6 @@
             }
             
           ]
-        
         }
       ]
     }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>后台管理-登陆</title>
@@ -31,34 +31,70 @@
         .captcha-img img {height:34px;border:1px solid #e6e6e6;height:36px;width:100%;}
     </style>
 </head>
+<script>
+    $(document).ready(function(){
+        if($.cookie("password") != ''){
+              $("#password").val($.cookie("password"));
+        }
+        if($.cookie("username") != ''){
+              $("#username").val($.cookie("username"));
+        }
+    })
+
+    function check(){  
+        //记住我功能使用
+        //写入cookie
+        if ($("#rememberMe").prop("checked") == true) {
+            var name = $("#username").val();
+            var password = $("#password").val();
+            //alert(passWord);
+            $.cookie("username", name);
+            $.cookie("password", password,{ expires: 7 }); // 存储一个带7天期限的 cookie 如果{ expires: 7 } 不写则cookie只相当回话效果
+        } else {
+            $.cookie("username", "");
+            $.cookie("password", "");
+        }
+    } 
+
+</script>
+
 <body>
 <div class="layui-container">
     <div class="admin-login-background">
         <div class="layui-form login-form">
-            <form class="layui-form" action="">
+            <form class="layui-form" th:action="@{/user/login}" method="post">
                 <div class="layui-form-item logo-title">
                     <h1>诊所系统后台登录</h1>
                 </div>
+                <span class="layui-form-item" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></span><br/>
                 <div class="layui-form-item">
                     <label class="layui-icon layui-icon-username" for="username"></label>
-                    <input type="text" name="username" lay-verify="required|account" placeholder="用户名或者邮箱" autocomplete="off" class="layui-input" value="admin">
+                    <input type="text" name="username" lay-verify="required|account" placeholder="用户名或手机号" autocomplete="off" class="layui-input" >
+                    <span  th:if="${errors}" th:text="${errors.get('unameerror')}" >用户格式验证</span>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-icon layui-icon-password" for="password"></label>
-                    <input type="password" name="password" lay-verify="required|password" placeholder="密码" autocomplete="off" class="layui-input" value="123456">
+                    <input type="password" name="password" lay-verify="required|password" placeholder="密码" autocomplete="off" class="layui-input" >
+                    <span  th:text="${errors.get('pwderror')}" th:if="${errors}">密码格式验证</span>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-icon layui-icon-vercode" for="captcha"></label>
-                    <input type="text" name="captcha" lay-verify="required|captcha" placeholder="图形验证码" autocomplete="off" class="layui-input verification captcha" value="xszg">
+                    <input type="text" name="captcha" lay-verify="required|captcha" placeholder="图形验证码" autocomplete="off" class="layui-input verification captcha" >
                     <div class="captcha-img">
-                        <img id="captchaPic" src="/layuimini/images/captcha.jpg">
-                    </div>
+                        <img id="captchaPic" src="/img">
+                        <a href="javascript:chanageImage()">看不清，换一张</a><br/><br/>
+                    </div><br/>
+                    <span  th:text="${errors.get('verifycodeerror')}" th:if="${errors}">验证码验证</span>
                 </div>
                 <div class="layui-form-item">
-                    <input type="checkbox" name="rememberMe" value="true" lay-skin="primary" title="记住密码">
+                <input type="checkbox" name="rememberMe" value="true" lay-skin="primary" title="记住账号">
+                            
                 </div>
                 <div class="layui-form-item">
                     <button class="layui-btn layui-btn layui-btn-normal layui-btn-fluid" lay-submit="" lay-filter="login">登 入</button>
+                </div>
+                <div class="layui-form-item" align="center">
+                    <a href="/page/user_module/fpassword.html">忘记密码？</a>
                 </div>
             </form>
         </div>
@@ -68,6 +104,7 @@
 <script src="/layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script src="/layuimini/lib/jq-module/jquery.particleground.min.js" charset="utf-8"></script>
 <script>
+
     layui.use(['form'], function () {
         var form = layui.form,
             layer = layui.layer;
@@ -82,28 +119,11 @@
                 lineColor:'#7ec7fd'
             });
         });
-
-        // 进行登录操作
-        form.on('submit(login)', function (data) {
-            data = data.field;
-            if (data.username == '') {
-                layer.msg('用户名不能为空');
-                return false;
-            }
-            if (data.password == '') {
-                layer.msg('密码不能为空');
-                return false;
-            }
-            if (data.captcha == '') {
-                layer.msg('验证码不能为空');
-                return false;
-            }
-            layer.msg('登录成功', function () {
-                window.location = '../index.html';
-            });
-            return false;
-        });
     });
+    
+    function chanageImage(){
+    	document.getElementById("captchaPic").src="/img?d="+new Date();
+    }
 </script>
 </body>
 </html>

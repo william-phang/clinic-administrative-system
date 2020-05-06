@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.woniuxy.clinic.mapper.CaseMapper" >
+  	<select id="selectTCase" resultMap="CaseMapper">
+		select * from t_case where case_id=#{case_id}
+	</select>
+	<resultMap type="Case" id="CaseMapper">
+		<id column="case_id" property="case_id"/>
+		<!-- 一对一:体格信息 -->
+		<association property="tCaseMessage" javaType="CaseMessage" select="selectTCaseMessageByUser" column="casemessage_id"/> 
+		<!-- 一对一:病历详情 -->
+		<association property="tPhysiqueMessage" javaType="PhysiqueMessage" select="selectTPhysiqueMessageBycasemessage_id" column="physiquemessage_id"/> 
+		<!-- 一对一:挂号信息 -->
+		<association property="tRegistration" javaType="Registration" select="selectTRegistrationByregistrationId" column="registration_id"/> 
+	</resultMap>
+	
+	<!-- 一对一关系 -->
+	<select id="selectTCaseMessageByUser" resultType="CaseMessage">
+		select * from t_case_message where casemessage_id=#{casemessage_id}
+	</select>
+	<select id="selectTPhysiqueMessageBycasemessage_id" resultType="PhysiqueMessage">
+		select * from t_physique_message where physiquemessage_id=#{physiquemessage_id}
+	</select>
+	<select id="selectTRegistrationByregistrationId" resultMap="tRegistrationMapper">
+		select * from t_registration where registration_id=#{registration_id}
+	</select>
+	<!-- 挂号表对应患者信息 -->
+	<resultMap type="Registration" id="tRegistrationMapper">
+		<id column="registration_id" property="registration_id"/>
+		<result column="reception_type" property="reception_type"/>
+		<result column="reception_doctor" property="reception_doctor"/>
+		<!-- 一对一:患者信息 -->
+		<association property="tPatient" javaType="Patient" select="selectTPatientBypatient_id" column="patient_id"/>
+	</resultMap>
+	<select id="selectTPatientBypatient_id" resultType="Patient">
+		select * from t_patient where patient_id=#{patient_id}
+	</select>
+	
+	<!-- 关联外键 -->
+	<update id="insertID">
+		UPDATE t_case SET physiquemessage_id = #{physiquemessage_id} ,casemessage_id = #{casemessage_id}  WHERE case_id = #{case_id}
+	</update>
+	<update id="insertId">
+		UPDATE t_case SET casemessage_id = #{casemessage_id}  WHERE case_id = #{case_id}
+	</update>
+</mapper>

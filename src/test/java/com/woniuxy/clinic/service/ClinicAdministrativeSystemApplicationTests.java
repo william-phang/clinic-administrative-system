@@ -8,60 +8,62 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.woniuxy.clinic.entity.TAdditionalFee;
-import com.woniuxy.clinic.entity.TRegistrationFee;
+import com.github.pagehelper.PageInfo;
+import com.woniuxy.clinic.entity.TDepartment;
+import com.woniuxy.clinic.entity.TRole;
+import com.woniuxy.clinic.entity.TStaff;
+import com.woniuxy.clinic.mapper.TDepartmentMapper;
+import com.woniuxy.clinic.mapper.TPermissionMapper;
+import com.woniuxy.clinic.mapper.TRoleMapper;
+import com.woniuxy.clinic.mapper.TStaffMapper;
+import com.woniuxy.clinic.mapper.TUserMapper;
+import com.woniuxy.clinic.tool.CommonResult;
+
+
 
 @SpringBootTest
 class ClinicAdministrativeSystemApplicationTests {
+	@Autowired
+	StaffService staffService;
+	@Autowired
+	DepartmentService departmentService;
+	@Autowired
+	RoleService roleService;
+	@Autowired
+	UserService userService;
 
-	@Autowired
-	TAdditionalFeeService tAdditionalFeeService;
-	
-	@Autowired
-	TRegistrationFeeService tRegistrationFeeService;
 	
 	@Test
 	void contextLoads() {
-		TAdditionalFee tAdditionalFee=new TAdditionalFee();
-//		tAdditionalFee.setAdditionalName("医疗费");
-		tAdditionalFeeService.insertTAdditionalFee(tAdditionalFee);
+		TStaff staff=new TStaff();
+		staff.setStaffName("阿达");
+		 PageInfo info = null;
+		Integer currentPage=1;
+		Integer pageSize=5;
+		List<TStaff> selectallStaff = staffService.selectallStaff(currentPage, pageSize, staff);
+		info = new PageInfo(selectallStaff);
+	    System.out.println(selectallStaff);
+
 	}
 	
 	@Test
 	void contextLoad01() {
-		
-		tAdditionalFeeService.delectTadditionalFeeById(8);
+		TDepartment department=new TDepartment();
+		department.setDepartmentStatus("停用");
+		departmentService.updateTDepartmentbyTDepartment_id(department);
+	
 	}
 	
 	@Test
 	void contextLoad02() {
 		
-//		TAdditionalFee tAdditionalFee=
-//				new TAdditionalFee(8,"注射费",new BigDecimal("20"),new BigDecimal("10"),new Date(),"张三","禁用");
-//		tAdditionalFeeService.updateTadditionalFeeById(tAdditionalFee);
+		
 	}
 	
 	@Test
 	void contextLoad03() {
 		
-		List<TAdditionalFee> tAdditionalFees = tAdditionalFeeService.selectTadditionalFees();
-		System.out.println(tAdditionalFees);
-	}
-	
-	@Test
-	void contextLoad04() {
 		
-		TRegistrationFee tRegistrationFee=
-				new TRegistrationFee(null,"专家挂号费",new BigDecimal("20"),new BigDecimal("10"),new Date(),"张三","启用");
-		tRegistrationFeeService.insertTRegistrationFee(tRegistrationFee);
 	}
-	
-	@Test
-	void contextLoad05() {
-		
-		TAdditionalFee tAdditionalFee=new TAdditionalFee();
-		List<TAdditionalFee> tAdditionalFees = 
-				tAdditionalFeeService.selectByWhere(tAdditionalFee);
-		System.out.println(tAdditionalFees);;
-	}
+
 }

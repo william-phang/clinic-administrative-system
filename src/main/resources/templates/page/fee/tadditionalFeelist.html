@@ -12,7 +12,6 @@
 <body>
 <div class="layuimini-container">
     <div class="layuimini-main">
-
         <fieldset class="table-search-fieldset">
             <legend>搜索信息</legend>
             <div style="margin: 10px 10px 10px 10px">
@@ -21,41 +20,41 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">费用名称</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="additionalName" autocomplete="off" class="layui-input">
+                                <input type="text" name="additional_name" autocomplete="off" class="layui-input" id="additional_name">
                             </div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">费用价格</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="additionalFee" autocomplete="off" class="layui-input">
+                                <input type="text" name="additional_fee" autocomplete="off" class="layui-input" id="additional_fee">
                             </div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">成本价</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="additionalCost" autocomplete="off" class="layui-input">
+                                <input type="text" name="additional_cost" autocomplete="off" class="layui-input" id="additional_cost">
                             </div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">创建时间</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="additionalDate" autocomplete="off" class="layui-input">
+                                <input type="text" name="additional_date" autocomplete="off" class="layui-input" id="additional_date">
                             </div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">创建人员</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="additionalFounder" autocomplete="off" class="layui-input">
+                                <input type="text" name="additional_founder" autocomplete="off" class="layui-input" id="additional_founder">
                             </div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">费用状态</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="additionalState" autocomplete="off" class="layui-input">
+                                <input type="text" name="additional_state" autocomplete="off" class="layui-input" id="additional_state">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
+                            <button class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
                         </div>
                     </div>
                 </form>
@@ -63,9 +62,9 @@
         </fieldset>
 
         <script type="text/html" id="toolbarDemo">
-            <div class="layui-btn-container">
+            <div class="layui-btn-container demoTable">
                 <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>
-                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除 </button>
+                <button class="layui-btn batchDel layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 批量删除 </button>
             </div>
         </script>
 
@@ -107,61 +106,114 @@
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             	]
             ],
-            limits: [10, 15, 20, 25, 50, 100],
-            limit: 4,
+            limits: [8, 16, 24, 32, 40, 48],
+            limit: 8,
             page: true,
-            skin: 'line'
+            skin: 'line',
+             parseData:function (result) {//result是服务器端响应的数据
+                return {
+                    code:result.code ==0?0:result.code(),
+                    msg:result.message,
+                    data:result.data.list,
+                    count:result.data.total
+                }
+            } 
         });
 
         // 监听搜索操作
         form.on('submit(data-search-btn)', function (data) {
-            var result = JSON.stringify(data.field);
-            layer.alert(result, {
-                title: '最终的搜索信息'
-            });
-
+            var additional_name = $("#additional_name").val();
+            var additional_fee = $("#additional_fee").val();
+            var additional_cost = $("#additional_cost").val();
+            var additional_date = $("#additional_date").val();
+            var additional_founder = $("#additional_founder").val();
+            var additional_state = $("#additional_state").val();
             //执行搜索重载
             table.reload('currentTableId', {
                 page: {
-                    curr: 1
+                    curr: 1 //从第一页开始
                 }
-                , where: {
-                    searchParams: result
-                }
+                , where: {//这里向后台传参
+                	additional_name: additional_name,
+                	additional_fee: additional_fee,
+                	additional_cost: additional_cost,
+                	additional_date: additional_date,
+                	additional_founder: additional_founder,
+                	additional_state: additional_state
+                },
+                 parseData:function (result) {//result是服务器端响应的数据
+                    return {
+                        code:result.code ==0?0:result.code(),
+                        msg:result.message,
+                        data:result.data.list,
+                        count:result.data.total
+                    }
+                } 
             }, 'data');
 
             return false;
         });
 
         /**
-         * toolbar监听事件
+         * toolbar监听事件    添加费用信息
          */
         table.on('toolbar(currentTableFilter)', function (obj) {
             if (obj.event === 'add') {  // 监听添加操作
                 var index = layer.open({
-                    title: '添加用户',
+                    title: '添加费用信息',
                     type: 2,
                     shade: 0.2,
                     maxmin:true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '/page/tableEdit/add.html',
+                    content: '/page/fee/addtadditionalfee.html'
                 });
                 $(window).on("resize", function () {
-                    layer.full(index);
+                    //layer.full(index);
                 });
-            } else if (obj.event === 'delete') {  // 监听删除操作
+            } /* else if (obj.event === 'delete') {  // 监听批量删除操作
                 var checkStatus = table.checkStatus('currentTableId')
                     , data = checkStatus.data;
                 layer.alert(JSON.stringify(data));
+            } */
+        });
+
+      //批量删除用户
+        $(".batchDel").click(function () {
+            //获取选中的行
+            var checkStatus = table.checkStatus('currentTableId');//table中定义的id
+            var data = checkStatus.data;
+            if(data.length == 0){
+                layer.msg('请选择数据',{icon:5});
+                return ;
             }
+            var additional_ids = "";
+            $.each(data,function (index,obj) { //jquery中的foreach函数
+            	additional_ids += obj.additional_id+",";
+            })
+            additional_ids = additional_ids.substring(0,additional_ids.length-1);//剪切掉最后一个逗号字符串变为1,2,3,4,
+            layer.confirm('确认删除？',function (index) {
+                $.ajax({
+                    url:'/updateStatetByIdajax/'+additional_ids,
+                    type:'delete',
+                    dataType:'json',
+                    success:function (result) {
+                        if(result.code == 0){
+                            layer.msg('删除成功',{icon:1},function () {
+                                location.reload();//刷新数据
+                            });
+                        }else{
+                            layer.msg('删除失败');
+                        }
+                    }
+                });
+                layer.close(index);//关闭当前提示框
+            })
+
         });
 
-        //监听表格复选框选择
-        table.on('checkbox(currentTableFilter)', function (obj) {
-            console.log(obj)
-        });
-
+      
+      //编辑   单个 删除
         table.on('tool(currentTableFilter)', function (obj) {
             var data = obj.data;
             if (obj.event === 'edit') {
@@ -173,21 +225,52 @@
                     maxmin:true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '/page/tableEdit/edit.html',
+                    content: '/edittAdditionalFees/'+data.additional_id,
                 });
                 $(window).on("resize", function () {
                     layer.full(index);
                 });
                 return false;
-            } else if (obj.event === 'delete') {
-                layer.confirm('真的删除行么', function (index) {
+            }  else if (obj.event === 'delete') {
+                 /* layer.confirm('真的删除行么', function (index) {
                     obj.del();
-                    layer.close(index);
-                });
-            }
-        });
+                    layer.close(index); 
+                    
+                }); */
+                layer.confirm('确认删除',function (index) {
 
+                    $.ajax({
+                        url:'/updateStatetByIdajax/'+data.additional_id,
+                        type:'delete',
+                        dataType:'json',
+                        success:function (result) {
+                            if(result.code == 0){
+                                layer.msg("删除成功",{icon:1});
+                                location.reload();
+                            }else{
+                                layer.msg("删除失败",{icon:5});
+                            }
+                        }
+                    })
+
+                    layer.close(index);
+                })
+            } 
+            
+        });
+        
     });
+    
+    //日期时间设置
+    layui.use('laydate', function(){
+    	  var laydate = layui.laydate;
+    	  
+    	  //执行一个laydate实例
+    	  laydate.render({
+    	    elem: '#additional_date' //指定元素
+    	  });
+    	});
+    
 </script>
 
 </body>

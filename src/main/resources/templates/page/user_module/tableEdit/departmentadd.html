@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/layuimini/lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="/layuimini/css/public.css" media="all">
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-form layuimini-form">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label required">科室名</label>
+        <div class="layui-input-block">
+            <input type="text" name="departmentName" id="departmentName" lay-verify="required" lay-reqtext="科室名不能为空" placeholder="请输入科室名" value="" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">状态</label>
+        <div class="layui-input-block">
+            <input type="radio" name="Status" value="启用" title="启用" checked="">
+            <input type="radio" name="Status" value="停用" title="停用">
+        </div>
+        <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">备注信息</label>
+                <div class="layui-input-block">
+                    <textarea name="departmentDescribe" id="departmentDescribe" class="layui-textarea" placeholder="请输入备注信息"></textarea>
+                </div>
+            </div>
+    </div>
+  
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认保存</button>
+        </div>
+    </div>
+</div>
+
+<script src="/layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script>
+layui.use(['form'], function () {
+    var form = layui.form,
+        layer = layui.layer,
+        $ = layui.$;
+
+    //监听提交
+    form.on('submit(saveBtn)', function (data) {
+    	$.ajax({
+            type: 'POST',
+            url: '/addDepartment',
+            data:{
+            	departmentName:$('#departmentName').val(), 
+            	departmentDescribe:$('#departmentDescribe').val(),
+            	departmentStatus:$('input[name="Status"]:checked').val()
+            }, success: function (pos) {
+                if (pos>0) {
+                     layer.msg("操作成功!");
+                    setTimeout( function(){
+                        //window.parent.location.href = 'list.do'; 或者
+                        parent.location.reload();//刷新父页面
+                    }, 5 * 100 );//延迟500毫秒
+                    layer.close(index);
+                    var iframeIndex = parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(iframeIndex);
+                    //window.parent.layer.closeAll();关闭弹窗
+                }else if(pos==404){
+                    layer.msg("添加失败用户已存在!");
+                    
+                }
+             // 关闭弹出层
+                
+            }
+        });
+
+        return false;
+    });
+
+});
+</script>
+</body>
+</html>

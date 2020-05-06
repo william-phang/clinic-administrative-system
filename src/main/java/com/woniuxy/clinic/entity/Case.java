@@ -1,3 +1,4 @@
+
 package com.woniuxy.clinic.entity;
 
 import org.springframework.stereotype.Component;

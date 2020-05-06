@@ -240,4 +240,74 @@
       regis_state = #{regis_state,jdbcType=VARCHAR}
     where regis_id = #{regis_id,jdbcType=INTEGER}
   </update>
+  
+  <!-- 模糊查询 -->
+  
+    <select id="selectByWhere" resultType="TRegistrationFee">
+  		select * from t_registration_fee
+ 		<where>
+ 			<if test="regis_name!=null and regis_name!=''">
+ 				and regis_name like '%' #{regis_name} '%'
+	 		</if>
+	 		<if test="regis_fee>0">
+	 			and regis_fee=#{regis_fee}
+	 		</if>
+	 		<if test="regis_cost>0">
+	 			and regis_cost=#{regis_cost}
+	 		</if>
+	 		<if test="regis_founder!=null and regis_founder!=''">
+ 				and regis_founder like '%' #{regis_founder} '%'
+	 		</if>
+	 		<if test="regis_state!=null and regis_state!=''">
+ 				and regis_state like '%' #{regis_state} '%'
+	 		</if>
+ 		</where>
+  </select>
+  
+  <!-- 分页查询 -->
+  <select id="selectByPage" resultType="TRegistrationFee">
+    select * from t_registration_fee
+    <include refid="pageCondition"/>
+      limit #{currentPage},#{pageSize}  
+  </select>
+  <sql id="pageCondition">
+  	<where>
+      <if test="dto.regis_name != null and dto.regis_name!=''">
+        and regis_name like concat('%',#{dto.regis_name},'%')
+      </if>
+      <if test="dto.regis_fee != null and dto.regis_fee!=''">
+        and regis_fee like concat('%',#{dto.regis_fee},'%')
+      </if>
+      <if test="dto.regis_cost != null and dto.regis_cost!=''">
+        and regis_cost like concat('%',#{dto.regis_cost},'%')
+      </if>
+      <if test="dto.regis_founder != null and  dto.regis_founder!=''">
+        and regis_founder like concat('%',#{dto.regis_founder},'%')
+      </if>
+      <if test="dto.regis_state != null and dto.regis_state!=''">
+        and regis_state like concat('%',#{dto.regis_state},'%')
+      </if>
+      <if test="dto.begin != null">
+        <if test="dto.end != null">
+          and regis_date between #{dto.begin} and #{dto.end}
+        </if>
+        <if test="dto.end == null">
+          and regis_date <![CDATA[
+              >=
+          ]]> #{dto.begin}
+        </if>
+      </if>
+      <if test="dto.begin == null">
+        <if test="dto.end != null">
+          and regis_date <![CDATA[
+                <=
+            ]]> #{dto.end}
+        </if>
+      </if>
+    </where>
+  </sql>
+  <select id="selectByPageCount" resultType="int">
+		select count(*) from t_registration_fee
+		<include refid="pageCondition"/>
+	</select>
 </mapper>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>新增入库</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" th:href="@{/layuimini/lib/layui-v2.5.5/css/layui.css}" media="all">
+    <link rel="stylesheet" th:href="@{/layuimini/css/public.css}" media="all">
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+        h1{
+        	color: rgb(102,110,232);
+        	font-weight: 900;
+        	font-size: 30px;
+        }
+        .myLabel{
+        	margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <fieldset class="table-search-fieldset">
+            <legend>新增入库信息</legend>
+            <div style="margin: 10px 10px 10px 10px">
+                <form class="layui-form layui-form-pane" action="">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">入库日期</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="input_date" class="layui-input " name="input_date" 
+                                	placeholder="入库时间" value="" style="width:150px">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">入库人员</label>
+                            <input type="text" id="input_person" value=""
+                           class="layui-input search_input" autocomplete="off" style="width:250px">
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">入库类型</label>
+                            <div class="layui-input-inline layui-form" style="width:100px">
+                                <select name="input_type" class="" id="input_type">
+			                        <option value="">全部</option>
+			                        <option value="采购入库">采购入库</option>
+			                        <option value="退货入库">退货入库</option>
+			                        <option value="其它入库">其它入库</option>
+			                    </select>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">供应商</label>
+                            <div class="layui-input-inline">
+                            	<input type="text" id="supplier" value=""
+                           class="layui-input search_input" autocomplete="off" style="width:250px">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">制单人员</label>
+                            <div class="layui-input-inline">
+                            	<input type="text" id="tabulation_person" value=""
+                           class="layui-input search_input" autocomplete="off" style="width:250px">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">备注</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="remarks" value=""
+                           class="layui-input search_input" autocomplete="off" style="width:250px">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </fieldset>
+        <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>
+            </div>
+        </script>
+
+        <table class="layui-hide" id="drugInfoList" lay-filter="drugInfoList"></table>
+        
+        <!--  th:if="${drug.status} eq '启用'" -->
+        
+        <script type="text/html" id="operate">
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="editStatus">
+				{{#  if(d.status){ }}
+    			停用
+  				{{#  } else { }}
+   				启用
+				{{#  } }}
+  			</a>
+        </script>
+        
+        <script type="text/html" id="statusJduge">
+			{{#  if(d.status){ }}
+    			启用
+  				{{#  } else { }}
+   				停用
+				{{#  } }}
+		</script>
+    </div>
+</div>
+<script th:src="@{/layuimini/lib/layui-v2.5.5/layui.js}" charset="utf-8"></script>
+<script>
+    layui.use(['form'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            $ = layui.$;
+
+      //参数data就是表单中的数据
+        form.on('submit(saveDrugInfo)',function (data) {
+            //data.field;//当前容器的全部表单字段，名值对形式：{name: value}
+
+            $.ajax({
+                url:'/pharmacy/saveDrugInfo',
+                data:data.field,
+                dataType:'json',
+                type:'post',
+                success:function(result){
+                    if(result.code == 200){
+                        layer.msg('保存成功',{icon:1,time:1000},function () {
+                            top.layer.closeAll("iframe");//关闭窗口
+                            parent.location.reload();//从新加载数据
+                        })
+                    }else{
+                        layer.msg(result.message,{icon:5});
+                    }
+                }
+            })
+            return false;
+        })
+
+    });
+</script>
+</body>
+</html>

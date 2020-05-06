@@ -8,9 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.github.pagehelper.PageInfo;
 import com.woniuxy.clinic.common.CommonResult;
-import com.woniuxy.clinic.common.ResultUtil;
+import com.woniuxy.clinic.common.CommonResult1;
 import com.woniuxy.clinic.entity.Stock;
 import com.woniuxy.clinic.exception.PharmacyException;
 import com.woniuxy.clinic.service.StockService;
@@ -23,8 +22,8 @@ public class StockController {
 	
 	@ResponseBody
 	@RequestMapping("/stock")
-	public CommonResult<Stock> getStockAll(){
-		CommonResult<Stock> comm=new CommonResult<Stock>();
+	public CommonResult1<Stock> getStockAll(){
+		CommonResult1<Stock> comm=new CommonResult1<Stock>();
 		List<Stock> stocks = new ArrayList<Stock>();
 		try {
 			stocks = stockService.getStockAll();

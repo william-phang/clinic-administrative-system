@@ -83,6 +83,8 @@ public class PhysiqueMessageController {
 			try {
 //				physiquemessage_id = physiqueMessageService.getPhysiqueMessageId(physiquemessage_animal, physiquemessage_breathe, physiquemessage_pulse, physiquemessage_bg, physiquemessage_bf);
 //				if(physiquemessage_id == 0) {
+				// 取对应的主键值		
+				physiquemessage_id = physiqueMessageService.getPhysiqueMessageId(physiquemessage_animal, physiquemessage_breathe, physiquemessage_pulse, physiquemessage_bg, physiquemessage_bf);
 					physiqueMessageService.addPhysiqueMessage(physiqueMessage);
 //				}
 			} catch (PharmacyException e) {
@@ -104,6 +106,7 @@ public class PhysiqueMessageController {
 //			casemessage_id = physiqueMessageService.getCaseMessageId( casemessage_cahistory, casemessage_help, casemessage_idea);
 			// 倘若有非常类似的病情
 //			if(casemessage_id == 0) {
+			
 				physiqueMessageService.addCaseMessage(CaseMessage);
 //			}
 		} catch (PharmacyException e) {
@@ -114,8 +117,7 @@ public class PhysiqueMessageController {
 		int case_id=CaseServiceImpl.id;
 		
 		
-		// 取对应的主键值		
-		physiquemessage_id = physiqueMessageService.getPhysiqueMessageId(physiquemessage_animal, physiquemessage_breathe, physiquemessage_pulse, physiquemessage_bg, physiquemessage_bf);
+		
 		casemessage_id = physiqueMessageService.getCaseMessageId( casemessage_cahistory, casemessage_help, casemessage_idea);
 		
 		System.out.println("physiquemessage_id="+physiquemessage_id+"\t"+"casemessage_id="+casemessage_id);

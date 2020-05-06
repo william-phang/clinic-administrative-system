@@ -17,60 +17,91 @@
     <div class="layuimini-main">
 
         <div class="layui-form layuimini-form">
-            <div class="layui-form-item">
-                <label class="layui-form-label required">管理账号</label>
+        	<div class="layui-form-item">
+                <label class="layui-form-label">员工工号</label>
                 <div class="layui-input-block">
-                    <input type="text" name="username" lay-verify="required" lay-reqtext="管理账号不能为空" placeholder="请输入管理账号"  value="admin" class="layui-input">
-                    <tip>填写自己管理账号的名称。</tip>
+                    <label class="layui-form-label required">[[${session.user.tstaff.staffCard}]]</label>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">账号持有人</label>
+                <div class="layui-input-block">
+                   <label class="layui-form-label required">[[${session.user.tstaff.staffName}]]</label>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">年龄</label>
+                <div class="layui-input-block">
+                    <label class="layui-form-label required">[[${session.user.tstaff.staffAge}]]</label>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">性别</label>
+                <div class="layui-input-block">
+                    <label class="layui-form-label required">[[${session.user.tstaff.staffSex}]]</label>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label required">手机</label>
                 <div class="layui-input-block">
-                    <input type="number" name="phone" lay-verify="required" lay-reqtext="手机不能为空" placeholder="请输入手机"  value="" class="layui-input">
+                    <label class="layui-form-label required">[[${session.user.tstaff.staffPhone}]]</label>
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">邮箱</label>
+                <label class="layui-form-label">职位</label>
                 <div class="layui-input-block">
-                    <input type="email" name="email"  placeholder="请输入邮箱"  value="" class="layui-input">
+                    <!-- <label class="layui-form-label required">[[${session.user.trole.roleName}]]</label> -->
                 </div>
             </div>
-            <div class="layui-form-item layui-form-text">
-                <label class="layui-form-label">备注信息</label>
+            <div class="layui-form-item">
+                <label class="layui-form-label">所属科室</label>
                 <div class="layui-input-block">
-                    <textarea name="remark" class="layui-textarea" placeholder="请输入备注信息"></textarea>
+                    <label class="layui-form-label required">[[${session.user.tstaff.tDepartment.departmentName}]]</label>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">状态</label>
+                <div class="layui-input-block">
+                    <label class="layui-form-label required">[[${session.user.tstaff.staffStatus}]]</label>
                 </div>
             </div>
 
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认保存</button>
+                    
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script src="/layuimini/lib/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
 <script src="/layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script src="/layuimini/js/lay-config.js?v=1.0.4" charset="utf-8"></script>
 <script>
-    layui.use(['form','miniTab'], function () {
-        var form = layui.form,
-            layer = layui.layer,
-            miniTab = layui.miniTab;
+function getMyName(){ 
+    
+ } 
 
-        //监听提交
-        form.on('submit(saveBtn)', function (data) {
-            var index = layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
-            }, function () {
-                layer.close(index);
-                miniTab.deleteCurrentByIframe();
-            });
-            return false;
-        });
+layui.use(['form'], function () {
+    var form = layui.form,
+        layer = layui.layer;
 
+        
+    $(document).ready(function(){
+    	
+    	/*  $.ajax({
+	           url:"",
+	           type:"POST",
+	           dataType:"json",
+	           success:function (data) {
+	                       $("#userId").val(data[i].userId);
+	                       $("#userAccount").val(data[i].userAccount);
+	                   }
+	              
+
+	       }) */
     });
+});
 </script>
 </body>
 </html>

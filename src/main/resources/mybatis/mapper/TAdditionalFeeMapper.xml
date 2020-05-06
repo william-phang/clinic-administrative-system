@@ -11,7 +11,7 @@
     <result column="additional_state" property="additional_state" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
-    <where >
+    <where>
       <foreach collection="oredCriteria" item="criteria" separator="or" >
         <if test="criteria.valid" >
           <trim prefix="(" suffix=")" prefixOverrides="and" >
@@ -78,7 +78,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from t_additional_fee
+    from t_additional_fee 
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -242,26 +242,51 @@
     where additional_id = #{additional_id,jdbcType=INTEGER}
   </update>
   
-  <!-- 模糊查询 -->
-  
-    <select id="selectByWhere" resultType="TAdditionalFee">
-  		select * from t_additional_fee
- 		<where>
- 			<if test="additional_name!=null and additional_name!=''">
- 				and additional_name like '%' #{additional_name} '%'
-	 		</if>
-	 		<if test="additional_fee>0">
-	 			and additional_fee=#{additional_fee}
-	 		</if>
-	 		<if test="additional_cost>0">
-	 			and additional_cost=#{additional_cost}
-	 		</if>
-	 		<if test="additional_founder!=null and additional_founder!=''">
- 				and additional_founder like '%' #{additional_founder} '%'
-	 		</if>
-	 		<if test="additional_state!=null and additional_state!=''">
- 				and additional_state like '%' #{additional_state} '%'
-	 		</if>
- 		</where>
+  <!-- 分页查询 -->
+	
+	<select id="selectByPage" resultType="TAdditionalFee">
+    select * from t_additional_fee
+    <include refid="pageCondition"/>
+      limit #{currentPage},#{pageSize}  
   </select>
+  <sql id="pageCondition">
+  	<where>
+      <if test="dto.additional_name != null and dto.additional_name!=''">
+        and additional_name like concat('%',#{dto.additional_name},'%')
+      </if>
+      <if test="dto.additional_fee != null and dto.additional_fee!=''">
+        and additional_fee like concat('%',#{dto.additional_fee},'%')
+      </if>
+      <if test="dto.additional_cost != null and dto.additional_cost!=''">
+        and additional_cost like concat('%',#{dto.additional_cost},'%')
+      </if>
+      <if test="dto.additional_founder != null and  dto.additional_founder!=''">
+        and additional_founder like concat('%',#{dto.additional_founder},'%')
+      </if>
+      <if test="dto.additional_state != null and dto.additional_state!=''">
+        and additional_state like concat('%',#{dto.additional_state},'%')
+      </if>
+      <if test="dto.begin != null">
+        <if test="dto.end != null">
+          and additional_date between #{dto.begin} and #{dto.end}
+        </if>
+        <if test="dto.end == null">
+          and additional_date <![CDATA[
+              >=
+          ]]> #{dto.begin}
+        </if>
+      </if>
+      <if test="dto.begin == null">
+        <if test="dto.end != null">
+          and additional_date <![CDATA[
+                <=
+            ]]> #{dto.end}
+        </if>
+      </if>
+    </where>
+  </sql>
+  <select id="selectByPageCount" resultType="int">
+		select count(*) from t_additional_fee
+		<include refid="pageCondition"/>
+	</select>
 </mapper>
