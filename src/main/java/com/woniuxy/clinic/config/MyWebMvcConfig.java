@@ -68,6 +68,9 @@ public class MyWebMvcConfig{
 				registry.addViewController("/page/drug_management/price_adjustment_list.html").setViewName("page/drug_management/price_adjustment_list");
 				registry.addViewController("/page/drug_management/price_adjustment_add.html").setViewName("page/drug_management/price_adjustment_add");
 				
+				registry.addViewController("page/retail/order_list.html").setViewName("page/retail/order_list.html");
+				registry.addViewController("page/retail/retail.html").setViewName("page/retail/retail.html");
+				
 
 			}
 		};
