@@ -43,6 +43,11 @@ public class ShiroConfig {
 
         Map<String,String> map = new LinkedHashMap<String, String>();
         map.put("/user/login","anon");//管理员登录
+        map.put("/sendSms","anon");//短信发送	
+        map.put("/updateFinances","anon");//忘记密码修改
+        map.put("/selectAss","anon");//查询所有用户
+        map.put("/updatepassword","anon");//内部密码修改
+        map.put("/page/user_module/fpassword.html","anon");//管理员登录
         map.put("/layuimini/**", "anon");
         map.put("/img","anon");
         map.put("/**","authc");

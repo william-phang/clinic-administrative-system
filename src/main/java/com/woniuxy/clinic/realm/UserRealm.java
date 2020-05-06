@@ -30,7 +30,7 @@ public class UserRealm extends AuthorizingRealm{
 
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		System.out.println("111111111");
+		System.out.println("权限执行");
 		//获取登录认证成功的主体
 String primaryPrincipal = (String) principals.getPrimaryPrincipal();
         
