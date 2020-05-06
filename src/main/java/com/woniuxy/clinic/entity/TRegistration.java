@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Registration {
+public class TRegistration {
     private Long registration_id;
 
     private String registration_sn;
