@@ -167,9 +167,74 @@
 						</div>
 					</form>
 	</script>
+	
+	<!-- 建立模板 -->
+	<script id="test" type="text/html">	
+		{{#  layui.each(d, function(index, item){ }}
+		<div  class="grid-demo grid-demo-bg2" style="height: 30px; margin-top: 10px; ">
+			<span data-drug="num1" style="font-size: 17px; padding-left: 5px; padding-top: 10px;">{{index+1}}</span>
+			<span data-drug="num2" style="font-size: 17px; padding-left: 40px; padding-top: 10px;">{{item.drug_sn}}</span>
+			<span data-drug="name" style="font-size: 17px; padding-left: 20px; padding-top: 10px;">{{item.name}}</span>
+			<span style="font-size: 17px; padding-left: 40px; padding-top: 10px;">
+				<select data-drug="drugmassage_dose" name="modules" lay-verify="required" lay-search="" style="width: 90px; height: 28px;">
+					<option value="一片">一片</option>
+					<option value="两片">两片</option>
+					<option value="三片">三片</option>
+					<option value="四片">四片</option>
+					<option value="五片">五片</option>
+					<option value="六片">六片</option>
+					<option value="七片">七片</option>
+				</select>
+				
+			</span>
+			<span style="font-size: 17px; padding-left: 10px; padding-top: 10px;"> 
+				<select data-drug="drugmassage_use" name="modules" lay-verify="required" lay-search="" style="width: 90px; height: 28px;">
+					<option value="口服">口服</option>
+					<option value="静脉注射">静脉注射</option>
+					<option value="注射药物">注射药物</option>
+					<option value="检查">检查</option>
+					<option value="皮试">皮试</option>
+					<option value="外用">外用</option>
+					<option value="物化">物化</option>
+				</select>
+			</span>
+			<span style="font-size: 17px; padding-left: 2px; padding-top: 10px;">
+				<select data-drug="drugmassage_fqt" name="modules" lay-verify="required" lay-search="" style="width: 100px; height: 28px;">
+					<option value="一天1次">一天1次</option>
+					<option value="一天2次">一天2次</option>
+					<option value="一天3次">一天3次</option>
+					<option value="一天4次">一天4次</option>
+					<option value="2小时一次">2小时一次</option>
+					<option value="4小时一次">4小时一次</option>
+					<option value="6小时一次">6小时一次</option>
+				</select>
+			</span> 
+			<span style="font-size: 17px; padding-left: 3px; padding-top: 10px;">
+				<select data-drug="drugmassage_date" name="modules" lay-verify="required" lay-search="" style="width: 50px; height: 28px;">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+				</select>
+			</span>
+			<span style="font-size: 17px; width: 40px; padding-left: 2px; padding-top: 10px;">
+				<input data-drug="drugmassage_total" type="text" value="1" style="width: 40px; height: 24px; text-align: center;" name="email" lay-verify="email" autocomplete="off">
+			</span> 
+			<span style="font-size: 17px; padding-top: 10px;"> 
+				<span style="font-size: 17px; width: 40px; padding-left: 5px; padding-top: 10px;">
+					<input data-drug="drugmassage_type" value="{{item.retail_amount}}" type="text" style="width: 40px; height: 24px; text-align: center;" name="email" lay-verify="email" autocomplete="off">
+				</span>
+			</span>
+		</div>
+		{{#  }); }}
+	</script>
+	
 	<fieldset class="layui-elem-field layui-field-title"
 		style="margin-top: 20px;">
-		<legend style="color: #FFB800;">新开就诊</legend>
+		<legend style="color: #FFB800;">新开就诊</legend>      
 	</fieldset>
 
 	<div class="layuimini-container">
@@ -178,7 +243,7 @@
 				<legend>基本信息</legend>
 				<div style="margin: 10px 10px 10px 10px" id="patient_name_view">
 					<!-- 建立试图 -->
-
+					
 					<!-- 地址三联 -->
 					<script>
 						//配置插件目录
@@ -230,18 +295,13 @@
 					<div class="layui-col-md12" id="view">
 						<div class="grid-demo">
 		<div class="layui-input-inline" style="width: 120px; height: 40px;">
-			<select
-				style="height: 30px; margin-top: 5px; margin-left: 12px;"
-				name="modules" lay-verify="required" lay-search="">
+			<select style="height: 30px; margin-top: 5px; margin-left: 12px;" name="modules" lay-verify="required" lay-search="">
 				<option value="">添加处方</option>
 				<option value="1">西/成药处方</option>
 				<option value="2">中药处方</option>
 				<option value="3">检查项目</option>
 			</select>
 		</div>
-		<!-- <div class="layui-input-inline" style="width: 120px; height: 67px; " >
-				<input type="text" placeholder="请输入手机号码" name="email" lay-verify="email" autocomplete="off" class="layui-input">
-			</div> -->
 	</div>
 </div>
 <div class="layui-col-md7"
@@ -251,8 +311,7 @@
 	</div>
 	<div class="grid-demo grid-demo-bg2"
 		style="background-color: #93D1FF; height: 50px; margin-top: 10px; margin-left: 10px;">
-		<input type="checkbox" name="like1[write]" lay-skin="primary"
-			style="margin-top: 15px; height: 17px; width: 17px;"> <span
+		<span
 			style="font-size: 17px; padding-left: 5px; padding-top: 10px;">序号</span>
 		<span
 			style="font-size: 17px; padding-left: 8px; padding-top: 10px;">组号</span>
@@ -272,10 +331,10 @@
 			style="font-size: 17px; padding-left: 15px; padding-top: 10px;">单价</span>
 	</div>
 	
-	<div class="grid-demo grid-demo-bg2" style="height: 300px; margin-top: 10px; margin-left: 10px;">
-		<div id="view" class="grid-demo grid-demo-bg2" style="height: 30px; margin-top: 10px; ">
+	<div id="view" class="grid-demo grid-demo-bg2" style="height: 300px; margin-top: 10px; margin-left: 10px;">
+		
 			<!-- 试图建立 -->
-		</div>
+		
 	</div>
 	
 	
@@ -292,9 +351,7 @@
 	</div>
 	<div class=" layui-col-md2 layui-input-inline"
 		style="margin-left: 10px; margin-top: 10px; height: 60px;">
-		<select
-			style="margin-left: 10px; margin-top: 10px; height: 38px; width: 80px;"
-			name="modules" lay-verify="required" lay-search="">
+		<select style="margin-left: 10px; margin-top: 10px; height: 38px; width: 80px;" name="modules" lay-verify="required" lay-search="">
 			<option value="1">骨科</option>
 			<option value="2">全科</option>
 			<option value="3">儿科</option>
@@ -336,74 +393,7 @@
 			</div>
 		</div>
 	</div>
-	
-	<!-- 建立模板 -->
-	<script id="test" type="text/html">
-		
-			<input type="checkbox" name="like1[write]" lay-skin="primary"
-				style="margin-top: 5px; height: 17px; width: 17px;"> <span
-				style="font-size: 17px; padding-left: 5px; padding-top: 10px;">1</span>
-			<span
-				style="font-size: 17px; padding-left: 40px; padding-top: 10px;">1</span>
-			<span
-				style="font-size: 17px; padding-left: 20px; padding-top: 10px;">哈姆雷特</span>
-			<span
-				style="font-size: 17px; padding-left: 40px; padding-top: 10px;">1片</span>
-			<span
-				style="font-size: 17px; padding-left: 10px; padding-top: 10px;">
-				<select name="modules" lay-verify="required" lay-search=""
-				style="width: 90px; height: 28px;">
-					<option value="1">口服</option>
-					<option value="2">静脉注射</option>
-					<option value="3">注射药物</option>
-					<option value="4">检查</option>
-					<option value="5">皮试</option>
-					<option value="6">外用</option>
-					<option value="7">物化</option>
-			</select>
-			</span> <span
-				style="font-size: 17px; padding-left: 2px; padding-top: 10px;">
-				<select name="modules" lay-verify="required" lay-search=""
-				style="width: 100px; height: 28px;">
-					<option value="1">一天1次</option>
-					<option value="2">一天2次</option>
-					<option value="3">一天3次</option>
-					<option value="4">一天4次</option>
-					<option value="5">2小时一次</option>
-					<option value="6">4小时一次</option>
-					<option value="7">6小时一次</option>
-			</select>
-			</span> <span
-				style="font-size: 17px; padding-left: 3px; padding-top: 10px;">
-				<select name="modules" lay-verify="required" lay-search=""
-				style="width: 50px; height: 28px;">
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-					<option value="7">7</option>
-			</select>
-			</span> <span
-				style="font-size: 17px; width: 40px; padding-left: 2px; padding-top: 10px;">
-				<input type="text" value="1"
-				style="width: 40px; height: 24px; text-align: center;"
-				name="email" lay-verify="email" autocomplete="off">
-			</span> <span style="font-size: 17px; padding-top: 10px;"> <span
-				style="font-size: 17px; width: 40px; padding-left: 5px; padding-top: 10px;">
-					<input type="text"
-					style="width: 40px; height: 24px; text-align: center;"
-					name="email" lay-verify="email" autocomplete="off">
-			</span>
-			</span>
-		
-	
-
-		
-	</script>
-	
-	
+	<input style="margin-left:820px ;" id="btn" class="layui-btn layui-btn-warm" type="button" lay-verify="email" value="生成药品清单" autocomplete="off" >
 	<!-- 渲染模板 -->
 	<script>
 		layui.use([ 'table', 'jquery', 'layer', 'form', 'laypage',
@@ -412,7 +402,7 @@
 							var table = layui.table, form = layui.form, $ = layui.jquery, laypage = layui.laypage, layer = layui.layer, laytpl = layui.laytpl, laydate = layui.laydate;
 							table.render({
 							    elem: '#testsssss'
-							    ,url:'/layuimini/api/case.json'
+							    ,url:'[[@{/stock}]]'
 							    ,fixed: 'right'
 							    ,width: 461
 							    ,height: 500
@@ -420,15 +410,15 @@
 							    ,cols: [
 							    	[
 							      {type:'checkbox'}
-							      ,{field:'id', width:80, title: '名称', sort: true, }
-							      ,{field:'username', width:80, title: '规格'}
-							      ,{field:'sex', width:80, title: '类型', sort: true}
-							      ,{field:'city', width:80, title: '价格'}
-							      ,{field:'city', width:80, title: '库存'}
+							      ,{field:'durg.name', width:80, title: '名称', templet:function(d){return d.drug.name; }  }
+							      ,{field:'data.drug.specification', width:80, title: '规格', templet:function(d){return d.drug.specification; } }
+							      ,{field:'type', width:80, title: '类型', sort: true , templet:function(d){return d.drug.type; } }
+							      ,{field:'data.retail_amount', width:80, title: '价格' , templet:function(d){return d.drug.retail_amount; }}
+							      ,{field:'stock_amount', width:80, title: '库存'}
 							   			]
 							    	]
-							    ,page: true
-							    ,response: {
+							   ,page: true
+							  	,response: {
 							        statusCode: 200 //重新规定成功的状态码为 200，table 组件默认为 0
 							    }
 							  });
@@ -440,17 +430,26 @@
 							      case 'getCheckData':
 							        var data = checkStatus.data;  //获取选中行数据       
 							        layer.alert(JSON.stringify(data));
-							        var t = JSON.stringify(data);
-							        console.log(data);
-							        // 渲染模板
-							        var getTpl = test.innerHTML,
-							        view = document.getElementById('view');
-							   		laytpl(getTpl).render(t, function (html) {
-							        view.innerHTML = html;
-							        //之前在表单中设置的默认值
-							        $("#view").find("input[name='cycle']").val("1000");
-							    	});
-							   		form.render();
+									data = JSON.stringify(data);
+							        console.log(data);   
+							        // 将数据传入后台通过相应的json格式实现交互 							   		
+							        $.ajax({
+										  url: "[[@{/prescription}]]",
+										  contentType:"application/json;charset=utf-8",
+										  type:"post",
+										  data:data,
+										  success: function(data){
+											 	console.log(data);
+												var getTpl = test.innerHTML,
+											    view = document.getElementById('view');
+											   	laytpl(getTpl).render(data, function (html) {
+											    	view.innerHTML = html;
+											    	//之前在表单中设置的默认值
+											    	$("#view").find("input[name='cycle']").val("1000");
+											    });
+											   	form.render();
+										  }
+									});
 							    };
 							  });
 							
@@ -458,19 +457,46 @@
 							$.post('[[@{/case}]]',
 									null,
 									function(resp) {
-										console.log(resp);
 										if (resp.state = 200) {
-										console.log(resp.state);
 										// 模板渲染
 										data = resp;
-										console.log(data);
-										//console.log(data.patient.patient_name+":"+data.patient.patient_phone+":"+data.patient.patient_card);
 										var getTpl = demo.innerHTML, view = document.getElementById('patient_name_view');
 										laytpl(getTpl).render(data,function(html) {
 											view.innerHTML = html;
 										});
 										form.render() //全部刷新
 									}
+							});
+							
+							$(function(){
+								$("#btn").click(function(){
+									var item=$("#view").children();
+									var drugs=[];
+									for(var i=0;i<item.length;i++){
+										var drug={};
+										var $item=$(item[i]);
+										drug.num1=($item.find("[data-drug='num1']").html());
+										drug.num2=($item.find("[data-drug='num2']").html());
+										drug.name=($item.find("[data-drug='name']").html());
+										drug.drugmassage_dose=($item.find("[data-drug='drugmassage_dose']").val());										
+										drug.drugmassage_use=($item.find("[data-drug='drugmassage_use']").val());
+										drug.drugmassage_fqt=($item.find("[data-drug='drugmassage_fqt']").val());
+										drug.drugmassage_date=($item.find("[data-drug='drugmassage_date']").val());
+										drug.drugmassage_type=($item.find("[data-drug='drugmassage_type']").val());
+										drugs.push(drug);
+									};
+									var data=JSON.stringify(drugs);
+									console.log('data=',data);
+									$.ajax({
+										  url: "[[@{/drugmassage}]]",
+										  contentType:"application/json;charset=utf-8",
+										  type:"post",
+										  data:data,
+										  success: function(data){
+											 alert(data);
+										  }
+									});
+								});
 							});
 						});
 	</script>

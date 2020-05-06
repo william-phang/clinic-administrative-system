@@ -11,7 +11,7 @@
 		<!-- 一对一:病历详情 -->
 		<association property="tPhysiqueMessage" javaType="PhysiqueMessage" select="selectTPhysiqueMessageBycasemessage_id" column="physiquemessage_id"/> 
 		<!-- 一对一:挂号信息 -->
-		<association property="tRegistration" javaType="Registration" select="selectTRegistrationByregistrationId" column="registration_id"/> 
+		<association property="tRegistration" javaType="TRegistration" select="selectTRegistrationByregistrationId" column="registration_id"/> 
 	</resultMap>
 	
 	<!-- 一对一关系 -->
@@ -25,7 +25,7 @@
 		select * from t_registration where registration_id=#{registration_id}
 	</select>
 	<!-- 挂号表对应患者信息 -->
-	<resultMap type="Registration" id="tRegistrationMapper">
+	<resultMap type="TRegistration" id="tRegistrationMapper">
 		<id column="registration_id" property="registration_id"/>
 		<result column="reception_type" property="reception_type"/>
 		<result column="reception_doctor" property="reception_doctor"/>

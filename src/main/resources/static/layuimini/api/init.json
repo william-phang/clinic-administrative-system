@@ -62,7 +62,7 @@
         },
         {
           "title": "收费管理",
-          "href": "page/table.html?t=41",
+          "href": "page/retail/order_list.html",
           "icon": "fa fa-flag-o",
           "target": "_self"
         

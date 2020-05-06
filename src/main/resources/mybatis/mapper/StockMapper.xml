@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.woniuxy.clinic.mapper.StockMapper" >
+  	
+  	<select id="selelctBydrug_sn" resultType="Stock">
+  		select * from t_stock where drug_sn=#{drug_sn}
+  	</select>  	
+  	
+  	
+  	
+  	<select id="selectByAll" resultMap="stockMapper">
+  		select * from t_stock 
+  	</select>
+  	<resultMap type="Stock" id="stockMapper">
+  		<id column="stock_id" property="stock_id"/>
+  		<result column="stock_amount" property="stock_amount"/>
+  		<association property="drug" javaType="Drug" select="selectBydrug_sn" column="drug_sn"/>
+  	</resultMap>
+  	<select id="selectBydrug_sn" resultType="Drug">
+  		select drug_sn,type,name,specification,retail_amount from t_drug where drug_sn=#{drug_sn}
+  	</select>
+  	
+  	
+</mapper>

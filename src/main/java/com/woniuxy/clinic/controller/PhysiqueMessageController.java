@@ -26,7 +26,7 @@ public class PhysiqueMessageController {
 //	@Transactional(isolation= Isolation.DEFAULT,propagation= Propagation.REQUIRED,rollbackFor = Exception.class)
 	@RequestMapping("/test")
 	public String validate(Model model,@Validated PhysiqueMessage physiqueMessage,@Validated CaseMessage CaseMessage,BindingResult br) {				
-		System.out.println("CaseMessage: "+CaseMessage);
+//		System.out.println("CaseMessage: "+CaseMessage);
 		// 后端效验信息
 		int count = br.getErrorCount();
 		model.addAttribute("physiqueMessage", physiqueMessage);
@@ -69,64 +69,65 @@ public class PhysiqueMessageController {
 			}
 			return "/page/case/case.html";
 		}
-//		int casemessage_id = 0;
-//		int physiquemessage_id = 0;
-//		
-//		// 根据体温+呼吸+血脂+血糖+脉搏查询对应主键
-//		Double physiquemessage_animal = physiqueMessage.getPhysiquemessage_animal();
-//		Integer physiquemessage_breathe = physiqueMessage.getPhysiquemessage_breathe();
-//		Integer physiquemessage_pulse = physiqueMessage.getPhysiquemessage_pulse();
-//		Double physiquemessage_bg = physiqueMessage.getPhysiquemessage_bg();
-//		Double physiquemessage_bf = physiqueMessage.getPhysiquemessage_bf();
-//		// 录入体格信息
-//		if(physiqueMessage!=null) {
-//			try {
-////				physiquemessage_id = physiqueMessageService.getPhysiqueMessageId(physiquemessage_animal, physiquemessage_breathe, physiquemessage_pulse, physiquemessage_bg, physiquemessage_bf);
-////				if(physiquemessage_id == 0) {
-//					physiqueMessageService.addPhysiqueMessage(physiqueMessage);
-////				}
-//			} catch (PharmacyException e) {
-//				e.printStackTrace();
-//			} catch (Exception e) {
-//				e.printStackTrace();
+		int casemessage_id = 0;
+		int physiquemessage_id = 0;
+		
+		// 根据体温+呼吸+血脂+血糖+脉搏查询对应主键
+		Double physiquemessage_animal = physiqueMessage.getPhysiquemessage_animal();
+		Integer physiquemessage_breathe = physiqueMessage.getPhysiquemessage_breathe();
+		Integer physiquemessage_pulse = physiqueMessage.getPhysiquemessage_pulse();
+		Double physiquemessage_bg = physiqueMessage.getPhysiquemessage_bg();
+		Double physiquemessage_bf = physiqueMessage.getPhysiquemessage_bf();
+		// 录入体格信息
+		if(physiqueMessage!=null) {
+			try {
+//				physiquemessage_id = physiqueMessageService.getPhysiqueMessageId(physiquemessage_animal, physiquemessage_breathe, physiquemessage_pulse, physiquemessage_bg, physiquemessage_bf);
+//				if(physiquemessage_id == 0) {
+				// 取对应的主键值		
+				physiquemessage_id = physiqueMessageService.getPhysiqueMessageId(physiquemessage_animal, physiquemessage_breathe, physiquemessage_pulse, physiquemessage_bg, physiquemessage_bf);
+					physiqueMessageService.addPhysiqueMessage(physiqueMessage);
+//				}
+			} catch (PharmacyException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		// 根据两者插入的主键列关联病历表中的属性值
+		// 根据现病史+辅助检查+治疗意见查询相关主键---查询病历详情信息
+		// 根据这些消息可能说是病情一样所以可以根据这个逻辑关联;
+		String casemessage_cahistory = CaseMessage.getCasemessage_cahistory();
+		String casemessage_help = CaseMessage.getCasemessage_help();
+		String casemessage_idea = CaseMessage.getCasemessage_idea();		
+		// 录入病历详情信息				
+		try {
+			// 判断是否有类似病情
+//			casemessage_id = physiqueMessageService.getCaseMessageId( casemessage_cahistory, casemessage_help, casemessage_idea);
+			// 倘若有非常类似的病情
+//			if(casemessage_id == 0) {
+			
+				physiqueMessageService.addCaseMessage(CaseMessage);
 //			}
-//		}
-//		
-//		// 根据两者插入的主键列关联病历表中的属性值
-//		// 根据现病史+辅助检查+治疗意见查询相关主键---查询病历详情信息
-//		// 根据这些消息可能说是病情一样所以可以根据这个逻辑关联;
-//		String casemessage_cahistory = CaseMessage.getCasemessage_cahistory();
-//		String casemessage_help = CaseMessage.getCasemessage_help();
-//		String casemessage_idea = CaseMessage.getCasemessage_idea();		
-//		// 录入病历详情信息				
-//		try {
-//			// 判断是否有类似病情
-////			casemessage_id = physiqueMessageService.getCaseMessageId( casemessage_cahistory, casemessage_help, casemessage_idea);
-//			// 倘若有非常类似的病情
-////			if(casemessage_id == 0) {
-//				physiqueMessageService.addCaseMessage(CaseMessage);
-////			}
-//		} catch (PharmacyException e) {
-//			e.printStackTrace();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}		
-//		int case_id=CaseServiceImpl.id;
-//		
-//		
-//		// 取对应的主键值		
-//		physiquemessage_id = physiqueMessageService.getPhysiqueMessageId(physiquemessage_animal, physiquemessage_breathe, physiquemessage_pulse, physiquemessage_bg, physiquemessage_bf);
-//		casemessage_id = physiqueMessageService.getCaseMessageId( casemessage_cahistory, casemessage_help, casemessage_idea);
-//		
-//		System.out.println("physiquemessage_id="+physiquemessage_id+"\t"+"casemessage_id="+casemessage_id);
-//		// 根据对应主键关联
-//		// 若不是流感病毒
-//		if(physiquemessage_id == 0) {			
-//			physiqueMessageService.addCaseOtherId(casemessage_id,case_id);
-//		}else{
-//			physiqueMessageService.addCaseOtherId(physiquemessage_id, casemessage_id,case_id);
-//		}
-//		return "/page/case/prescription.html";
+		} catch (PharmacyException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		int case_id=CaseServiceImpl.id;
+		
+		
+		
+		casemessage_id = physiqueMessageService.getCaseMessageId( casemessage_cahistory, casemessage_help, casemessage_idea);
+		
+		System.out.println("physiquemessage_id="+physiquemessage_id+"\t"+"casemessage_id="+casemessage_id);
+		// 根据对应主键关联
+		// 若不是流感病毒
+		if(physiquemessage_id == 0) {			
+			physiqueMessageService.addCaseOtherId(casemessage_id,case_id);
+		}else{
+			physiqueMessageService.addCaseOtherId(physiquemessage_id, casemessage_id,case_id);
+		}
 		return "/page/case/table.html";
 	}
 }
