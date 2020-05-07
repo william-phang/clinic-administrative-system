@@ -27,7 +27,7 @@ public class StockController {
 		List<Stock> stocks = new ArrayList<Stock>();
 		try {
 			stocks = stockService.getStockAll();
-			comm.setData(stocks);
+			//comm.setData(stocks);
 			long l=200;
 			comm.setCode(l);
 		} catch (PharmacyException e) {

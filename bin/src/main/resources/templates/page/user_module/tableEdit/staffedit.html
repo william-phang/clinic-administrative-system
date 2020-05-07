@@ -32,7 +32,6 @@
         <label class="layui-form-label required">姓名</label>
         <div class="layui-input-block">
             <input type="text" name="staffName" id="staffName" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="请输入用户名" value="" class="layui-input">
-            <tip>填写自己管理账号的名称。</tip>
         </div>
     </div>
     <div class="layui-form-item">
@@ -54,18 +53,25 @@
             <input type="text" name="staffAge" id="staffAge" placeholder="请输入职业" value="" class="layui-input">
         </div>
     </div>
+     <div class="layui-form-item">
+				<label class="layui-form-label">所属科室</label>
+				<div class="layui-input-inline">
+					<select name="depratmentId" lay-verify="required" id="depratmentId"
+						lay-filter="depratmentId">
+						<option value="">请选择</option>
+					</select>
+				</div>
+			</div>
     <div class="layui-form-item">
-        <label class="layui-form-label">所属科室</label>
-        <div class="layui-input-block">
-            <input type="text" name="departmentId" id="departmentId" placeholder="请输入科室" value="" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">职位</label>
-        <div class="layui-input-block">
-            <input type="text" name="roleId" id="roleId" placeholder="请输入职业" value="" class="layui-input">
-        </div>
-    </div>
+				<label class="layui-form-label">角色</label>
+				<div class="layui-input-inline">
+					<select name="roleId" lay-verify="required" id="roleId"
+						lay-filter="roleId">
+						<option value="">请选择</option>
+					</select>
+				</div>
+			</div>
+
     <div class="layui-form-item">
         <label class="layui-form-label required">状态</label>
         <div class="layui-input-block">
@@ -88,7 +94,7 @@
         var form = layui.form,
             layer = layui.layer,
             $ = layui.$;
-
+        
         //监听提交
         form.on('submit(saveBtn)', function (data) {
         	$.ajax({
@@ -96,7 +102,7 @@
                 url: '/updateStaff',
                 data:{
                 	staffId:$('#staffId').val(),
-                	departmentId:$('#departmentId').val(),
+                	departmentId:$('#depratmentId').val(),
                 	roleId:$('#roleId').val(),
                 	staffName:$('#staffName').val(),
                 	staffAge:$('#staffAge').val(),

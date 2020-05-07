@@ -24,7 +24,7 @@ public interface TRoleMapper {
     TRole selectByname(String role_name);
     
     @Select("select permission_name from t_role r,t_permission p WHERE r.role_id = p.role_id \r\n" + 
-    		"    		and r.role_id = #{value}")
+    		"    		and r.role_id = #{value} AND status=\"启用\"")
     List<String> findPermsByRoles(Integer roleId);
 
     int updateByExampleSelective(@Param("record") TRole record, @Param("example") TRoleExample example);

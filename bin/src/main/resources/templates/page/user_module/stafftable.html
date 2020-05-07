@@ -160,6 +160,7 @@ function sortitle(roleId){
          * toolbar监听事件
          */
         table.on('toolbar(currentTableFilter)', function (obj) {
+        	var data = obj.data;
             if (obj.event === 'add') {  // 监听添加操作
                 var index = layer.open({
                     title: '添加员工',
@@ -168,8 +169,37 @@ function sortitle(roleId){
                     maxmin:true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '/page/tableEdit/staffadd.html',
+                    content: '/page/user_module/tableEdit/staffadd.html',
+                    success: function(layero, index){
+                        var body=layer.getChildFrame('body',index);//少了这个是不能从父页面向子页面传值的
+            　　　　　　　　 var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象
+                  //为弹框页面科室下拉框赋值
+        		    $.ajax({
+        				url : '/selectAlldepartment',
+        				dataType : 'json',
+        				type : 'post',
+        				success : function(data) {
+        					$.each(data, function(index, item) {			
+        							body.find('#depratmentId').append($("<option>").attr("value",item.departmentId).text(item.departmentName));
+        					});
+        					iframeWin.layui.form.render("select");
+        				}
+        			});
+        		    //为弹框页面角色下拉框赋值
+        		    $.ajax({
+        				url : '/selectAllrole',
+        				dataType : 'json',
+        				type : 'post',
+        				success : function(data) {
+        					$.each(data, function(index, item) {
+        							body.find('#roleId').append($("<option>").attr("value",item.roleId).text(item.roleName));
+        					});
+        					iframeWin.layui.form.render("select");
+        				}
+        			});
+                    }
                 });
+            
                 $(window).on("resize", function () {
                     layer.full(index);
                 });
@@ -183,35 +213,69 @@ function sortitle(roleId){
       
 
         table.on('tool(currentTableFilter)', function (obj) {
-            var data = obj.data;
+            var data1 = obj.data;
             if (obj.event === 'edit') {
 
                 var index = layer.open({
-                    title: '编辑',
+                    title: '修改员工信息',
                     type: 2,
                     shade: 0.2,
                     maxmin:true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '/page/tableEdit/staffedit.html',
+                    content: '/page/user_module/tableEdit/staffedit.html',
                     success: function(layero, index){
                         var body=layer.getChildFrame('body',index);//少了这个是不能从父页面向子页面传值的
-            　　　　　　　　
+            　　　　　　　　 var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象
                         //获取子页面的元素，进行数据渲染
-                        body.contents().find("#staffId").val(data.staffId);
-                        body.contents().find("#departmentId").val(data.departmentId);
-                        body.contents().find("#roleId").val(data.roleId);
-            　　　　　　　body.contents().find("#staffCard").val(data.staffCard);
-            　　　　　　  body.contents().find('#staffName').val(data.staffName);　　
-            　　　　　　　body.contents().find('#staffAge').val(data.staffAge);
-            body.contents().find('#staffPhone').val(data.staffPhone);
-            body.find('input[name=Sex][value=男]').attr("checked",data.staffSex=='男' ? true : false);
-		    body.find('input[name=Sex][value=女]').attr("checked",data.staffSex=='女' ? true : false);
-		    body.find('input[name=Status][value=在职]').attr("checked",data.staffStatus=='在职' ? true : false);
-		    body.find('input[name=Status][value=停职]').attr("checked",data.staffStatus=='停职' ? true : false);
-		    form.render();
-                    },
-                });
+                        body.contents().find("#staffId").val(data1.staffId);
+                       
+            　　　　　　　body.contents().find("#staffCard").val(data1.staffCard);
+            　　　　　　  body.contents().find('#staffName').val(data1.staffName);　　
+            　　　　　　　body.contents().find('#staffAge').val(data1.staffAge);
+            body.contents().find('#staffPhone').val(data1.staffPhone);
+            body.find('input[name=Sex][value=男]').attr("checked",data1.staffSex=='男' ? true : false);
+		    body.find('input[name=Sex][value=女]').attr("checked",data1.staffSex=='女' ? true : false);
+		    body.find('input[name=Status][value=在职]').attr("checked",data1.staffStatus=='在职' ? true : false);
+		    body.find('input[name=Status][value=停职]').attr("checked",data1.staffStatus=='停职' ? true : false);
+
+		  //为弹框页面科室下拉框赋值
+		    $.ajax({
+				url : '/selectAlldepartment',
+				dataType : 'json',
+
+				type : 'post',
+				success : function(data) {
+					$.each(data, function(index, item) {
+						if (item.departmentId == data1.departmentId) {
+							body.find('#depratmentId').append($("<option>").attr("value",item.departmentId).attr("selected","selected").text(item.departmentName));
+						}else  {
+							body.find('#depratmentId').append($("<option>").attr("value",item.departmentId).text(item.departmentName));
+						}
+					});
+					iframeWin.layui.form.render("select");
+				}
+			});
+		    //为弹框页面角色下拉框赋值
+		    $.ajax({
+				url : '/selectAllrole',
+				dataType : 'json',
+
+				type : 'post',
+				success : function(data) {
+					$.each(data, function(index, item) {
+						if (item.roleId == data1.roleId) {
+							body.find('#roleId').append($("<option>").attr("value",item.roleId).attr("selected","selected").text(item.roleName));
+						}else  {
+							body.find('#roleId').append($("<option>").attr("value",item.roleId).text(item.roleName));
+						}
+					});
+					iframeWin.layui.form.render("select");
+				}
+			});
+		  }
+	});
+
                 $(window).on("resize", function () {
                     layer.full(index);
                 });
@@ -223,6 +287,8 @@ function sortitle(roleId){
                 });
             }
         });
+        
+
 
     });
 </script>

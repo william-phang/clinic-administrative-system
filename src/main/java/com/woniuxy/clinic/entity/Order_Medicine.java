@@ -14,9 +14,9 @@ import lombok.NoArgsConstructor;
 @Data
 public class Order_Medicine {
 
-	private Integer id;//主键
-	private Integer number;//数量
-	private Double total;//总额
+	private Integer order_medicine_id;//主键
+	private Integer order_medicine_number;//数量
+	private Double order_medicine_total;//总额
 	private Integer order_id;//订单编号
-	private Integer medecine_id;//药品编号
+	private TDrug tDrug;//药品对象
 }

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>数据表格</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" th:href="@{/layuimini/lib/layui-v2.5.5/css/layui.css}" media="all">
+    <link rel="stylesheet" th:href="@{/layuimini/css/public.css}" media="all">
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <fieldset class="table-search-fieldset">
+            <legend>搜索信息</legend>
+            <div style="margin: 10px 10px 10px 10px">
+                <form class="layui-form layui-form-pane" action="">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">处方类别</label>
+                            <div class="layui-input-inline layui-form" style="width:100px">
+                                <select name="type" class="" id="type">
+			                        <option value="">全部</option>
+			                        <option value="西/成药">西/成药</option>
+			                        <option value="中药">中药</option>
+			                    </select>
+                            </div>
+                        </div>
+                        
+               
+                        <div class="layui-inline">
+                            <div class="layui-input-inline">
+                                <input type="text" id="other" value="" placeholder="输入药品名称/编码/生产厂家"
+                           class="layui-input search_input" autocomplete="off" style="width:250px">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </fieldset>
+
+        <table class="layui-hide" id="drugInfoList" lay-filter="drugInfoList"></table>
+        <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+               <button class="layui-btn batchDel layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 添加 </button>
+            </div>
+        </script>
+        
+        <!--  th:if="${drug.status} eq '启用'" -->
+        
+       <!--   <script type="text/html" id="operate">
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="editStatus">
+				{{#  if(d.status){ }}
+    			停用
+  				{{#  } else { }}
+   				启用
+				{{#  } }}
+  			</a>
+        </script>-->
+        
+       <!--  <script type="text/html" id="statusJduge">
+			{{#  if(d.status){ }}
+    			启用
+  				{{#  } else { }}
+   				停用
+				{{#  } }}
+		</script> -->
+        
+    </div>
+</div>
+<script th:src="@{/layuimini/lib/layui-v2.5.5/layui.js}" charset="utf-8"></script>
+<script>
+    layui.use(['table','util','jquery','layer','form','laypage','laytpl','laydate'], function () {
+    	var table = layui.table,
+        form = layui.form,
+        $ = layui.jquery,
+        laypage = layui.laypage,
+        layer = layui.layer,
+        laytpl = layui.laytpl,
+        laydate = layui.laydate
+        var util = layui.util;
+
+        table.render({
+            elem: '#drugInfoList',
+            url: '/pharmacy/drugInfoList',
+            toolbar: '#toolbarDemo',
+            defaultToolbar: ['filter', 'exports', 'print', {
+                title: '提示',
+                layEvent: 'LAYTABLE_TIPS',
+                icon: 'layui-icon-tips'
+            }],
+            /* page: true,
+            limit: 5,
+            limits: [5, 15, 20, 25, 50, 100], */
+            page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+                layout: ['limit', 'count', 'prev', 'page', 'next'] //自定义分页布局
+                ,groups: 3 //只显示 3 个连续页码
+                ,first: '首页' //首页
+                ,prev: '上一页'
+                ,next: '下一页'
+                ,last: '尾页' //尾页
+                ,limit:6
+                ,limits:[6,12,18]
+            },
+            skin: 'line',
+            cols: [
+            	[
+            		{type: "checkbox", title: '序号', align: 'center'}
+                    ,{field: 'drug_sn', title: '编码', align: 'center',width:100}
+                    ,{field: 'name', title: '药品名', align: 'center',width:200}
+                    ,{field: 'specification', title: '规格', align: 'center',width:100}
+                    ,{field: 'type', title: '收费类别', align: 'center',width:100} 
+                    /* ,{field: 'purchase_amount', title: '采购价', align: 'center'} */
+                    ,{field: 'retail_amount', title: '零售价', align: 'center',width:100}
+                    ,{field: 'manufacturer', title: '生产厂家', align: 'center',width:200}
+                    /* ,{field: 'status', title: '状态', align: 'center', templet:'#statusJduge'} */
+                    /* ,{field: 'create_time', title: '创建时间', align: 'center',width:200,templet:function(d){return util.toDateString(d.create_time, "yyyy-MM-dd HH:mm:ss");}} */
+                    /* ,{fixed: 'right', title: '操作', align: 'center', toolbar: '#operate',width:150} */
+            	]
+            ],
+            parseData:function (result) {//result是服务器端响应的数据
+                return {
+                    code:result.code ==200?0:result.code(),
+                    msg:result.message,
+                    data:result.data.list,
+                    count:result.data.total
+                }
+            }
+        });
+        
+      //日期插件
+        var start = laydate.render({
+            elem:'#createTimeStart',
+            max:'new Date()',
+            type:'date',
+            trigger:'click',
+            done:function (value,date) {
+                end.config.min = date;
+                end.config.min.month=date.month-1;
+            }
+        });
+
+        var end = laydate.render({
+            elem:'#createTimeEnd',
+            max:'new Date()',
+            type:'date',
+            trigger:'click',
+            done:function (value,date) {
+                start.config.max = date;
+                start.config.max.month = date.month-1;
+            }
+        });
+
+        // 监听搜索操作
+        form.on('submit(data-search-btn)', function (data) {
+            var result = JSON.stringify(data.field);
+
+            //执行搜索重载
+            table.reload('drugInfoList', {
+                page: {
+                    curr: 1
+                }
+                , where: {
+                	type:$("#type").val(),
+                    /* status:$("#status").val(),
+                    begin:$("#createTimeStart").val(),
+                    end:$("#createTimeEnd").val(), */
+                    other:$("#other").val()
+                },
+                parseData:function (result) {
+                    return {
+                        count:result.data.total,
+                        msg:result.message,
+                        data:result.data.list,
+                        code:result.code==200?0:result.code
+                    }
+                }
+            },'data');
+            return false;
+        });
+
+        /**
+         * toolbar监听事件
+         */
+        /* table.on('toolbar(drugInfoList)', function (obj) {
+            if (obj.event === 'add') {  // 监听添加操作
+                var index = layer.open({
+                    title: '新增药品',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin:true,
+                    shadeClose: true,
+                    area: ['60%', '60%'],
+                    content: '/page/drug_management/drug_info_add.html',
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+            }
+        }); */
+
+        //监听表格复选框选择
+        table.on('checkbox(drugInfoList)', function (obj) {
+            console.log(obj)
+        });
+        
+      //添加药物
+        $(".batchDel").click(function () {
+            //获取选中的行
+            var checkStatus = table.checkStatus('drugInfoList');//table中定义的id
+            var data = checkStatus.data;
+            if(data.length == 0){
+                layer.msg('请选择药品',{icon:5});
+                return ;
+            }
+            var medical_ids = "";
+            $.each(data,function (index,obj) { //jquery中的foreach函数
+            	medical_ids += obj.drug_sn+",";
+            })
+            medical_ids = medical_ids.substring(0,medical_ids.length-1);//剪切掉最后一个逗号字符串变为1,2,3,4,
+            layer.confirm('确认添加？',function (index) {
+                $.ajax({
+                    url:'/retail/addmedicines/'+medical_ids,
+                    type:'delete',
+                    dataType:'json',
+                    success:function (result) {
+                        if(result.code == 0){
+                            layer.msg('添加成功',{icon:1},function () {
+                            	top.layer.closeAll("iframe");//关闭窗口
+                                parent.location.reload();//从新加载数据
+                            });
+                        }else{
+                            layer.msg('添加失败');
+                        }
+                    }
+                });
+                layer.close(index);//关闭当前提示框
+            })
+
+        });
+
+    });
+</script>
+
+</body>
+</html>

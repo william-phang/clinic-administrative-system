@@ -27,6 +27,7 @@ public class PhysiqueMessageController {
 	@RequestMapping("/test")
 	public String validate(Model model,@Validated PhysiqueMessage physiqueMessage,@Validated CaseMessage CaseMessage,BindingResult br) {				
 //		System.out.println("CaseMessage: "+CaseMessage);
+//		System.out.println("physiqueMessage: "+physiqueMessage);
 		// 后端效验信息
 		int count = br.getErrorCount();
 		model.addAttribute("physiqueMessage", physiqueMessage);

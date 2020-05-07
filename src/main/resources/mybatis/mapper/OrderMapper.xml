@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.woniuxy.clinic.mapper.OrderMapper">
+
+	<select id="selectOrdersNumByCondition" resultType="Integer">
+		select count(*) from t_order
+		<where>
+			<if test="order.type!=null and order.type!=''">
+				and order_type=#{order.type}
+			</if>
+			<if test="order.statement!=null and order.statement!=''">
+				and order_statement=#{order.statement}
+			</if>
+			<if test="order.begin != null">
+				<if test="order.end != null">
+					and createdate between #{order.begin} and #{order.end}
+				</if>
+				<if test="order.end == null">
+					and createdate <![CDATA[
+		              >=
+		          ]]>
+					#{order.begin}
+				</if>
+			</if>
+			<if test="order.begin == null">
+				<if test="order.end != null">
+					and createdate <![CDATA[
+		                <=
+		            ]]>
+					#{order.end}
+				</if>
+			</if>
+		</where>
+	</select>
+
+	<select id="selectOrdersByCondition" resultType="Order">
+		select * from t_order
+		<where>
+			<if test="order.type!=null and order.type!=''">
+				and order_type=#{order.type}
+			</if>
+			<if test="order.statement!=null and order.statement!=''">
+				and order_statement=#{order.statement}
+			</if>
+			<if test="order.begin != null">
+				<if test="order.end != null">
+					and createdate between #{order.begin} and #{order.end}
+				</if>
+				<if test="order.end == null">
+					and createdate <![CDATA[
+		              >=
+		          ]]>
+					#{order.begin}
+				</if>
+			</if>
+			<if test="order.begin == null">
+				<if test="order.end != null">
+					and createdate <![CDATA[
+		                <=
+		            ]]>
+					#{order.end}
+				</if>
+			</if>
+		</where>
+		<if test="beginIndex != null and pageSize != null">
+	      	<![CDATA[limit #{beginIndex},#{pageSize}]]>
+		</if>
+	</select>
+
+	<select id="findOrderInfoByOrder_id" resultType="Order">
+		select * from t_order where order_id=#{order_id}
+	</select>
+	<select id="findPatientInfoByPatient_id" resultType="Patient">
+		select * from t_patient where patient_id=#{patient_id}
+	</select>
+	<select id="findOrder_MedecinesByOrder_id"
+		resultMap="MedicineMapper">
+		select * from t_order_medicine where order_id=#{order_id}
+	</select>
+	<resultMap type="Order_Medicine" id="MedicineMapper">
+		<id column="order_medicine_id" property="order_medicine_id"/>
+		<id column="order_medicine_number" property="order_medicine_number"/>
+		<id column="order_medicine_total" property="order_medicine_total"/>
+		<id column="order_id" property="order_id"/>
+		<!-- 一对一:药物信息 -->
+		<association property="tDrug" javaType="tDrug" select="selectTDrugByDrug_sn" column="medicine_id"/> 
+	</resultMap>
+	
+	<select id="selectTDrugByDrug_sn" resultType="TDrug">
+		select * from t_drug where drug_sn=#{medicine_id}
+	</select>
+
+
+
+
+	<update id="refund">
+		update t_order set order_statement=3 where order_id=#{order_id}
+	</update>
+	
+	<update id="pay">
+		update t_order set order_statement=1 where order_id=#{order_id}
+	</update>
+
+</mapper>

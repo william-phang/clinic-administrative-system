@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/layuimini/lib/layui-v2.5.5/css/layui.css" media="all">
     <link rel="stylesheet" href="/layuimini/css/public.css" media="all">
+    
 </head>
 <body>
 <div class="layuimini-container">
@@ -19,12 +20,20 @@
                 <form class="layui-form layui-form-pane" action="">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label">角色名称</label>
+                            <label class="layui-form-label">权限名称</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="rolename" id="rolename" autocomplete="off" class="layui-input">
+                                <input type="text" name="permissionname" id="permissionname" autocomplete="off" class="layui-input">
                             </div>
                         </div>
-                        
+                        <div class="layui-inline">
+                            <label class="layui-form-label">角色</label>
+				 <div class="layui-input-inline">
+					<select name="roleId" lay-verify="required" id="roleId"
+						lay-filter="roleId">
+						<option value="">请选择</option>
+					</select>
+				</div> 
+                        </div>
                         <div class="layui-inline">
                             <button type="button" class="layui-btn" data-type="reload" id="search">搜索</button>
                             <button type="reset" class="layui-btn">重置</button>
@@ -37,32 +46,31 @@
         <script type="text/html" id="toolbarDemo">
             <div class="layui-btn-container">
                 <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>
-                 <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="permission"> 权限控制</button>
-              </div>
+            </div>
         </script>
 
-        <table class="layui-hide" id="roleList" lay-filter="currentTableFilter"></table>
+        <table class="layui-hide" id="permissionList" lay-filter="currentTableFilter"></table>
 
         <script type="text/html" id="currentTableBar">
-            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
-            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="edit">状态管理</a>
         </script>
 
     </div>
 </div>
 <script src="/layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
 <script>
-function sotitle(departmentId){
-    var bId = brandId;
+function sotitle(roleId){
+    var rId = roleId;
     var title;
     $.ajax({
-        url:'/departmentlist',//你的后台请求路径
+        url:'/selectAllrole',//你的后台请求路径
         dataType:'json',
         async: false,//同步
         success:function(data){
                 $.each(data,function (index, obj) {
-                    if(obj.departmentId==dId){
-                        title=obj.departmentName;
+                    if(obj.roleId==rId){
+                        title=obj.roleName;
                         //console.log(obj.brandId,obj.brandName);
                     }
                 });
@@ -77,11 +85,11 @@ function sotitle(departmentId){
             table = layui.table;
 
         table.render({
-            elem: '#roleList',
-            url: '/rolelist',
-            page:true,
-            limit:10,
-            limits:[10,20,30],
+            elem: '#permissionList',
+            url: '/permissionlist',
+            page: true,  //开启分页
+            limits: [10,20,50],  //每页条数的选择项，默认：[10,20,30,40,50,60,70,80,90]。
+            limit: 10, //每页默认显示的数量
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
@@ -90,15 +98,14 @@ function sotitle(departmentId){
             }],
             cols: [
             	[
-                {field: 'roleId', width: 80, title: 'ID', sort: true},
-                {field: 'roleName', width: 80, title: '角色名', sort: true},
-                {field: 'roleDescribe', width: 400, title: '描述'},
-                {field: 'roleCreationtime', width: 200, title: '创建时间', sort: true},           
-                {field: 'roleStatus', width: 135, title: '状态', sort: true},
+                {field: 'permissionId', width: 80, title: 'ID', sort: true},
+                {field: 'permissionName', width: 300, title: '权限名', sort: true},
+                {field: 'roleId',title: '角色', width: 120 ,  templet:'<div>{{sotitle(d.roleId)}}</div>'},
+                {field: 'status', width: 120, title: '状态', sort: true},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             	]
             ],
-            parseData:function (result) {//result是服务器端响应的数据
+            parseData:function (result) { //result是服务器端响应的数据
                 return {
                     code:result.code ==200?0:result.code(),
                     msg:result.message,
@@ -107,7 +114,7 @@ function sotitle(departmentId){
                 }
             }
         });
-
+    
          // 监听搜索操作
         $('#search').on('click', function () {
         var type = $(this).data('type');
@@ -115,14 +122,15 @@ function sotitle(departmentId){
        }); 
         var $ = layui.$, active = {
         	    reload: function () {
-        	        var rolename = $('#rolename');
+        	        var permissionname = $('#permissionname');
                 	        //执行重载
-        	        table.reload('roleList', {
+        	        table.reload('permissionList', {
         	            page: {
         	                curr: 1 //重新从第 1 页开始
         	            }
         	            , where: {
-        	            	rolename: rolename.val()
+        	            	permissionname: permissionname.val(),
+        	            	roleId:$('#roleId').val()
         	            }
         	        }, 'data');
         	    }
@@ -134,26 +142,13 @@ function sotitle(departmentId){
         table.on('toolbar(currentTableFilter)', function (obj) {
             if (obj.event === 'add') {  // 监听添加操作
                 var index = layer.open({
-                    title: '添加用户',
+                    title: '添加权限',
+                    area: ['550px','300px'],//定义宽高
                     type: 2,
                     shade: 0.2,
                     maxmin:true,
                     shadeClose: true,
-                    area: ['100%', '100%'],
-                    content: '/page/user_module/tableEdit/roleadd.html',
-                });
-                $(window).on("resize", function () {
-                    layer.full(index);
-                });
-            } else if (obj.event === 'permission') {  // 监听删除操作
-            	var index = layer.open({
-                    title: '权限控制',
-                    type: 2,
-                    shade: 0.2,
-                    maxmin:true,
-                    shadeClose: true,
-                    area: ['90%', '90%'],
-                    content: '/page/user_module/permissiontable.html',
+                    content: '/page/user_module/tableEdit/permissionadd.html',
                     success: function(layero, index){
                         var body=layer.getChildFrame('body',index);//少了这个是不能从父页面向子页面传值的
             　　　　　　　　 var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象
@@ -174,50 +169,40 @@ function sotitle(departmentId){
                 $(window).on("resize", function () {
                     layer.full(index);
                 });
-            }
+            } 
         });
 
-        //监听表格复选框选择
-        table.on('checkbox(currentTableFilter)', function (obj) {
-            console.log(obj)
-        });
+      
 
         table.on('tool(currentTableFilter)', function (obj) {
-            var data = obj.data;
+        	var data1 = obj.data;
             if (obj.event === 'edit') {
 
                 var index = layer.open({
-                    title: '编辑用户',
+                    title: '修改权限状态',
                     type: 2,
                     shade: 0.2,
                     maxmin:true,
                     shadeClose: true,
-                    area: ['100%', '100%'],
-                    content: '/page/user_module/tableEdit/roleedit.html',
+                    area: ['550px','300px'],//定义宽高
+                    content: '/page/user_module/tableEdit/permissionedit.html',
                     success: function(layero, index){
                         var body=layer.getChildFrame('body',index);//少了这个是不能从父页面向子页面传值的
-            　　　　　　　　
+            　　　　　　　　 var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象
                         //获取子页面的元素，进行数据渲染
-                        body.contents().find("#roleId").val(data.roleId);
-                        body.contents().find("#roleName").val(data.roleName);
-            body.contents().find('#roleDescribe').val(data.roleDescribe);
-		    body.find('input[name=Status][value=启用]').attr("checked",data.roleStatus=='启用' ? true : false);
-		    body.find('input[name=Status][value=停用]').attr("checked",data.roleStatus=='停用' ? true : false);
-		    form.render();
-                    },
-                });
+                        body.contents().find("#permissionId").val(data1.permissionId);
+            　　　　　　  body.contents().find('#permissionName').val(data1.permissionName);　　
+		    body.find('input[name=status][value=启用]').attr("checked",data1.status=='启用' ? true : false);
+		    body.find('input[name=status][value=停用]').attr("checked",data1.status=='停用' ? true : false);
+
+		  }
+	});
                 $(window).on("resize", function () {
                     layer.full(index);
                 });
                 return false;
-            } else if (obj.event === 'delete') {
-                layer.confirm('真的删除行么', function (index) {
-                    obj.del();
-                    layer.close(index);
-                });
             }
         });
-
     });
 </script>
 

@@ -30,11 +30,15 @@ public class UserRealm extends AuthorizingRealm{
 
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		System.out.println("111111111");
+		System.out.println("权限执行");
 		//获取登录认证成功的主体
-        TUser user = (TUser)principals.getPrimaryPrincipal();
+String primaryPrincipal = (String) principals.getPrimaryPrincipal();
+        
+        TUser user = userMapper.selectByuser_account(primaryPrincipal);
         //根据角色Id查询权限
         List<String> perms = roleMapper.findPermsByRoles(user.getUserRoleId());
+        
+        System.out.println(perms);
        
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         

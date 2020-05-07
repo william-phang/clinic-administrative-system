@@ -1,12 +1,32 @@
 package com.woniuxy.clinic.config;
 
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
 // 配置器
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.convert.support.GenericConversionService;
+import org.springframework.web.bind.support.ConfigurableWebBindingInitializer;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 @Configuration
 public class MyWebMvcConfig{
+	
+	// 配置日期转换服务
+		@Autowired
+		private RequestMappingHandlerAdapter handlerAdapter;
+		
+		@PostConstruct
+		public void initEditableValidation() {
+			ConfigurableWebBindingInitializer initializer = (ConfigurableWebBindingInitializer) handlerAdapter.getWebBindingInitializer();
+			if(initializer.getConversionService() != null) {
+				GenericConversionService genericConversionService = (GenericConversionService) initializer.getConversionService();
+				genericConversionService.addConverter(new Dateconverter() );
+			}
+		}
+	
 	@Bean
 	public WebMvcConfigurer mvcConfiguration() {
 		return new WebMvcConfigurer() {
@@ -26,14 +46,15 @@ public class MyWebMvcConfig{
 				registry.addViewController("/page/user_module/user-setting.html").setViewName("page/user_module/user-setting");
 				registry.addViewController("/page/user_module/stafftable.html").setViewName("page/user_module/stafftable.html");
 				registry.addViewController("/page/user_module/roletable.html").setViewName("page/user_module/roletable.html");
+				registry.addViewController("/page/user_module/permissiontable.html").setViewName("page/user_module/permissiontable.html");
 				registry.addViewController("/page/user_module/tableEdit/staffadd.html").setViewName("page/user_module/tableEdit/staffadd");
 				registry.addViewController("/page/user_module/tableEdit/staffedit.html").setViewName("page/user_module/tableEdit/staffedit");
 				registry.addViewController("/page/user_module/tableEdit/roleadd.html").setViewName("page/user_module/tableEdit/roleadd");
 				registry.addViewController("/page/user_module/tableEdit/roleedit.html").setViewName("page/user_module/tableEdit/roleedit");
 				registry.addViewController("/page/user_module/tableEdit/departmentadd.html").setViewName("page/user_module/tableEdit/departmentadd");
 				registry.addViewController("/page/user_module/tableEdit/departmentedit.html").setViewName("page/user_module/tableEdit/departmentedit");
-
-				
+				registry.addViewController("/page/user_module/tableEdit/permissionadd.html").setViewName("/page/user_module/tableEdit/permissionadd.html");
+				registry.addViewController("/page/user_module/tableEdit/permissionedit.html").setViewName("page/user_module/tableEdit/permissionedit");
 				registry.addViewController("/page/icon.html").setViewName("page/icon");
 				
 				registry.addViewController("/page/welcome.html").setViewName("page/welcome");
@@ -70,6 +91,9 @@ public class MyWebMvcConfig{
 				
 				registry.addViewController("/page/drug_management/price_adjustment_list.html").setViewName("page/drug_management/price_adjustment_list");
 				registry.addViewController("/page/drug_management/price_adjustment_add.html").setViewName("page/drug_management/price_adjustment_add");
+				
+				registry.addViewController("page/retail/order_list.html").setViewName("page/retail/order_list.html");
+				registry.addViewController("page/retail/retail.html").setViewName("page/retail/retail.html");
 				
 
 			}

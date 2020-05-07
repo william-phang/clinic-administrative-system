@@ -17,6 +17,12 @@
 <body>
 <div class="layui-form layuimini-form">
 <div class="layui-form-item">
+<label class="layui-form-label required">ID</label>
+        <div class="layui-input-block">
+            <input type="text" name="staffId" id="staffId" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="请输入用户名" value="" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label class="layui-form-label required">工号</label>
         <div class="layui-input-block">
             <input type="text" name="staffCard" id="staffCard" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="请输入用户名" value="" class="layui-input">
@@ -49,18 +55,26 @@
             <input type="number" name="staffAge" id="staffAge" placeholder="请输入年龄" value="" class="layui-input">
         </div>
     </div>
+     <div class="layui-form-item">
+				<label class="layui-form-label">所属科室</label>
+				<!-- <input type="text" name="departmentId" id="departmentId" placeholder="请输入科室号" value="" class="layui-input"> -->
+				 <div class="layui-input-inline">
+					<select name="depratmentId" lay-verify="required" id="depratmentId"
+						lay-filter="depratmentId">
+						<option value="">请选择</option>
+					</select>
+				</div> 
+			</div>
     <div class="layui-form-item">
-        <label class="layui-form-label">职位</label>
-        <div class="layui-input-block">
-            <input type="text" name="roleId" id="roleId" placeholder="请输入职位" value="" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">所属科室</label>
-        <div class="layui-input-block">
-            <input type="text" name="departmentId" id="departmentId" placeholder="请输入职位" value="" class="layui-input">
-        </div>
-    </div>
+				<label class="layui-form-label">角色</label>
+				<!-- <input type="text" name="roleId" id="roleId" placeholder="请输入角色号" value="" class="layui-input"> -->
+				 <div class="layui-input-inline">
+					<select name="roleId" lay-verify="required" id="roleId"
+						lay-filter="roleId">
+						<option value="">请选择</option>
+					</select>
+				</div> 
+			</div>
     <div class="layui-form-item">
         <label class="layui-form-label required">状态</label>
         <div class="layui-input-block">
@@ -72,8 +86,7 @@
         <div class="layui-input-block">
             <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认保存</button>
         </div>
-    </div>
-    
+    </div>  
 </div>
 
 <script src="/layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
@@ -89,14 +102,15 @@ layui.use(['form'], function () {
             type: 'POST',
             url: '/addStaff',
             data:{
-            	staffId:$('#staffId').val(),
-            	departmentId:$('#departmentId').val(),
-            	roleId:$('#roleId').val(),
-            	staffName:$('#staffName').val(),
-            	staffAge:$('#staffAge').val(),
-            	staffPhone:$('#staffPhone').val(),
-                staffSex:$('input[name="Sex"]:checked').val(),
-                staffStatus:$('input[name="Status"]:checked').val()
+            	staffCard:$('#staffCard').val(),
+                staffId:$('#staffId').val(),
+                	departmentId:$('#depratmentId').val(),
+                	roleId:$('#roleId').val(),
+                	staffName:$('#staffName').val(),
+                	staffAge:$('#staffAge').val(),
+                	staffPhone:$('#staffPhone').val(),
+                    staffSex:$('input[name="Sex"]:checked').val(),
+                    staffStatus:$('input[name="Status"]:checked').val()
             }, success: function (pos) {
                 if (pos>0) {
                      layer.msg("操作成功!");
@@ -109,7 +123,7 @@ layui.use(['form'], function () {
                     parent.layer.close(iframeIndex);
                     //window.parent.layer.closeAll();关闭弹窗
                 }else if(pos==404){
-                    layer.msg("添加失败员工已存在!");
+                    layer.msg("添加失败,工号已存在!");
                     
                 }
              // 关闭弹出层
