@@ -22,21 +22,19 @@ public class Retail_Medicine {
 	private String name;// 名称
 	private Double retail_amount;// 单价
 	private Integer retail_medicine_number;// 数量
-	private Double total;
 
 	public Retail_Medicine() {
 		super();
 	}
 
 	public Retail_Medicine(Integer retail_medicine_id, Integer drug_sn, String name, Double retail_amount,
-			Integer retail_medicine_number, Double total) {
+			Integer retail_medicine_number) {
 		super();
 		this.retail_medicine_id = retail_medicine_id;
 		this.drug_sn = drug_sn;
 		this.name = name;
 		this.retail_amount = retail_amount;
 		this.retail_medicine_number = retail_medicine_number;
-		this.total = total;
 	}
 
 	public Integer getRetail_medicine_id() {
@@ -79,13 +77,6 @@ public class Retail_Medicine {
 		this.retail_medicine_number = retail_medicine_number;
 	}
 
-	public Double getTotal() {
-		return total;
-	}
-
-	public void setTotal(Double total) {
-		this.total = retail_amount * retail_medicine_number;
-	}
 
 	@Override
 	public String toString() {

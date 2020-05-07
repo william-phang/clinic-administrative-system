@@ -1,6 +1,7 @@
 
 package com.woniuxy.clinic.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import com.woniuxy.clinic.common.CommonResult;
 import com.woniuxy.clinic.dto.OrderDto;
@@ -48,15 +50,31 @@ public class RetailController {
 	
 	@ResponseBody
 	@RequestMapping("/retail/save")
-	public CommonResult saveOrderInfo(@RequestParam("retail_medicines")Object[] retail_medicines,@RequestParam("total")Double total) {
+	public CommonResult saveOrderInfo(@RequestParam("retail_medicines")Object retail_medicines,@RequestParam("total")Double total,String patient_sn) {
 		try {
-			//System.out.println(total);
-			//System.out.println("aaa");
-			//System.out.println(retail_medicines);
-			for (Object retail_medicine : retail_medicines) {
-				System.out.println(retail_medicine);
+			List<Retail_Medicine> retail_drugs = new ArrayList<Retail_Medicine>();
+			ObjectMapper om = new ObjectMapper();
+			//System.out.println(patient_sn);
+			String str1 = (String) retail_medicines;
+			String str2 = str1.replace("[", "");
+			String str3 = str2.replace("]", "");
+			String[] strs = str3.split("},");
+			for (String str : strs) {
+				if(str.endsWith("\"")) {
+					str=str+"}";
+				}
+				//System.out.println(str);
+				Retail_Medicine retail_medicine = om.readValue(str, Retail_Medicine.class);
+				retail_drugs.add(retail_medicine);
 			}
-			retailService.saveOrderInfo(total);
+			for (Retail_Medicine retail_drug : retail_drugs) {
+				System.out.println(retail_drug);
+			}
+//			System.out.println(str1);
+//			for (Object retail_medicine : retail_medicines) {
+//				System.out.println(retail_medicine);
+//			}
+			retailService.saveOrderInfo(retail_drugs,total,patient_sn);
 			//System.out.println("saveOrderInfo");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -67,10 +85,27 @@ public class RetailController {
 	
 	@ResponseBody
 	@RequestMapping("/retail/payInfo")
-	public CommonResult savePayInfo(Double total) {
+	public CommonResult savePayInfo(@RequestParam("retail_medicines")Object retail_medicines,Double total,String patient_sn) {
 		try {
+			List<Retail_Medicine> retail_drugs = new ArrayList<Retail_Medicine>();
+			ObjectMapper om = new ObjectMapper();
 			//System.out.println("aaa");
-			retailService.savePayInfo(total);
+			String str1 = (String) retail_medicines;
+			String str2 = str1.replace("[", "");
+			String str3 = str2.replace("]", "");
+			String[] strs = str3.split("},");
+			for (String str : strs) {
+				if(str.endsWith("\"")) {
+					str=str+"}";
+				}
+				//System.out.println(str);
+				Retail_Medicine retail_medicine = om.readValue(str, Retail_Medicine.class);
+				retail_drugs.add(retail_medicine);
+			}
+			for (Retail_Medicine retail_drug : retail_drugs) {
+				System.out.println(retail_drug);
+			}
+			retailService.savePayInfo(retail_drugs,total,patient_sn);
 			//System.out.println("saveOrderInfo");
 		} catch (Exception e) {
 			e.printStackTrace();

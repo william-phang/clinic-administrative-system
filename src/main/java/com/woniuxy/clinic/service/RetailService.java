@@ -19,9 +19,9 @@ public interface RetailService {
 
 	List<Retail_Medicine> findRetailMedince();
 
-	void saveOrderInfo(Double total);
+	void saveOrderInfo(List<Retail_Medicine> retail_drugs, Double total, String patient_sn);
 
-	void savePayInfo(Double total);
+	void savePayInfo(List<Retail_Medicine> retail_drugs, Double total,  String patient_sn);
 
 	
 

@@ -53,6 +53,22 @@
 	                    <div class="myLabel">合计金额:[[${medicine.retail_amount*medicine.retail_medicine_number}]]元</div>
 	                </div>
 	         	</div>
+	         	<h1>患者信息</h1>
+	         	<div class="layui-inline">
+	                    <div class="myLabel">患者编号:<input type="text" id="patient_sn" /></div>          
+	            </div>
+	            <div class="layui-inline">
+	                    <div class="myLabel">患者姓名:<input type="text" id="patient_name" /></div>          
+	            </div>
+	            <div class="layui-inline">
+	                    <div class="myLabel">患者年龄:<input type="text" id="patient_age" /></div>          
+	            </div>
+	            <div class="layui-inline">
+	                    <div class="myLabel">患者电话:<input type="text" id="patient_phone" /></div>          
+	            </div>
+	            <div class="layui-inline">
+	                    <div class="myLabel">患者卡号:<input type="text" id="patient_card" /></div>          
+	            </div>
 	         	<h1>共计：<input readonly="readonly" type="text" style="border: 0px" id="total" th:value="${total}"/></h1>
 	         	<div class="layui-inline" style="float: right;">
 	            	<button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="save" >保存</button>
@@ -78,7 +94,12 @@
                 url:'/retail/save',
                 data:{
                 	retail_medicines:$("#retail_medicines").val(),
-                	total:$("#total").val()
+                	total:$("#total").val(),
+                	patient_sn:$("#patient_sn").val(),
+                	/* patient_name:$("#patient_name").val(),
+                	patient_age:$("#patient_age").val(),
+                	patient_phone:$("#patient_phone").val(),
+                	patient_card:$("#patient_card").val(), */
                 },
                 dataType:'json',
                 type:'post',
@@ -101,7 +122,8 @@
                 url:'/retail/payInfo',
                 data:{
                 	retail_medicines:$("#retail_medicines").val(),
-                	total:$("#total").val()
+                	total:$("#total").val(),
+                	patient_sn:$("#patient_sn").val(),
                 },
                 dataType:'json',
                 type:'post',
