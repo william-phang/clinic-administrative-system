@@ -143,11 +143,11 @@ function sotitle(roleId){
             if (obj.event === 'add') {  // 监听添加操作
                 var index = layer.open({
                     title: '添加权限',
+                    area: ['550px','300px'],//定义宽高
                     type: 2,
                     shade: 0.2,
                     maxmin:true,
                     shadeClose: true,
-                    area: ['100%', '100%'],
                     content: '/page/user_module/tableEdit/permissionadd.html',
                     success: function(layero, index){
                         var body=layer.getChildFrame('body',index);//少了这个是不能从父页面向子页面传值的
@@ -184,7 +184,7 @@ function sotitle(roleId){
                     shade: 0.2,
                     maxmin:true,
                     shadeClose: true,
-                    area: ['100%', '100%'],
+                    area: ['550px','300px'],//定义宽高
                     content: '/page/user_module/tableEdit/permissionedit.html',
                     success: function(layero, index){
                         var body=layer.getChildFrame('body',index);//少了这个是不能从父页面向子页面传值的
