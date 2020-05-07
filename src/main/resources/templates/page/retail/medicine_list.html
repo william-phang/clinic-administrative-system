@@ -47,7 +47,7 @@
         <table class="layui-hide" id="drugInfoList" lay-filter="drugInfoList"></table>
         <script type="text/html" id="toolbarDemo">
             <div class="layui-btn-container">
-               <button class="layui-btn batchDel layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 批量添加 </button>
+               <button class="layui-btn batchDel layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 添加 </button>
             </div>
         </script>
         
@@ -113,7 +113,7 @@
             	[
             		{type: "checkbox", title: '序号', align: 'center'}
                     ,{field: 'drug_sn', title: '编码', align: 'center',width:100}
-                    ,{field: 'name', title: '药品名', align: 'center',width:100}
+                    ,{field: 'name', title: '药品名', align: 'center',width:200}
                     ,{field: 'specification', title: '规格', align: 'center',width:100}
                     ,{field: 'type', title: '收费类别', align: 'center',width:100} 
                     /* ,{field: 'purchase_amount', title: '采购价', align: 'center'} */
@@ -121,7 +121,7 @@
                     ,{field: 'manufacturer', title: '生产厂家', align: 'center',width:200}
                     /* ,{field: 'status', title: '状态', align: 'center', templet:'#statusJduge'} */
                     /* ,{field: 'create_time', title: '创建时间', align: 'center',width:200,templet:function(d){return util.toDateString(d.create_time, "yyyy-MM-dd HH:mm:ss");}} */
-                    ,{fixed: 'right', title: '操作', align: 'center', toolbar: '#operate',width:150}
+                    /* ,{fixed: 'right', title: '操作', align: 'center', toolbar: '#operate',width:150} */
             	]
             ],
             parseData:function (result) {//result是服务器端响应的数据
@@ -160,9 +160,6 @@
         // 监听搜索操作
         form.on('submit(data-search-btn)', function (data) {
             var result = JSON.stringify(data.field);
-            /* layer.alert(result, {
-                title: '最终的搜索信息'
-            }); */
 
             //执行搜索重载
             table.reload('drugInfoList', {
@@ -171,9 +168,9 @@
                 }
                 , where: {
                 	type:$("#type").val(),
-                    status:$("#status").val(),
+                    /* status:$("#status").val(),
                     begin:$("#createTimeStart").val(),
-                    end:$("#createTimeEnd").val(),
+                    end:$("#createTimeEnd").val(), */
                     other:$("#other").val()
                 },
                 parseData:function (result) {
@@ -191,7 +188,7 @@
         /**
          * toolbar监听事件
          */
-        table.on('toolbar(drugInfoList)', function (obj) {
+        /* table.on('toolbar(drugInfoList)', function (obj) {
             if (obj.event === 'add') {  // 监听添加操作
                 var index = layer.open({
                     title: '新增药品',
@@ -199,21 +196,21 @@
                     shade: 0.2,
                     maxmin:true,
                     shadeClose: true,
-                    area: ['100%', '100%'],
+                    area: ['60%', '60%'],
                     content: '/page/drug_management/drug_info_add.html',
                 });
                 $(window).on("resize", function () {
                     layer.full(index);
                 });
             }
-        });
+        }); */
 
         //监听表格复选框选择
-        table.on('checkbox(currentTableFilter)', function (obj) {
+        table.on('checkbox(drugInfoList)', function (obj) {
             console.log(obj)
         });
         
-      //批量添加药物
+      //添加药物
         $(".batchDel").click(function () {
             //获取选中的行
             var checkStatus = table.checkStatus('drugInfoList');//table中定义的id
@@ -246,44 +243,6 @@
                 layer.close(index);//关闭当前提示框
             })
 
-        });
-        
-
-        table.on('tool(drugInfoList)', function (obj) {
-            var data = obj.data;
-            if (obj.event === 'edit') {
-                var index = layer.open({
-                    title: '编辑用户',
-                    type: 2,
-                    shade: 0.2,
-                    maxmin:true,
-                    shadeClose: true,
-                    area: ['100%', '100%'],
-                    content: '/pharmacy/editDrugInfo/'+data.drug_sn,
-                });
-                $(window).on("resize", function () {
-                    layer.full(index);
-                });
-                return false;
-            } else if (obj.event === 'editStatus') {
-                layer.confirm('确定么', function (index) {
-                	$.ajax({
-                        url:'/pharmacy/editDrugInfoStatus/'+data.drug_sn+'&'+data.status,
-                        /* type:put, */
-                        /* dataType:'json', */
-                        success:function (result) {
-                            if(result.code == 200){
-                                layer.msg("删除成功",{icon:1});
-                                location.reload();
-                            }else{
-                                layer.msg("删除失败",{icon:5});
-                            }
-                        }
-                    })
-
-                    layer.close(index);
-                });
-            }
         });
 
     });

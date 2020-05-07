@@ -111,9 +111,9 @@
             cols: [
             	[
             		{type: "numbers", title: '序号', align: 'center'}
-                    ,{field: 'drug_sn', title: '药品编号', align: 'center',width:100}
+                    ,{field: 'drug_sn', title: '药品编号', align: 'center',width:200}
                     ,{field: 'name', title: '药品名', align: 'center',width:200}
-                    ,{field: 'retail_amount', title: '零售价', align: 'center'}
+                    ,{field: 'retail_amount', title: '零售价', align: 'center',width:200}
                     ,{field: 'retail_medicine_number', title: '数量', align: 'center',width:200}
                     ,{fixed: 'right', title: '操作', align: 'center', toolbar: '#operate',width:200}
             	]
@@ -177,7 +177,7 @@
                     shade: 0.2,
                     maxmin:true,
                     shadeClose: true,
-                    area: ['100%', '100%'],
+                    area: ['80%', '80%'],
                     content: '/retail/medicines'
                 });
                 $(window).on("resize", function () {
@@ -260,7 +260,6 @@
                     
                 }); */
                 layer.confirm('确认删除',function (index) {
-
                     $.ajax({
                         url:'/retail/delete/'+data.drug_sn,
                         type:'delete',
@@ -278,37 +277,20 @@
                     layer.close(index);
                 })
             } else if (obj.event === 'addone') {
-                /* layer.confirm('真的删除行么', function (index) {
-                obj.del();
-                layer.close(index); 
-                
-            }); */
-            layer.confirm('确认添加',function (index) {
-
                 $.ajax({
                     url:'/retail/addone/'+data.drug_sn,
                     type:'delete',
                     dataType:'json',
                     success:function (result) {
                         if(result.code == 0){
-                            layer.msg("添加成功",{icon:1});
+                            layer.msg("增加成功",{icon:1});
                             location.reload();
                         }else{
-                            layer.msg("添加失败",{icon:5});
+                            layer.msg("增加失败",{icon:5});
                         }
                     }
-                })
-
-                layer.close(index);
-            })
+                })       
         } else if (obj.event === 'reduceone') {
-            /* layer.confirm('真的删除行么', function (index) {
-            obj.del();
-            layer.close(index); 
-            
-        }); */
-        layer.confirm('确认减少',function (index) {
-
             $.ajax({
                 url:'/retail/reduceone/'+data.drug_sn,
                 type:'delete',
@@ -322,9 +304,6 @@
                     }
                 }
             })
-
-            layer.close(index);
-        })
     } 
             
         });
