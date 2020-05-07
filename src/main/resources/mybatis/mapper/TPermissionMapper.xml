@@ -5,6 +5,7 @@
     <id column="permission_id" property="permissionId" jdbcType="INTEGER" />
     <result column="permission_name" property="permissionName" jdbcType="VARCHAR" />
     <result column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -65,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    permission_id, permission_name, role_id
+    permission_id, permission_name, role_id, status
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.woniuxy.clinic.entity.TPermissionExample" >
     select
@@ -98,10 +99,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.woniuxy.clinic.entity.TPermission" >
-    insert into t_permission (permission_id, permission_name, role_id
-      )
-    values (#{permissionId,jdbcType=INTEGER}, #{permissionName,jdbcType=VARCHAR}, #{roleId,jdbcType=INTEGER}
-      )
+    insert into t_permission (permission_id, permission_name, role_id, 
+      status)
+    values (#{permissionId,jdbcType=INTEGER}, #{permissionName,jdbcType=VARCHAR}, #{roleId,jdbcType=INTEGER}, 
+      #{status,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.woniuxy.clinic.entity.TPermission" >
     insert into t_permission
@@ -115,6 +116,9 @@
       <if test="roleId != null" >
         role_id,
       </if>
+      <if test="status != null" >
+        status,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="permissionId != null" >
@@ -125,6 +129,9 @@
       </if>
       <if test="roleId != null" >
         #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -146,6 +153,9 @@
       <if test="record.roleId != null" >
         role_id = #{record.roleId,jdbcType=INTEGER},
       </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -155,7 +165,8 @@
     update t_permission
     set permission_id = #{record.permissionId,jdbcType=INTEGER},
       permission_name = #{record.permissionName,jdbcType=VARCHAR},
-      role_id = #{record.roleId,jdbcType=INTEGER}
+      role_id = #{record.roleId,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -169,13 +180,23 @@
       <if test="roleId != null" >
         role_id = #{roleId,jdbcType=INTEGER},
       </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
     </set>
     where permission_id = #{permissionId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.woniuxy.clinic.entity.TPermission" >
     update t_permission
     set permission_name = #{permissionName,jdbcType=VARCHAR},
-      role_id = #{roleId,jdbcType=INTEGER}
+      role_id = #{roleId,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR}
     where permission_id = #{permissionId,jdbcType=INTEGER}
   </update>
+  <select id="selectByname" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_permission
+    where permission_name = #{permission_name,jdbcType=VARCHAR}
+  </select>
 </mapper>
