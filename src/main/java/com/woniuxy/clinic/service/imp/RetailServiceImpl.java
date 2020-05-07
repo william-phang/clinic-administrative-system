@@ -98,32 +98,37 @@ public class RetailServiceImpl implements RetailService {
 	}
 
 	@Override
-	public void saveOrderInfo(Double total) {
+	public void saveOrderInfo(List<Retail_Medicine> retail_drugs,Double total,String patient_sn) {
 		
 		retailMapper.deleteAll();
 		String order_sn = (int)(Math.random()*100000)+"";
 		Date d = new Date();
-		//System.out.println(total);
 		SimpleDateFormat p = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//		String createdate = p.format(d);
-		Order order = new Order(null, order_sn, "零售", null, null, null, d, total, "2", null);
+		Integer patient_id = retailMapper.selectPatientIDBySn(patient_sn);
+		Order order = new Order(null, order_sn, "零售", patient_id, null, null, d, total, "2", null);
 		retailMapper.saveOrderInfo(order);
-//		Integer order_id = retailMapper.selectOrderID(order);
-//		for (Retail_Medicine retail_Medicine : retail_medicines) {
-//			retailMapper.saveOrderMedicineInfo(order_id,retail_Medicine);
-//		}
+		Integer order_id = retailMapper.selectOrderID(order);
+		for (Retail_Medicine retail_drug : retail_drugs) {
+			Double stotal = retail_drug.getRetail_medicine_number()*retail_drug.getRetail_amount();
+			retailMapper.saveOrderMedicineInfo(order_id,retail_drug,stotal);
+		}
 		
 	}
 
 	@Override
-	public void savePayInfo(Double total) {
+	public void savePayInfo(List<Retail_Medicine> retail_drugs,Double total,String patient_sn) {
 		retailMapper.deleteAll();		
 		String order_sn = (int)(Math.random()*100000)+"";
 		Date d = new Date();
 		SimpleDateFormat p = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//		String createdate = p.format(d);
-		Order order = new Order(null, order_sn, "零售", null, null, null, d, total, "1", null);
+		Integer patient_id = retailMapper.selectPatientIDBySn(patient_sn);
+		Order order = new Order(null, order_sn, "零售", patient_id, null, null, d, total, "1", null);
 		retailMapper.saveOrderInfo(order);
+		Integer order_id = retailMapper.selectOrderID(order);
+		for (Retail_Medicine retail_drug : retail_drugs) {
+			Double stotal = retail_drug.getRetail_medicine_number()*retail_drug.getRetail_amount();
+			retailMapper.saveOrderMedicineInfo(order_id,retail_drug,stotal);
+		}
 	}
 
 	

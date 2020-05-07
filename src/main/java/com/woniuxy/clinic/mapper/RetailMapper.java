@@ -34,9 +34,11 @@ public interface RetailMapper {
 
 	Integer selectOrderID(@Param("order")Order order);
 
-	void saveOrderMedicineInfo(@Param("order_id")Integer order_id,@Param("retail_Medicine") Retail_Medicine retail_Medicine);
+	void saveOrderMedicineInfo(@Param("order_id")Integer order_id,@Param("retail_drug") Retail_Medicine retail_drug,@Param("stotal") Double stotal);
 
 	void deleteAll();
+
+	Integer selectPatientIDBySn(@Param("patient_sn")String patient_sn);
 
 	
 

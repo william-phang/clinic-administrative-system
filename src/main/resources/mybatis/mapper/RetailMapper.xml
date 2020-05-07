@@ -3,15 +3,19 @@
 <mapper namespace="com.woniuxy.clinic.mapper.RetailMapper">
 
 	<insert id="saveOrderInfo">
-		INSERT INTO t_order (order_sn,order_type,createdate,order_money,order_statement) VALUES (#{order.order_sn},#{order.order_type},#{order.createdate},#{order.order_money},#{order.order_statement})
+		INSERT INTO t_order (order_sn,order_type,patient_id,createdate,order_money,order_statement) VALUES (#{order.order_sn},#{order.order_type},#{order.patient_id},#{order.createdate},#{order.order_money},#{order.order_statement})
 	</insert>
 	
 	<select id="selectOrderID" resultType="Integer">
 		select order_id from t_order where order_sn=#{order.order_sn}
 	</select>
 	
+	<select id="selectPatientIDBySn" resultType="Integer">
+		select patient_id from t_patient where patient_sn=#{patient_sn}
+	</select>
+	
 	<insert id="saveOrderMedicineInfo">
-		INSERT INTO t_order_medicine (order_medecine_number,order_medincine_toal,order_id,medicine_id) VALUES (#{retail_Medicine.retail_medicine_number},#{retail_Medicine.retail_amount*retail_Medicine.retail_medicine_number},#{order_id}.#{retail_Medicine.drug_sn})
+		INSERT INTO t_order_medicine (order_medicine_number,order_medicine_total,order_id,medicine_id) VALUES (#{retail_drug.retail_medicine_number},#{stotal},#{order_id},#{retail_drug.drug_sn})
 	</insert>
 
 
