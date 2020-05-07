@@ -48,6 +48,9 @@ public class MyWebMvcConfig{
 				registry.addViewController("/page/fee/editTMedicalFee.html").setViewName("page/fee/editTMedicalFee");
 				registry.addViewController("/page/fee/addTRegistrationfee.html").setViewName("page/fee/addTRegistrationfee");
 				registry.addViewController("/page/fee/editTRegistrationFee.html").setViewName("page/fee/editTRegistrationFee");
+				
+				//工作台页面
+				registry.addViewController("/page/workTable/workTable.html").setViewName("page/workTable/workTable");
 //				case页面
 				registry.addViewController("/page/case/case.html").setViewName("page/case/case");
 				registry.addViewController("/page/drug_management/drug_info_list.html").setViewName("page/drug_management/drug_info_list");

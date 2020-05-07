@@ -10,6 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.woniuxy.clinic.dto.TAdditionalFeeDto;
+import com.woniuxy.clinic.entity.TAdditionalFee;
 import com.woniuxy.clinic.entity.TDepartment;
 import com.woniuxy.clinic.entity.TPermission;
 import com.woniuxy.clinic.entity.TRole;
@@ -25,7 +27,7 @@ import com.woniuxy.clinic.entity.TUserExample.Criteria;
  */
 @SpringBootTest
 class ClinicAdministrativeSystemApplicationTests {
-	//null,"注射费",20.00,10.00,new Date(),"章三","启用"
+	
 	@Autowired
 	TStaffMapper staffMapper;
 	@Autowired
@@ -36,6 +38,8 @@ class ClinicAdministrativeSystemApplicationTests {
 	TPermissionMapper permissionMapper;
 	@Autowired
 	TUserMapper userMapper;
+	@Autowired
+	TAdditionalFeeMapper tAdditionalFeeMapper;
 
 	@Test
 	void contextLoads() {
@@ -57,18 +61,13 @@ class ClinicAdministrativeSystemApplicationTests {
 	
 	@Test
 	void contextLoads03() {
-		PageHelper.startPage(1, 5);
-		TStaffExample example=new TStaffExample();
-		List<TStaff> list = staffMapper.selectByExample(example);
-		for (TStaff staff : list) {
-			TRole role = roleMappper.selectByPrimaryKey(staff.getRoleId());
-			TDepartment department=departmentMapper.selectByPrimaryKey(staff.getDepartmentId());
-			staff.setTRole(role);
-			staff.setTDepartment(department);
-		}
-		PageInfo<TStaff> staffpage=new PageInfo<>(list);
-		for (TStaff staff : staffpage.getList()) {
-			System.out.println(staff);
-		}
+		
+		Integer currentPage=1;
+		Integer pageSize=2;
+		TAdditionalFeeDto dto=new TAdditionalFeeDto();
+		List<TAdditionalFee> tAdditionalFees = 
+				tAdditionalFeeMapper.selectByPage(currentPage, pageSize, dto);
+		System.out.println(tAdditionalFees);
 	}
+	
 }

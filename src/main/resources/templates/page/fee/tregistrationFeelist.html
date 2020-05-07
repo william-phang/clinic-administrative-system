@@ -48,11 +48,15 @@
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">费用状态</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="regis_state" autocomplete="off" class="layui-input" id="regis_state">
-                            </div>
-                        </div>
+								<label class="layui-form-label">费用状态</label>
+								<div class="layui-input-inline">
+									<select id="regis_state" >
+										<option data-idx='0' value="" selected>全部</option>
+										<option data-idx='1' value="启用">启用</option>
+										<option data-idx='2' value="禁用">禁用</option>
+									</select>
+								</div>
+						</div>
                         <div class="layui-inline">
                             <button class="layui-btn layui-btn-primary search_btn"  lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
                         </div>
@@ -268,7 +272,7 @@
     	  
     	  //执行一个laydate实例
     	  laydate.render({
-    	    elem: '#medical_date' //指定元素
+    	    elem: '#regis_date' //指定元素
     	  });
     	});
     

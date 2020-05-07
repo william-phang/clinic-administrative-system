@@ -1,5 +1,78 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.woniuxy.clinic.mapper.TRegistrationMapper" >
-  	
+  
+  <!-- 分页查询 -->
+ <select id="selectByPage" resultMap="tRegistrationMap">
+ 	select * from t_registration re 
+ 	INNER JOIN t_patient pa ON re.patient_id=pa.patient_id 
+	INNER JOIN t_department de ON re.department_id=de.department_id 
+	INNER JOIN t_staff st ON re.staff_id=st.staff_id
+	<include refid="pageCondition"/>
+      limit #{currentPage},#{pageSize}
+ </select>
+ 
+ <resultMap type="TRegistration" id="tRegistrationMap">
+ 	<id column="registration_id" property="registration_id"/>
+ 	<result column="re_create_time" property="re_create_time"/>
+ 	<result column="reception_status" property="reception_status"/>
+ 	<!-- 关联患者表 -->
+ 	<association property="patient" javaType="Patient">
+ 		<id column="patient_id" property="patient_id"/>
+ 		<result column="patient_name" property="patient_name"/>
+ 		<result column="patient_gender" property="patient_gender"/>
+ 		<result column="patient_age" property="patient_age"/>
+ 		<result column="patient_phone" property="patient_phone"/>
+ 	</association>
+ 	<!-- 关联科室表 -->
+ 	<association property="tDepartment" javaType="TDepartment">
+ 		<id column="department_id" property="departmentId"/>
+ 		<result column="department_name" property="departmentName"/>
+ 	</association>
+ 	<!-- 关联职员表 -->
+ 	<association property="tStaff" javaType="TStaff">
+ 		<id column="staff_id" property="staffId"/>
+ 		<result column="staff_name" property="staffName"/>
+ 	</association>
+ </resultMap>
+ 
+ <sql id="pageCondition">
+  	<where>
+      <if test="dto.reception_status != null and dto.reception_status!=''">
+        and reception_status like concat('%',#{dto.reception_status},'%')
+      </if>
+      <if test="dto.patient.patient_name != null and dto.patient.patient_name!=''">
+        and patient_name like concat('%',#{dto.patient.patient_name},'%')
+      </if>
+      <if test="dto.re_create_time != null">
+        and re_create_time like concat('%',#{dto.re_create_time},'%')
+      </if>
+      <!-- <if test="dto.begin != null">
+        <if test="dto.end != null">
+          and create_time between #{dto.begin} and #{dto.end}
+        </if>
+        <if test="dto.end == null">
+          and create_time <![CDATA[
+              >=
+          ]]> #{dto.begin}
+        </if>
+      </if>
+      <if test="dto.begin == null">
+        <if test="dto.end != null">
+          and create_time <![CDATA[
+                <=
+            ]]> #{dto.end}
+        </if>
+      </if>  -->
+    </where>
+  </sql>
+  
+  <!-- 查询总条数 -->
+  <select id="selectByPageCount" resultType="int">
+		select count(*) from t_registration re 
+	 	INNER JOIN t_patient pa ON re.patient_id=pa.patient_id 
+		INNER JOIN t_department de ON re.department_id=de.department_id 
+		INNER JOIN t_staff st ON re.staff_id=st.staff_id
+		<include refid="pageCondition"/>
+</select>
 </mapper>
