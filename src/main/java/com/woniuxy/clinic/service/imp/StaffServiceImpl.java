@@ -29,6 +29,8 @@ public class StaffServiceImpl implements StaffService{
 	TDepartmentMapper departmentMapper;
 	@Autowired
 	TUserMapper userMapper;
+	
+	
 	@Override
 	public List<TStaff> selectallStaff(Integer currentPage, Integer pageSize,TStaff staff) {
 		TStaffExample example=new TStaffExample();
