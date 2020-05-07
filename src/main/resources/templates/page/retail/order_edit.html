@@ -98,29 +98,6 @@
             layer = layui.layer,
             $ = layui.$;
 
-      //参数data就是表单中的数据
-        form.on('submit(saveDrugInfo)',function (data) {
-            //data.field;//当前容器的全部表单字段，名值对形式：{name: value}
-
-            $.ajax({
-                url:'/pharmacy/saveDrugInfo',
-                data:data.field,
-                dataType:'json',
-                type:'post',
-                success:function(result){
-                    if(result.code == 200){
-                        layer.msg('保存成功',{icon:1,time:1000},function () {
-                            top.layer.closeAll("iframe");//关闭窗口
-                            parent.location.reload();//从新加载数据
-                        })
-                    }else{
-                        layer.msg(result.message,{icon:5});
-                    }
-                }
-            })
-            return false;
-        })
-
     });
 </script>
 </body>

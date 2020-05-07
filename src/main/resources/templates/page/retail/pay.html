@@ -18,7 +18,7 @@
         	font-size: 30px;
         }
         .myLabel{
-        	width:250px;
+        	width:350px;
         	margin-bottom: 5px;
         	font-size: 20px;
         	margin-left: 35px
@@ -31,24 +31,29 @@
         <form class="layui-form layui-form-pane" action="">
         	 <h1>药品信息</h1>
         	 <div class="layui-form-item">
+        	 	<input  type="hidden" style="border: 0px" id=retail_medicines th:value="${retail_medicines}"/>
 	         	<div th:each="medicine:${retail_medicines}">
-	                <div class="layui-inline">
+	                <!-- <div class="layui-inline">
 	                    <div class="myLabel">药品编号:[[${medicine.drug_sn}]]</div>
+	                </div> -->
+	                <div class="layui-inline">
+	                    <div class="myLabel">药品编号:<input readonly="readonly" type="text" style="border: 0px" id="drug_sn" th:value="${medicine.drug_sn}"/></div>
+	                    
 	                </div>
 	                <div class="layui-inline">
-	                    <div class="myLabel">名称:[[${medicine.name}]]</div>
+	                    <div class="myLabel">名称:<input readonly="readonly" type="text" style="border: 0px" id="name" th:value="${medicine.name}"/></div>
 	                </div>
 	                <div class="layui-inline">
-	                    <div class="myLabel">单价:[[${medicine.retail_amount}]]元</div>
+	                    <div class="myLabel">单价:<input readonly="readonly" type="text" style="border: 0px" id="amount" th:value="${medicine.retail_amount}"/></div>
 	                </div>
 	                <div class="layui-inline">
-	                    <div class="myLabel">数量:[[${medicine.retail_medicine_number}]]</div>
+	                    <div class="myLabel">数量:<input readonly="readonly" type="text" style="border: 0px" id="number" th:value="${medicine.retail_medicine_number}"/></div>
 	                </div>
 	                 <div class="layui-inline">
 	                    <div class="myLabel">合计金额:[[${medicine.retail_amount*medicine.retail_medicine_number}]]元</div>
 	                </div>
 	         	</div>
-	         	<h1>共计：[[${total}]]元</h1>
+	         	<h1>共计：<input readonly="readonly" type="text" style="border: 0px" id="total" th:value="${total}"/></h1>
 	         	<div class="layui-inline" style="float: right;">
 	            	<button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="save" >保存</button>
 		        </div>
@@ -90,7 +95,10 @@
             $.ajax({
             	traditional:true,
                 url:'/retail/save',
-                data:data.field,
+                data:{
+                	retail_medicines:$("#retail_medicines").val(),
+                	total:$("#total").val()
+                },
                 dataType:'json',
                 type:'post',
                 success:function(result){
@@ -107,12 +115,13 @@
             return false;
         })
         form.on('submit(pay)',function (data) {
-            //data.field;
-            //当前容器的全部表单字段，名值对形式：{name: value}
             $.ajax({
             	traditional:true,
                 url:'/retail/payInfo',
-                data:data.field,
+                data:{
+                	retail_medicines:$("#retail_medicines").val(),
+                	total:$("#total").val()
+                },
                 dataType:'json',
                 type:'post',
                 success:function(result){

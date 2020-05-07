@@ -3,10 +3,10 @@
 <mapper namespace="com.woniuxy.clinic.mapper.RetailMapper">
 
 	<insert id="saveOrderInfo">
-		INSERT INTO t_order (order_sn,order_type,createdate,order_statement) VALUES (#{order.order_sn},#{order.order_type},#{order.createdate},#{order.order_statement})
+		INSERT INTO t_order (order_sn,order_type,createdate,order_money,order_statement) VALUES (#{order.order_sn},#{order.order_type},#{order.createdate},#{order.order_money},#{order.order_statement})
 	</insert>
 	
-	<select id="selectOrderID">
+	<select id="selectOrderID" resultType="Integer">
 		select order_id from t_order where order_sn=#{order.order_sn}
 	</select>
 	

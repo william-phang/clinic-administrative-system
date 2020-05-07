@@ -48,10 +48,12 @@ public class RetailController {
 	
 	@ResponseBody
 	@RequestMapping("/retail/save")
-	public CommonResult saveOrderInfo() {
+	public CommonResult saveOrderInfo(@RequestParam("total")Double total) {
 		try {
+			//System.out.println(total);
 			//System.out.println("aaa");
-			retailService.saveOrderInfo();
+			//System.out.println(retail_medicines);
+			retailService.saveOrderInfo(total);
 			//System.out.println("saveOrderInfo");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -62,10 +64,10 @@ public class RetailController {
 	
 	@ResponseBody
 	@RequestMapping("/retail/payInfo")
-	public CommonResult savePayInfo() {
+	public CommonResult savePayInfo(Double total) {
 		try {
 			//System.out.println("aaa");
-			retailService.savePayInfo();
+			retailService.savePayInfo(total);
 			//System.out.println("saveOrderInfo");
 		} catch (Exception e) {
 			e.printStackTrace();

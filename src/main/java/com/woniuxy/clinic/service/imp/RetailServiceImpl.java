@@ -98,30 +98,31 @@ public class RetailServiceImpl implements RetailService {
 	}
 
 	@Override
-	public void saveOrderInfo() {
+	public void saveOrderInfo(Double total) {
 		
 		retailMapper.deleteAll();
 		String order_sn = (int)(Math.random()*100000)+"";
 		Date d = new Date();
+		//System.out.println(total);
 		SimpleDateFormat p = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String createdate = p.format(d);
-		Order order = new Order(null, order_sn, "零售", null, null, null, d, null, "2", null);
+//		String createdate = p.format(d);
+		Order order = new Order(null, order_sn, "零售", null, null, null, d, total, "2", null);
 		retailMapper.saveOrderInfo(order);
 //		Integer order_id = retailMapper.selectOrderID(order);
-//		for (Retail_Medicine retail_Medicine : retail_Medicines) {
+//		for (Retail_Medicine retail_Medicine : retail_medicines) {
 //			retailMapper.saveOrderMedicineInfo(order_id,retail_Medicine);
 //		}
 		
 	}
 
 	@Override
-	public void savePayInfo() {
+	public void savePayInfo(Double total) {
 		retailMapper.deleteAll();		
 		String order_sn = (int)(Math.random()*100000)+"";
 		Date d = new Date();
 		SimpleDateFormat p = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String createdate = p.format(d);
-		Order order = new Order(null, order_sn, "零售", null, null, null, d, null, "1", null);
+//		String createdate = p.format(d);
+		Order order = new Order(null, order_sn, "零售", null, null, null, d, total, "1", null);
 		retailMapper.saveOrderInfo(order);
 	}
 
