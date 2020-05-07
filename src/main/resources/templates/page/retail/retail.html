@@ -133,7 +133,7 @@
         });
 
         // 监听搜索操作
-        form.on('submit(data-search-btn)', function (data) {
+        /* form.on('submit(data-search-btn)', function (data) {
             var medical_name = $("#medical_name").val();
             var medical_fee = $("#medical_fee").val();
             var medical_cost = $("#medical_cost").val();
@@ -164,10 +164,10 @@
             }, 'data');
 
             return false;
-        });
+        }); */
 
         /**
-         * toolbar监听事件    添加费用信息
+         * toolbar监听事件    添加药物
          */
         table.on('toolbar(currentTableFilter)', function (obj) {
             if (obj.event === 'add') {  // 监听添加操作
@@ -200,8 +200,8 @@
         });
         
 
-      //批量删除用户
-        $(".batchDel").click(function () {
+      //批量
+        /* $(".batchDel").click(function () {
             //获取选中的行
             var checkStatus = table.checkStatus('currentTableId');//table中定义的id
             var data = checkStatus.data;
@@ -232,7 +232,7 @@
                 layer.close(index);//关闭当前提示框
             })
 
-        });
+        }); */
 
       
       //编辑   单个 删除

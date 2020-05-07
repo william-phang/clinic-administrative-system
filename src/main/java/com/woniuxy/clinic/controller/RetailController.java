@@ -48,11 +48,14 @@ public class RetailController {
 	
 	@ResponseBody
 	@RequestMapping("/retail/save")
-	public CommonResult saveOrderInfo(@RequestParam("total")Double total) {
+	public CommonResult saveOrderInfo(@RequestParam("retail_medicines")Object[] retail_medicines,@RequestParam("total")Double total) {
 		try {
 			//System.out.println(total);
 			//System.out.println("aaa");
 			//System.out.println(retail_medicines);
+			for (Object retail_medicine : retail_medicines) {
+				System.out.println(retail_medicine);
+			}
 			retailService.saveOrderInfo(total);
 			//System.out.println("saveOrderInfo");
 		} catch (Exception e) {

@@ -31,7 +31,7 @@
         <form class="layui-form layui-form-pane" action="">
         	 <h1>药品信息</h1>
         	 <div class="layui-form-item">
-        	 	<input  type="hidden" style="border: 0px" id=retail_medicines th:value="${retail_medicines}"/>
+        	 	<input  type="hidden" style="border: 0px" id="retail_medicines" th:value="${retail_medicines}"/>
 	         	<div th:each="medicine:${retail_medicines}">
 	                <!-- <div class="layui-inline">
 	                    <div class="myLabel">药品编号:[[${medicine.drug_sn}]]</div>
@@ -67,31 +67,12 @@
 </div>
 <script th:src="@{/layuimini/lib/layui-v2.5.5/layui.js}" charset="utf-8"></script>
 <script>
-/* function save() {
-	$.ajax({
-		url:"/retail/save",
-		type:"POST",
-		data:{
-			retail_medicines:$("#retail_medicines").val()
-			
-		},
-		dataType:"json",
-		success:function(data){
-			alert("11");
-		}
-	});
-} */
-
-	
     layui.use(['form'], function () {
         var form = layui.form,
             layer = layui.layer,
             $ = layui.$;
-
-      //参数data就是表单中的数据
+    
         form.on('submit(save)',function (data) {
-            //data.field;
-            //当前容器的全部表单字段，名值对形式：{name: value}
             $.ajax({
             	traditional:true,
                 url:'/retail/save',

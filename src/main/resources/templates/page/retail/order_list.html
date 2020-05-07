@@ -227,17 +227,17 @@
                 });
                 return false;
             } else if (obj.event === 'refund') {
-                layer.confirm('确定么', function (index) {
+                layer.confirm('确认退款？', function (index) {
                 	$.ajax({
                         url:'/order/refund/'+data.order_id,
                         /* type:put, */
                         /* dataType:'json', */
                         success:function (result) {
                             if(result.code == 200){
-                                layer.msg("删除成功",{icon:1});
+                                layer.msg("退款成功",{icon:1});
                                 location.reload();
                             }else{
-                                layer.msg("删除失败",{icon:5});
+                                layer.msg("退款失败",{icon:5});
                             }
                         }
                     })
