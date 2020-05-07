@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.github.pagehelper.PageInfo;
 import com.woniuxy.clinic.entity.TDepartment;
+import com.woniuxy.clinic.entity.TPermission;
 import com.woniuxy.clinic.entity.TRole;
 import com.woniuxy.clinic.entity.TStaff;
 import com.woniuxy.clinic.mapper.TDepartmentMapper;
@@ -31,6 +32,8 @@ class ClinicAdministrativeSystemApplicationTests {
 	RoleService roleService;
 	@Autowired
 	UserService userService;
+	@Autowired
+	PermissionService permissionService;
 
 	
 	@Test
@@ -48,9 +51,11 @@ class ClinicAdministrativeSystemApplicationTests {
 	
 	@Test
 	void contextLoad01() {
-		TDepartment department=new TDepartment();
-		department.setDepartmentStatus("停用");
-		departmentService.updateTDepartmentbyTDepartment_id(department);
+		TPermission permission=new TPermission();
+		Integer currentPage=1;
+		Integer pageSize=5;
+		 PageInfo<TPermission> selectallTPermission = permissionService.selectallTPermission(currentPage, pageSize, permission);
+		System.out.println(selectallTPermission);
 	
 	}
 	

@@ -46,14 +46,15 @@ public class MyWebMvcConfig{
 				registry.addViewController("/page/user_module/user-setting.html").setViewName("page/user_module/user-setting");
 				registry.addViewController("/page/user_module/stafftable.html").setViewName("page/user_module/stafftable.html");
 				registry.addViewController("/page/user_module/roletable.html").setViewName("page/user_module/roletable.html");
+				registry.addViewController("/page/user_module/permissiontable.html").setViewName("page/user_module/permissiontable.html");
 				registry.addViewController("/page/user_module/tableEdit/staffadd.html").setViewName("page/user_module/tableEdit/staffadd");
 				registry.addViewController("/page/user_module/tableEdit/staffedit.html").setViewName("page/user_module/tableEdit/staffedit");
 				registry.addViewController("/page/user_module/tableEdit/roleadd.html").setViewName("page/user_module/tableEdit/roleadd");
 				registry.addViewController("/page/user_module/tableEdit/roleedit.html").setViewName("page/user_module/tableEdit/roleedit");
 				registry.addViewController("/page/user_module/tableEdit/departmentadd.html").setViewName("page/user_module/tableEdit/departmentadd");
 				registry.addViewController("/page/user_module/tableEdit/departmentedit.html").setViewName("page/user_module/tableEdit/departmentedit");
-
-				
+				registry.addViewController("/page/user_module/tableEdit/permissionadd.html").setViewName("/page/user_module/tableEdit/permissionadd.html");
+				registry.addViewController("/page/user_module/tableEdit/permissionedit.html").setViewName("page/user_module/tableEdit/permissionedit");
 				registry.addViewController("/page/icon.html").setViewName("page/icon");
 				
 				registry.addViewController("/page/welcome.html").setViewName("page/welcome");
