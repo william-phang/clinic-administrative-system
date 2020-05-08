@@ -2,6 +2,7 @@ package com.woniuxy.clinic.controller;
 
 import java.util.List;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,15 +31,8 @@ public class TMedicalFeeController {
 
 	@Autowired
 	TMedicalFeeService tMedicalFeeService;
-	
-//	@ResponseBody
-//	@GetMapping("/tMedicalFeesajax")
-//	public Object selectTMedicalFeeAjax(TMedicalFee tMedicalFee) {
-//		List<TMedicalFee> tMedicalFees = tMedicalFeeService.selectByWhere(tMedicalFee);
-//		CommonResult<TMedicalFee> result = new CommonResult<TMedicalFee>(0L, "成功", tMedicalFees);
-//		return result;
-//	}
-	
+
+	@RequiresPermissions("medicalfee:query")
 	@ResponseBody
 	@GetMapping("/tMedicalFeesajax")
 	public Object selectTMedicalFeeAjax(@RequestParam(value="page",defaultValue = "1",required = false) Integer currentPage,
@@ -63,12 +57,14 @@ public class TMedicalFeeController {
 	}
 	
 	//左边导航栏跳转页面
+	@RequiresPermissions("medicalfee:query")
 	@RequestMapping("/tMedicalFees")
 	public String selectTMedicalFee(Model model) {
 		return "page/fee/tmedicalFeelist";
 	}
 
 	// 添加
+	@RequiresPermissions("medicalfee:add")
 	@ResponseBody
 	@PostMapping("/addTMedicalFees")
 	public Object addtTMedicalFees(TMedicalFee tMedicalFee) {
@@ -79,6 +75,7 @@ public class TMedicalFeeController {
 	}
 
 	// 批量删除(软删除:把费用状态由启用改为禁用)
+	@RequiresPermissions("medicalfee:delete")
 	@ResponseBody
 	@DeleteMapping("/updateTMedicalFeesStateByIdsajax/{medical_ids}")
 	public Object deleteByIdsajax(@PathVariable("medical_ids") List<Integer> medical_ids) {
@@ -93,6 +90,7 @@ public class TMedicalFeeController {
 	}
 
 	// 单个删除(软删除:把费用状态由启用改为禁用)
+	@RequiresPermissions("medicalfee:delete")
 	@ResponseBody
 	@DeleteMapping("/deleteTMedicalFeeStateByIdajax/{medical_id}")
 	public Object deleteByIdajax(@PathVariable("medical_id") int medical_id) {
@@ -104,6 +102,7 @@ public class TMedicalFeeController {
 	}
 
 	//编辑费用信息
+	@RequiresPermissions("medicalfee:query")
 	@RequestMapping("/editTMedicalFees/{medical_id}")
 	public ModelAndView edittMedicalFees(@PathVariable("medical_id") int medical_id) {
 		TMedicalFee tMedicalFee = 
@@ -115,6 +114,7 @@ public class TMedicalFeeController {
 	}
 	
 	//通过id修改费用信息
+	@RequiresPermissions("medicalfee:update")
 	@ResponseBody
 	@PutMapping("/updateTMedicalFeeStateByIdajax")
 	public Object updateByIdajax(TMedicalFee tMedicalFee) {
