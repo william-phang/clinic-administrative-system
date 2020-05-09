@@ -266,7 +266,10 @@
       <if test="dto.additional_state != null and dto.additional_state!=''">
         and additional_state like concat('%',#{dto.additional_state},'%')
       </if>
-      <if test="dto.begin != null">
+     <if test="dto.additional_date != null">
+        and additional_date like concat('%',#{dto.additional_date},'%')
+      </if> 
+      <!-- <if test="dto.begin != null">
         <if test="dto.end != null">
           and additional_date between #{dto.begin} and #{dto.end}
         </if>
@@ -282,11 +285,12 @@
                 <=
             ]]> #{dto.end}
         </if>
-      </if>
+      </if> -->
     </where>
   </sql>
   <select id="selectByPageCount" resultType="int">
 		select count(*) from t_additional_fee
 		<include refid="pageCondition"/>
-	</select>
+</select>
+
 </mapper>

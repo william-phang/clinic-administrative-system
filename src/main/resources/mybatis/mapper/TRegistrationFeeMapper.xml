@@ -287,7 +287,10 @@
       <if test="dto.regis_state != null and dto.regis_state!=''">
         and regis_state like concat('%',#{dto.regis_state},'%')
       </if>
-      <if test="dto.begin != null">
+      <if test="dto.regis_date != null ">
+        and regis_date like concat('%',#{dto.regis_date},'%')
+      </if>
+      <!-- <if test="dto.begin != null">
         <if test="dto.end != null">
           and regis_date between #{dto.begin} and #{dto.end}
         </if>
@@ -303,7 +306,7 @@
                 <=
             ]]> #{dto.end}
         </if>
-      </if>
+      </if> -->
     </where>
   </sql>
   <select id="selectByPageCount" resultType="int">

@@ -48,11 +48,15 @@
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">费用状态</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="medical_state" autocomplete="off" class="layui-input" id="medical_state">
-                            </div>
-                        </div>
+								<label class="layui-form-label">费用状态</label>
+								<div class="layui-input-inline">
+									<select id="medical_state" >
+										<option data-idx='0' value="" selected>全部</option>
+										<option data-idx='1' value="启用">启用</option>
+										<option data-idx='2' value="禁用">禁用</option>
+									</select>
+								</div>
+						</div>
                         <div class="layui-inline">
                             <button class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
                         </div>
@@ -97,12 +101,12 @@
             	[
                 {type: "checkbox", width: 50},
                 {field: 'medical_id', width: 150, title: '序列', sort: true},
-                {field: 'medical_name', width: 150, title: '费用名称'},
-                {field: 'medical_fee', width: 150, title: '费用价格', sort: true},
-                {field: 'medical_cost', width: 150, title: '费用成本'},
-                {field: 'medical_date', width: 150, title: '创建时间', sort: true},
-                {field: 'medical_founder', width: 150, title: '创建人员', sort: true},
-                {field: 'medical_state', width: 150, title: '费用状态'},
+                {field: 'medical_name', width: 150, title: '费用名称',align : "center"},
+                {field: 'medical_fee', width: 150, title: '费用价格', sort: true,align : "center"},
+                {field: 'medical_cost', width: 150, title: '费用成本',align : "center"},
+                {field: 'medical_date', width: 150, title: '创建时间', sort: true,align : "center"},
+                {field: 'medical_founder', width: 150, title: '创建人员', sort: true,align : "center"},
+                {field: 'medical_state', width: 150, title: '费用状态',align : "center"},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             	]
             ],

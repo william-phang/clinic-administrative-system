@@ -2,6 +2,7 @@ package com.woniuxy.clinic.controller;
 
 import java.util.List;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,14 +31,7 @@ public class TRegistrationFeeController {
 	@Autowired
 	TRegistrationFeeService tRegistrationFeeService;
 	
-	//@ResponseBody
-	//@GetMapping("/tRegistrationFeesajax")
-//	public Object selectTRegistrationFeeAjax(TRegistrationFee tRegistrationFee) {
-//		List<TRegistrationFee> tRegistrationFees = tRegistrationFeeService.selectByWhere(tRegistrationFee);
-//		CommonResult<TRegistrationFee> result = new CommonResult<TRegistrationFee>(0L, "成功", tRegistrationFees);
-//		return result;
-//	}
-	
+	@RequiresPermissions("registrationfee:query")
 	@ResponseBody
 	@GetMapping("/tRegistrationFeesajax")
 	public Object selectTRegistrationFeeAjax(@RequestParam(value="page",defaultValue = "1",required = false) Integer currentPage,
@@ -60,12 +54,14 @@ public class TRegistrationFeeController {
 	}
 	
 	//左边导航栏跳转页面
+	@RequiresPermissions("registrationfee:query")
 	@RequestMapping("/tRegistrationFees")
 	public String selectTRegistrationFee(Model model) {
 		return "page/fee/tregistrationFeelist";
 	}
 
 	// 添加
+	@RequiresPermissions("registrationfee:add")
 	@ResponseBody
 	@PostMapping("/addRegistrationFees")
 	public Object addtRegistrationFees(TRegistrationFee tRegistrationFee) {
@@ -76,6 +72,7 @@ public class TRegistrationFeeController {
 	}
 
 	// 批量删除(软删除:把费用状态由启用改为禁用)
+	@RequiresPermissions("registrationfee:delete")
 	@ResponseBody
 	@DeleteMapping("/updateTRegistrationFeesStateByIdsajax/{regis_ids}")
 	public Object deleteByIdsajax(@PathVariable("regis_ids") List<Integer> regis_ids) {
@@ -90,6 +87,7 @@ public class TRegistrationFeeController {
 	}
 
 	// 单个删除(软删除:把费用状态由启用改为禁用)
+	@RequiresPermissions("registrationfee:delete")
 	@ResponseBody
 	@DeleteMapping("/deleteTRegistrationFeeStateByIdajax/{regis_id}")
 	public Object deleteByIdajax(@PathVariable("regis_id") int regis_id) {
@@ -101,6 +99,7 @@ public class TRegistrationFeeController {
 	}
 
 	//编辑费用信息
+	@RequiresPermissions("registrationfee:add")
 	@RequestMapping("/editTRegistrationFees/{regis_id}")
 	public ModelAndView edittMedicalFees(@PathVariable("regis_id") int regis_id) {
 		System.out.println(regis_id);
@@ -113,6 +112,7 @@ public class TRegistrationFeeController {
 	}
 	
 	//通过id修改费用信息
+	@RequiresPermissions("registrationfee:update")
 	@ResponseBody
 	@PutMapping("/updateTRegistrationFeeStateByIdajax")
 	public Object updateByIdajax(TRegistrationFee tRegistrationFee) {

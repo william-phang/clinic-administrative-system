@@ -23,7 +23,7 @@
         },
         {
           "title": "工作台",
-          "href": "page/table.html?t=11",
+          "href": "/tRegist?t=11",
           "icon": "fa fa-window-maximize",
           "target": "_self"
         },
@@ -210,7 +210,27 @@
               "title": "费用设置",
               "href": "page/table.html?t=87",
               "icon": "fa fa-shield",
+              "target": "_self",
+              "child": [
+            {
+              "title": "附加费设置",
+              "href": "/tAdditionalFees?t=71",
+              "icon": "fa fa-snowflake-o",
               "target": "_self"
+            },
+            {
+              "title": "诊疗费设置",
+              "href": "/tMedicalFees?t=72",
+              "icon": "fa fa-shield",
+              "target": "_self"
+            },
+             {
+              "title": "挂号费设置",
+              "href": "/tRegistrationFees?t=73",
+              "icon": "fa fa-snowflake-o",
+              "target": "_self"
+            }
+          ]
             },
              {
               "title": "基础设置",

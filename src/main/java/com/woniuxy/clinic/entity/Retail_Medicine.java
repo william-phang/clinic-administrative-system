@@ -23,6 +23,8 @@ public class Retail_Medicine {
 	private Double retail_amount;// 单价
 	private Integer retail_medicine_number;// 数量
 
+	
+
 	public Retail_Medicine() {
 		super();
 	}

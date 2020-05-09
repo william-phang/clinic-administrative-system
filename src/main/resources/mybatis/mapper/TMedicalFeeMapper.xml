@@ -288,7 +288,10 @@
       <if test="dto.medical_state != null and dto.medical_state!=''">
         and medical_state like concat('%',#{dto.medical_state},'%')
       </if>
-      <if test="dto.begin != null">
+      <if test="dto.medical_date != null">
+        and medical_date like concat('%',#{dto.medical_date},'%')
+      </if>
+      <!-- <if test="dto.begin != null">
         <if test="dto.end != null">
           and medical_date between #{dto.begin} and #{dto.end}
         </if>
@@ -304,7 +307,7 @@
                 <=
             ]]> #{dto.end}
         </if>
-      </if>
+      </if> -->
     </where>
   </sql>
   <select id="selectByPageCount" resultType="int">

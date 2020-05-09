@@ -9,6 +9,8 @@ import com.woniuxy.clinic.dto.TAdditionalFeeDto;
 import com.woniuxy.clinic.dto.TRegistrationFeeDto;
 import com.woniuxy.clinic.entity.TRegistrationFee;
 import com.woniuxy.clinic.entity.TRegistrationFeeExample;
+import com.woniuxy.clinic.exception.TMedicalFeeException;
+import com.woniuxy.clinic.exception.TRegistrationFeeException;
 import com.woniuxy.clinic.mapper.TRegistrationFeeMapper;
 import com.woniuxy.clinic.service.TRegistrationFeeService;
 
@@ -21,39 +23,71 @@ public class TRegistrationFeeServiceImpl implements TRegistrationFeeService{
 	@Override
 	public void insertTRegistrationFee(TRegistrationFee tRegistrationFee) {
 		
-		tRegistrationFeeMapper.insert(tRegistrationFee);
+		try {
+			tRegistrationFeeMapper.insert(tRegistrationFee);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new TRegistrationFeeException("系统维护中");
+		}
 	}
 
 	@Override
 	public void delectTRegistrationFeeById(TRegistrationFee tRegistrationFee) {
 		
-		tRegistrationFeeMapper.updateByPrimaryKey(tRegistrationFee);
+		try {
+			tRegistrationFeeMapper.updateByPrimaryKey(tRegistrationFee);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new TRegistrationFeeException("系统维护中");
+		}
 	}
 
 	@Override
 	public void updateTRegistrationFeeById(TRegistrationFee tRegistrationFee) {
 		
-		tRegistrationFeeMapper.updateByPrimaryKey(tRegistrationFee);
+		try {
+			tRegistrationFeeMapper.updateByPrimaryKey(tRegistrationFee);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new TRegistrationFeeException("系统维护中");
+		}
 	}
 
 	@Override
 	public List<TRegistrationFee> selectTRegistrationFees() {
-		TRegistrationFeeExample example=new TRegistrationFeeExample();
-		List<TRegistrationFee> tRegistrationFees = tRegistrationFeeMapper.selectByExample(example);
-		return tRegistrationFees;
+		
+		try {
+			TRegistrationFeeExample example=new TRegistrationFeeExample();
+			List<TRegistrationFee> tRegistrationFees = tRegistrationFeeMapper.selectByExample(example);
+			return tRegistrationFees;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new TRegistrationFeeException("系统维护中");
+		}
 	}
 
 	@Override
 	public TRegistrationFee selectTRegistrationFeeById(Integer regis_id) {
 		
-		return tRegistrationFeeMapper.selectByPrimaryKey(regis_id);
+		try {
+			return tRegistrationFeeMapper.selectByPrimaryKey(regis_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new TRegistrationFeeException("系统维护中");
+		}
 	}
 
 	@Override
 	public List<TRegistrationFee> selectByWhere(TRegistrationFee tRegistrationFee) {
-		List<TRegistrationFee> tRegistrationFees = 
-				tRegistrationFeeMapper.selectByWhere(tRegistrationFee);
-		return tRegistrationFees;
+		
+		try {
+			List<TRegistrationFee> tRegistrationFees = 
+					tRegistrationFeeMapper.selectByWhere(tRegistrationFee);
+			return tRegistrationFees;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new TRegistrationFeeException("系统维护中");
+		}
 	}
 
 	@Override
@@ -65,14 +99,24 @@ public class TRegistrationFeeServiceImpl implements TRegistrationFeeService{
 
 	@Override
 	public List<TRegistrationFee> findUsersByPage(Integer currentPage, Integer pageSize, TRegistrationFeeDto dto) {
-		// TODO Auto-generated method stub
-		return tRegistrationFeeMapper.selectByPage((currentPage-1)*pageSize, pageSize, dto);
+		
+		try {
+			return tRegistrationFeeMapper.selectByPage((currentPage-1)*pageSize, pageSize, dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new TRegistrationFeeException("系统维护中");
+		}
 	}
 
 	@Override
 	public int selectByPageCount(TRegistrationFeeDto dto) {
-		// TODO Auto-generated method stub
-		return tRegistrationFeeMapper.selectByPageCount(dto);
+		
+		try {
+			return tRegistrationFeeMapper.selectByPageCount(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new TRegistrationFeeException("系统维护中");
+		}
 	}
 
 	
