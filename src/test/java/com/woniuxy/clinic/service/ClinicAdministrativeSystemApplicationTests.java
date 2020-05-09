@@ -39,7 +39,7 @@ class ClinicAdministrativeSystemApplicationTests {
 	@Test
 	void contextLoads() {
 		TStaff staff=new TStaff();
-		staff.setStaffName("阿达");
+		staff.setStaffCard("110001");
 		 PageInfo info = null;
 		Integer currentPage=1;
 		Integer pageSize=5;

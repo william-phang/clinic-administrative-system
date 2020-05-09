@@ -38,6 +38,9 @@ public class StaffServiceImpl implements StaffService{
 		if(staff.getStaffName()!=null&&!"".equals(staff.getStaffName())) {
 		staffCriteria.andStaffNameLike("%"+staff.getStaffName()+"%");	
 		}
+		if(staff.getStaffCard()!=null&&!"".equals(staff.getStaffCard())) {
+			staffCriteria.andStaffCardLike("%"+staff.getStaffCard()+"%");	
+			}
 		List<TStaff> selectByExample = staffMapper.selectByExample(example);
 		for (TStaff TStaff : selectByExample) {
 			TRole role = roleMappper.selectByPrimaryKey(TStaff.getRoleId());
