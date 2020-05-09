@@ -10,13 +10,13 @@ import lombok.NoArgsConstructor;
 public class TPermission {
     private Integer permissionId;
 
-    private String permissionName;
+    private String perms;
 
     private Integer roleId;
 
     private String status;
-    
-    private TRole role;
+
+    private String permissionName;
 
     public Integer getPermissionId() {
         return permissionId;
@@ -26,12 +26,12 @@ public class TPermission {
         this.permissionId = permissionId;
     }
 
-    public String getPermissionName() {
-        return permissionName;
+    public String getPerms() {
+        return perms;
     }
 
-    public void setPermissionName(String permissionName) {
-        this.permissionName = permissionName == null ? null : permissionName.trim();
+    public void setPerms(String perms) {
+        this.perms = perms == null ? null : perms.trim();
     }
 
     public Integer getRoleId() {
@@ -48,5 +48,13 @@ public class TPermission {
 
     public void setStatus(String status) {
         this.status = status == null ? null : status.trim();
+    }
+
+    public String getPermissionName() {
+        return permissionName;
+    }
+
+    public void setPermissionName(String permissionName) {
+        this.permissionName = permissionName == null ? null : permissionName.trim();
     }
 }

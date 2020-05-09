@@ -164,6 +164,18 @@ function sotitle(roleId){
  					iframeWin.layui.form.render("select");
  				}
  			});
+             
+ 		   $.ajax({
+				url : '/selectAllpermission',
+				dataType : 'json',
+				type : 'post',
+				success : function(data) {
+					$.each(data, function(index, item) {
+							body.find('#perms').append($("<option>").attr("value",item.perms).text(item.permissionName));
+					});
+					iframeWin.layui.form.render("select");
+				}
+			});
                     }
                 });
                 $(window).on("resize", function () {

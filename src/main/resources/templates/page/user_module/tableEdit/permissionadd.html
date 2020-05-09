@@ -17,10 +17,14 @@
 <body>
 <div class="layui-form layuimini-form">
     <div class="layui-form-item">
-        <label class="layui-form-label required">权限名</label>
-        <div class="layui-input-inline">
-            <input type="text" name="permissionName" id="permissionName" lay-verify="required" lay-reqtext="权限名不能为空" placeholder="请输入权限名" value="" class="layui-input">
-        </div>
+        <label class="layui-form-label">权限</label>
+				
+				 <div class="layui-input-inline">
+					<select name="permis" lay-verify="required" id="perms"
+						lay-filter="perms">
+						<option value="">请选择</option>
+					</select>
+				</div> 
     </div>
     
     <div class="layui-form-item">
@@ -56,9 +60,9 @@ layui.use(['form'], function () {
             url: '/addPermission',
             data:{
             	roleId:$('#roleId').val(),
-            	permissionName:$('#permissionName').val()
+            	perms:$('#perms').val()
             }, success: function (pos) {
-                if (pos>0) {
+                if (pos!=404) {
                      layer.msg("操作成功!");
                     setTimeout( function(){
                         //window.parent.location.href = 'list.do'; 或者
@@ -69,7 +73,7 @@ layui.use(['form'], function () {
                     parent.layer.close(iframeIndex);
                     //window.parent.layer.closeAll();关闭弹窗
                 }else if(pos==404){
-                    layer.msg("添加失败用户已存在!");
+                    layer.msg("此角色已有此权限!");
                     
                 }
              // 关闭弹出层

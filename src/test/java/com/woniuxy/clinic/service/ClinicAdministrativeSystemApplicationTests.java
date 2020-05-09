@@ -52,10 +52,8 @@ class ClinicAdministrativeSystemApplicationTests {
 	@Test
 	void contextLoad01() {
 		TPermission permission=new TPermission();
-		Integer currentPage=1;
-		Integer pageSize=5;
-		 PageInfo<TPermission> selectallTPermission = permissionService.selectallTPermission(currentPage, pageSize, permission);
-		System.out.println(selectallTPermission);
+		List<TPermission> selectall = permissionService.selectall(permission);
+		System.out.println(selectall);
 	
 	}
 	

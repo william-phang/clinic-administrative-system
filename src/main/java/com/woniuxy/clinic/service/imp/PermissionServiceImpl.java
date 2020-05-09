@@ -29,9 +29,9 @@ public class PermissionServiceImpl implements PermissionService{
 	}
 
 	@Override
-	public TPermission selectTRolebyTPermission_name(String permission_name) {
+	public TPermission selectTRolebyTPerms(String perms) {
 		
-		return permissionMapper.selectByname(permission_name);
+		return permissionMapper.selectByperms(perms);
 	}
 
 	@Override
