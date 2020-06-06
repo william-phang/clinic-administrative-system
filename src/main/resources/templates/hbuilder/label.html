@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+    <meta charset="UTF-8">
+    <title>标签管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="./lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./js/index.js"></script>
+
+</head>
+<body>
+<div class="x-nav">
+          <span class="layui-breadcrumb">
+            <a href="javascrpit:;">首页</a>
+            <a href="javascrpit:;">标签管理</a>
+            <a>
+              <cite>标签列表</cite></a>
+          </span>
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
+        <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
+</div>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body ">
+                    <form class="layui-form layui-col-space5">
+                        <!-- <div class="layui-inline layui-show-xs-block">
+                            <input class="layui-input"  autocomplete="off" placeholder="开始日" name="start" id="start">
+                        </div>
+                        <div class="layui-inline layui-show-xs-block">
+                            <input class="layui-input"  autocomplete="off" placeholder="截止日" name="end" id="end">
+                        </div> -->
+                        <div class="layui-inline layui-show-xs-block">
+                            <input type="text" name="province"  placeholder="请输入省" autocomplete="off" class="layui-input">
+                        </div>
+						<div class="layui-inline layui-show-xs-block">
+						    <input type="text" name="city"  placeholder="请输入市" autocomplete="off" class="layui-input">
+						</div>
+                        <div class="layui-inline layui-show-xs-block">
+                            <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+                        </div>
+                    </form>
+                </div>
+				<div class="layui-card-header">
+					<button class="layui-btn" onclick="xadmin.open('添加标签','./articletypeadd.html',800,600)"><i class="layui-icon"></i>添加标签</button>
+				</div>
+                <!-- <div class="layui-card-header">
+                    <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
+                </div> -->
+                <div class="layui-card-body layui-table-body layui-table-main">
+                    <div class="layui-card-body layui-table-body layui-table-main">
+                    	<table class="layui-hide" id="label-list" lay-filter="label-list"></table>
+                    	<script type="text/html" id="operate">
+                    		{{#  if(d.statement == 0){ }}
+                    		<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="off">停用</a>
+                    		{{#  } else if(d.statement == 1) { }}
+                    		<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="on">启用</a>
+                    		{{#  } }}
+                        </script>
+                    	<script type="text/html" id="statusJduge">
+                    		{{#  if(d.statement == 0){ }}
+							已启用
+							{{#  } else if(d.statement == 1) { }}
+							已停用
+							{{#  } }}
+                    	</script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    layui.use(['laydate','form','table'], function(){
+        var laydate = layui.laydate;
+        var  form = layui.form;
+		var table = layui.table;
+		var localStorage = window.localStorage;
+		var token = localStorage.getItem("token");
+		console.log(token);
+		
+		table.render({
+			elem: '#label-list',
+			url: 'http://localhost:9091/provider-labelmanage/label/showall',
+			headers: {
+				"token": token
+			},
+			toolbar: '#toolbarDemo',
+			// defaultToolbar: ['filter', 'exports', 'print', {
+			//     title: '提示',
+			//     layEvent: 'LAYTABLE_TIPS',
+			//     icon: 'layui-icon-tips'
+			// }],
+			limits: [8, 16, 24, 32, 40, 48],
+			limit: 8,
+			page: true,
+			// page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+			//     layout: ['limit', 'count', 'prev', 'page', 'next'] //自定义分页布局
+			//     ,groups: 3 //只显示 3 个连续页码
+			//     ,first: '首页' //首页
+			//     ,prev: '上一页'
+			//     ,next: '下一页'
+			//     ,last: '尾页' //尾页
+			//     ,limit:6
+			//     ,limits:[6,12,18]
+			// },
+			//skin: 'line',
+			cols: [
+				[{
+					type: "numbers",
+					title: '序号',
+					align: 'center',
+					width: 100
+				}, {
+					field: 'lid',
+					title: '编号',
+					align: 'center',
+					width: 100
+				}, {
+					field: 'plabel',
+					title: '省份',
+					align: 'center',
+					width: 100
+				}, {
+					field: 'clabel',
+					title: '城市',
+					align: 'center',
+					width: 100
+				}, {
+					field: 'statement',
+					title: '状态',
+					align: 'center',
+					templet: '#statusJduge',
+					width: 100
+				}, {
+					fixed: 'right',
+					title: '操作',
+					align: 'center',
+					toolbar: '#operate',
+					width: 200
+				}]
+			],
+			parseData: function(result) { //result是服务器端响应的数据
+				return {
+					code: result.stateCode == 200 ? 0 : result.stateCode,
+					msg: result.message,
+					data: result.data
+				}
+			}
+		});
+
+
+        // 监听全选
+        form.on('checkbox(checkall)', function(data){
+
+            if(data.elem.checked){
+                $('tbody input').prop('checked',true);
+            }else{
+                $('tbody input').prop('checked',false);
+            }
+            form.render('checkbox');
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#start' //指定元素
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#end' //指定元素
+        });
+
+
+    });
+
+    /*用户-添加*/
+    function member_add(title,url,id,w,h){
+
+        xadmin.open(title,url,id,w,h);
+    }
+
+    /*用户-停用*/
+    function member_stop(obj,id){
+        layer.confirm('确认要停用吗？',{icon:3,title:'提示信息'},function(index){
+
+            if($(obj).attr('title')=='启用'){
+
+                //发异步把用户状态进行更改
+                $(obj).attr('title','停用')
+                $(obj).find('i').html('&#xe62f;');
+
+                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
+                layer.msg('已停用!',{icon: 5,time:1000});
+
+            }else{
+                $(obj).attr('title','启用')
+                $(obj).find('i').html('&#xe601;');
+
+                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
+                layer.msg('已启用!',{icon: 5,time:1000});
+            }
+
+        });
+    }
+
+    /*用户-删除*/
+    function link_del(obj,id){
+        layer.confirm('确认要删除吗？',{icon:3,title:'提示信息'},function(index){
+            //发异步删除数据
+            $(obj).parents("tr").remove();
+            layer.msg('已删除!',{icon:1,time:1000});
+        });
+    }
+
+
+
+    function delAll (argument) {
+        var ids = [];
+
+        // 获取选中的id
+        $('tbody input').each(function(index, el) {
+            if($(this).prop('checked')){
+                ids.push($(this).val())
+            }
+        });
+
+        layer.confirm('确认要删除吗？'+ids.toString(),{icon:3,title:'提示信息'},function(index){
+            //捉到所有被选中的，发异步进行删除
+            layer.msg('删除成功', {icon: 1});
+            $(".layui-form-checked").not('.header').parents('tr').remove();
+        });
+    }
+</script>
+</html>
