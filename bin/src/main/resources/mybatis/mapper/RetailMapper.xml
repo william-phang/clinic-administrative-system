@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.woniuxy.clinic.mapper.RetailMapper">
+
+	<insert id="saveOrderInfo">
+		INSERT INTO t_order (order_sn,order_type,patient_id,createdate,order_money,order_statement) VALUES (#{order.order_sn},#{order.order_type},#{order.patient_id},#{order.createdate},#{order.order_money},#{order.order_statement})
+	</insert>
+	
+	<select id="selectOrderID" resultType="Integer">
+		select order_id from t_order where order_sn=#{order.order_sn}
+	</select>
+	
+	<select id="selectPatientIDBySn" resultType="Integer">
+		select patient_id from t_patient where patient_sn=#{patient_sn}
+	</select>
+	
+	<insert id="saveOrderMedicineInfo">
+		INSERT INTO t_order_medicine (order_medicine_number,order_medicine_total,order_id,medicine_id) VALUES (#{retail_drug.retail_medicine_number},#{stotal},#{order_id},#{retail_drug.drug_sn})
+	</insert>
+
+
+	<select id="selectRetailMedicinesNum" resultType="Integer">
+		select count(*) from t_retail_medicine
+	</select>
+	
+	
+
+	
+
+	<select id="selectDrug_sn" resultType="Integer">
+		select drug_sn from t_retail_medicine
+	</select>
+	
+	<update id="updateRetail_Medicine_Number">
+		update t_retail_medicine set retail_medicine_number =  retail_medicine_number+1 where drug_sn=#{medical_id}
+	</update>
+	
+	<insert id="insertRetail_Medicine">
+		INSERT INTO t_retail_medicine (drug_sn,retail_medicine_number) VALUES (#{medical_id},1)
+	</insert>
+	
+	
+	<select id="findPatientInfoByPatient_id" resultType="Patient">
+		select * from t_patient where patient_id=#{patient_id}
+	</select>
+	<select id="selectRetailMedicines"
+		resultType="Retail_Medicine">
+		select t_retail_medicine.retail_medicine_id,t_drug.drug_sn,t_drug.name,t_drug.retail_amount,t_retail_medicine.retail_medicine_number from t_retail_medicine inner join t_drug on t_retail_medicine.drug_sn=t_drug.drug_sn where t_retail_medicine.retail_medicine_number>0
+	</select>
+	
+	<update id="addOne">
+		update t_retail_medicine set retail_medicine_number =  retail_medicine_number+1 where drug_sn=#{drug_sn}
+	</update>
+	
+	<update id="reduceOne">
+		update t_retail_medicine set retail_medicine_number =  retail_medicine_number-1 where drug_sn=#{drug_sn}
+	</update>
+	
+	<delete id="delete">
+		delete from t_retail_medicine where drug_sn=#{drug_sn}
+	</delete>
+	
+	<delete id="deleteAll">
+		delete from t_retail_medicine 
+	</delete>
+	
+	<select id="findRetailMedince" resultType="Retail_Medicine">
+		select t_retail_medicine.retail_medicine_id,t_drug.drug_sn,t_drug.name,t_drug.retail_amount,t_retail_medicine.retail_medicine_number from t_retail_medicine inner join t_drug on t_retail_medicine.drug_sn=t_drug.drug_sn where t_retail_medicine.retail_medicine_number>0
+	</select>
+	<!-- 	<resultMap type="Retail_Medicine" id="DrugMapper">
+		<id column="retail_medicine_id" property="retail_medicine_id"/>
+		<id column="retail_medicine_number" property="retail_medicine_number"/>
+		一对一:药物信息
+		<association property="tDrug" javaType="tDrug" select="selectTDrugByDrug_sn" column="drug_sn"/> 
+	</resultMap>
+	
+	<select id="selectTDrugByDrug_sn" resultType="TDrug">
+		select * from t_drug where drug_sn=#{drug_sn}
+	</select> -->
+
+
+
+
+	
+
+</mapper>

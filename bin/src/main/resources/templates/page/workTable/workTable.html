@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>数据表格</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="/layuimini/lib/layui-v2.5.5/css/layui.css"
+	media="all">
+<link rel="stylesheet" href="/layuimini/css/public.css" media="all">
+</head>
+<body>
+	<div class="layuimini-container">
+		<div class="layuimini-main">
+			<fieldset class="table-search-fieldset">
+				<legend>搜索信息</legend>
+				<div style="margin: 10px 10px 10px 10px">
+					<form class="layui-form layui-form-pane" action="">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">创建时间</label>
+								<div class="layui-input-inline">
+									<input type="text" name="re_create_time" autocomplete="off"
+										class="layui-input" id="re_create_time" placeholder="yyyy-MM-dd">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">接诊状态</label>
+								<div class="layui-input-inline">
+									<select id="reception_status" >
+										<option data-idx='0' value="" selected>全部</option>
+										<option data-idx='1' value="未就诊">未就诊</option>
+										<option data-idx='2' value="已就诊">已就诊</option>
+										<option data-idx='0' value="已退号">已退号</option>
+									</select>
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">患者姓名</label>
+								<div class="layui-input-inline">
+									<input type="text"
+										autocomplete="off" class="layui-input" name="patient_name"
+										id="patient_name">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<button class="layui-btn layui-btn-primary" lay-submit
+									lay-filter="data-search-btn">
+									<i class="layui-icon"></i> 搜 索
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</fieldset>
+
+			<script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container demoTable">
+                <div class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 患者就诊状态栏 </div>
+            </div>
+        	</script>
+
+			<table class="layui-hide" id="currentTableId"
+				lay-filter="currentTableFilter"></table>
+
+			<script type="text/html" id="currentTableBar">
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+        </script>
+
+		</div>
+	</div>
+	<script src="/layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+	<script>
+		layui.use([ 'form', 'table' ], function() {
+			var $ = layui.jquery, form = layui.form, table = layui.table;
+
+			table.render({
+				elem : '#currentTableId',
+				url : '/tRegistajax',
+				toolbar : '#toolbarDemo',
+				defaultToolbar : [ 'filter', 'exports', 'print', {
+					title : '提示',
+					layEvent : 'LAYTABLE_TIPS',
+					icon : 'layui-icon-tips'
+				} ],
+				cols : [ [
+				/*  {type: "checkbox", width: 50},  */
+				{
+					field : 'registration_id',
+					width : 100,
+					title : '序列',
+					sort : true,
+					
+				}, {
+					field : 'patient_name',
+					width : 150,
+					title : '姓名',
+					templet : '<div>{{d.patient.patient_name}}</div>',
+					align : "center"
+				}, {
+					field : 'patient_gender',
+					width : 150,
+					title : '性别',
+					sort : true,
+					templet : '<div>{{d.patient.patient_gender}}</div>',
+					align : "center"
+				}, {
+					field : 'patient_age',
+					width : 150,
+					title : '年龄',
+					sort : true,
+					templet : '<div>{{d.patient.patient_age}}</div>',
+					align : "center"
+				}, {
+					field : 'patient_phone',
+					width : 150,
+					title : '联系方式',
+					templet : '<div>{{d.patient.patient_phone}}</div>',
+					align : "center"
+				}, {
+					field : 'departmentName',
+					width : 150,
+					title : '科室',
+					templet : function(d) {
+						return d.tdepartment.departmentName;
+					},
+					align : "center"
+				}, {
+					field : 're_create_time',
+					width : 150,
+					title : '创建时间',
+					sort : true,
+					align : "center"
+				}, {
+					field : 'staffName',
+					width : 150,
+					title : '接诊医生',
+					sort : true,
+					templet : function(d) {
+						return d.tstaff.staffName;
+					},
+					align : "center"
+				}, {
+					field : 'reception_status',
+					width : 150,
+					title : '接诊状态',
+					align : "center"
+				}, {
+					title : '操作',
+					minWidth : 150,
+					toolbar : '#currentTableBar',
+					align : "center"
+				} ] ],
+				limits : [ 8, 16, 24, 32, 40, 48 ],
+				limit : 8,
+				page : true,
+				skin : 'line',
+				parseData : function(result) {//result是服务器端响应的数据
+					return {
+						code : result.code == 0 ? 0 : result.code(),
+						msg : result.message,
+						data : result.data.list,
+						count : result.data.total
+					}
+				}
+			});
+
+			// 监听搜索操作
+			form.on('submit(data-search-btn)', function(data) {
+				var re_create_time = $("#re_create_time").val();
+				var reception_status = $("#reception_status").val();
+				var patient_name = $("#patient_name").val(); 
+				//执行搜索重载
+				table.reload('currentTableId', {
+					page : {
+						curr : 1
+					//从第一页开始
+					},
+					where : {//这里向后台传参
+						're_create_time' : re_create_time,
+						'reception_status' : reception_status, 
+						'patient_name': patient_name, 
+					},
+					parseData : function(result) {//result是服务器端响应的数据
+						return {
+							code : result.code == 0 ? 0 : result.code(),
+							msg : result.message,
+							data : result.data.list,
+							count : result.data.total
+						}
+					}
+				}, 'data');
+
+				return false;
+			});
+			
+		});
+		
+		//编辑   单个 删除
+        table.on('tool(currentTableFilter)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'edit') {
+
+                var index = layer.open({
+                    title: '编辑用户',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin:true,
+                    shadeClose: true,
+                    area: ['100%', '100%'],
+                    content: '/editTMedicalFees/',
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+                return false;
+            }  else if (obj.event === 'delete') {
+                 /* layer.confirm('真的删除行么', function (index) {
+                    obj.del();
+                    layer.close(index); 
+                    
+                }); */
+                layer.confirm('确认删除',function (index) {
+
+                    $.ajax({
+                        url:'/deleteTMedicalFeeStateByIdajax/'+data.medical_id,
+                        type:'delete',
+                        dataType:'json',
+                        success:function (result) {
+                            if(result.code == 0){
+                                layer.msg("删除成功",{icon:1});
+                                location.reload();
+                            }else{
+                                layer.msg("删除失败",{icon:5});
+                            }
+                        }
+                    })
+
+                    layer.close(index);
+                })
+            } 
+            
+        });
+
+		//日期时间设置
+		layui.use('laydate', function() {
+			var laydate = layui.laydate;
+
+			//执行一个laydate实例
+			laydate.render({
+				elem : '#re_create_time' //指定元素
+			});
+		});
+	</script>
+
+</body>
+</html>

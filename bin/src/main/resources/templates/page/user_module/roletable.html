@@ -37,7 +37,8 @@
         <script type="text/html" id="toolbarDemo">
             <div class="layui-btn-container">
                 <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>
-            </div>
+                 <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="permission"> 权限控制</button>
+              </div>
         </script>
 
         <table class="layui-hide" id="roleList" lay-filter="currentTableFilter"></table>
@@ -144,10 +145,35 @@ function sotitle(departmentId){
                 $(window).on("resize", function () {
                     layer.full(index);
                 });
-            } else if (obj.event === 'delete') {  // 监听删除操作
-                var checkStatus = table.checkStatus('currentTableId')
-                    , data = checkStatus.data;
-                layer.alert(JSON.stringify(data));
+            } else if (obj.event === 'permission') {  // 监听删除操作
+            	var index = layer.open({
+                    title: '权限控制',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin:true,
+                    shadeClose: true,
+                    area: ['90%', '90%'],
+                    content: '/page/user_module/permissiontable.html',
+                    success: function(layero, index){
+                        var body=layer.getChildFrame('body',index);//少了这个是不能从父页面向子页面传值的
+            　　　　　　　　 var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象
+           //为弹框页面角色下拉框赋值
+ 		    $.ajax({
+ 				url : '/selectAllrole',
+ 				dataType : 'json',
+ 				type : 'post',
+ 				success : function(data) {
+ 					$.each(data, function(index, item) {
+ 							body.find('#roleId').append($("<option>").attr("value",item.roleId).text(item.roleName));
+ 					});
+ 					iframeWin.layui.form.render("select");
+ 				}
+ 			});
+                    }
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
             }
         });
 

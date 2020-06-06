@@ -23,13 +23,13 @@
         },
         {
           "title": "工作台",
-          "href": "page/table.html?t=11",
+          "href": "/tRegist?t=11",
           "icon": "fa fa-window-maximize",
           "target": "_self"
         },
         {
           "title": "新开就诊",
-          "href": "page/table.html?t=21",
+          "href": "page/case/case.html",
           "icon": "fa fa-gears",
           "target": "_self"
         },
@@ -55,14 +55,14 @@
         },
         {
           "title": "药品零售",
-          "href": "page/icon.html",
+          "href": "page/retail/retail.html",
           "icon": "fa fa-calendar",
           "target": "_self"
          
         },
         {
           "title": "收费管理",
-          "href": "page/table.html?t=41",
+          "href": "page/retail/order_list.html",
           "icon": "fa fa-flag-o",
           "target": "_self"
         
@@ -172,7 +172,19 @@
             },
              {
               "title": "员工管理",
-              "href": "page/table.html?t=83",
+              "href": "page/user_module/stafftable.html?t=83",
+              "icon": "fa fa-snowflake-o",
+              "target": "_self"
+            },
+            {
+              "title": "科室管理",
+              "href": "page/user_module/departmenttable.html?t=83",
+              "icon": "fa fa-snowflake-o",
+              "target": "_self"
+            },
+            {
+              "title": "角色管理",
+              "href": "page/user_module/roletable.html?t=83",
               "icon": "fa fa-snowflake-o",
               "target": "_self"
             },
@@ -196,29 +208,29 @@
             },
             {
               "title": "费用设置",
-              "href": "",
+              "href": "page/table.html?t=87",
               "icon": "fa fa-shield",
               "target": "_self",
               "child": [
-	            {
-	              "title": "附加费用设置",
-	              "href": "/tAdditionalFees",
-	              "icon": "fa fa-list-alt",
-	              "target": "_self"
-	            },
-	            {
-	              "title": "诊疗费用设置",
-	              "href": "page/table.html?t=32",
-	              "icon": "fa fa-navicon",
-	              "target": "_self"
-	            },
-	            {
-	              "title": "挂号费用设置",
-	              "href": "page/table.html?t=32",
-	              "icon": "fa fa-navicon",
-	              "target": "_self"
-	            }
-	          ]
+            {
+              "title": "附加费设置",
+              "href": "/tAdditionalFees?t=71",
+              "icon": "fa fa-snowflake-o",
+              "target": "_self"
+            },
+            {
+              "title": "诊疗费设置",
+              "href": "/tMedicalFees?t=72",
+              "icon": "fa fa-shield",
+              "target": "_self"
+            },
+             {
+              "title": "挂号费设置",
+              "href": "/tRegistrationFees?t=73",
+              "icon": "fa fa-snowflake-o",
+              "target": "_self"
+            }
+          ]
             },
              {
               "title": "基础设置",
@@ -228,7 +240,6 @@
             }
             
           ]
-        
         }
       ]
     }

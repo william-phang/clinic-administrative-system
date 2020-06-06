@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>支付页面</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" th:href="@{/layuimini/lib/layui-v2.5.5/css/layui.css}" media="all">
+    <link rel="stylesheet" th:href="@{/layuimini/css/public.css}" media="all">
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+        h1{
+        	color: rgb(100,100,232);
+        	font-weight: 900;
+        	font-size: 30px;
+        }
+        .myLabel{
+        	width:350px;
+        	margin-bottom: 5px;
+        	font-size: 20px;
+        	margin-left: 35px
+        }
+    </style>
+</head>
+<body>
+<div class="layui-form layuimini-form">
+    <div style="margin: 10px 10px 10px 10px">
+        <form class="layui-form layui-form-pane" action="">
+        	 <h1>药品信息</h1>
+        	 <div class="layui-form-item">
+        	 	<input  type="hidden" style="border: 0px" id="retail_medicines" th:value="${retail_medicines}"/>
+	         	<div th:each="medicine:${retail_medicines}">
+	                <!-- <div class="layui-inline">
+	                    <div class="myLabel">药品编号:[[${medicine.drug_sn}]]</div>
+	                </div> -->
+	                <div class="layui-inline">
+	                    <div class="myLabel">药品编号:<input readonly="readonly" type="text" style="border: 0px" id="drug_sn" th:value="${medicine.drug_sn}"/></div>
+	                    
+	                </div>
+	                <div class="layui-inline">
+	                    <div class="myLabel">名称:<input readonly="readonly" type="text" style="border: 0px" id="name" th:value="${medicine.name}"/></div>
+	                </div>
+	                <div class="layui-inline">
+	                    <div class="myLabel">单价:<input readonly="readonly" type="text" style="border: 0px" id="amount" th:value="${medicine.retail_amount}"/></div>
+	                </div>
+	                <div class="layui-inline">
+	                    <div class="myLabel">数量:<input readonly="readonly" type="text" style="border: 0px" id="number" th:value="${medicine.retail_medicine_number}"/></div>
+	                </div>
+	                 <div class="layui-inline">
+	                    <div class="myLabel">合计金额:[[${medicine.retail_amount*medicine.retail_medicine_number}]]元</div>
+	                </div>
+	         	</div>
+	         	<h1>患者信息</h1>
+	         	<div class="layui-inline">
+	                    <div class="myLabel">患者编号:<input type="text" id="patient_sn" /></div>          
+	            </div>
+	            <div class="layui-inline">
+	                    <div class="myLabel">患者姓名:<input type="text" id="patient_name" /></div>          
+	            </div>
+	            <div class="layui-inline">
+	                    <div class="myLabel">患者年龄:<input type="text" id="patient_age" /></div>          
+	            </div>
+	            <div class="layui-inline">
+	                    <div class="myLabel">患者电话:<input type="text" id="patient_phone" /></div>          
+	            </div>
+	            <div class="layui-inline">
+	                    <div class="myLabel">患者卡号:<input type="text" id="patient_card" /></div>          
+	            </div>
+	         	<h1>共计：<input readonly="readonly" type="text" style="border: 0px" id="total" th:value="${total}"/></h1>
+	         	<div class="layui-inline" style="float: right;">
+	            	<button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="save" >保存</button>
+		        </div>
+		        <div class="layui-inline" style="float: right;">
+	            	<button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="pay">收费</button>
+		        </div>
+	         </div>
+	         	
+        </form>
+    </div>
+</div>
+<script th:src="@{/layuimini/lib/layui-v2.5.5/layui.js}" charset="utf-8"></script>
+<script>
+    layui.use(['form'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            $ = layui.$;
+    
+        form.on('submit(save)',function (data) {
+            $.ajax({
+            	traditional:true,
+                url:'/retail/save',
+                data:{
+                	retail_medicines:$("#retail_medicines").val(),
+                	total:$("#total").val(),
+                	patient_sn:$("#patient_sn").val(),
+                	/* patient_name:$("#patient_name").val(),
+                	patient_age:$("#patient_age").val(),
+                	patient_phone:$("#patient_phone").val(),
+                	patient_card:$("#patient_card").val(), */
+                },
+                dataType:'json',
+                type:'post',
+                success:function(result){
+                    if(result.code == 0){
+                        layer.msg('保存成功',{icon:1,time:1000},function () {
+                            top.layer.closeAll("iframe");//关闭窗口
+                            parent.location.reload();//从新加载数据
+                        })
+                    }else{
+                        layer.msg(result.message,{icon:5});
+                    }
+                }
+            })
+            return false;
+        })
+        form.on('submit(pay)',function (data) {
+            $.ajax({
+            	traditional:true,
+                url:'/retail/payInfo',
+                data:{
+                	retail_medicines:$("#retail_medicines").val(),
+                	total:$("#total").val(),
+                	patient_sn:$("#patient_sn").val(),
+                },
+                dataType:'json',
+                type:'post',
+                success:function(result){
+                    if(result.code == 0){
+                        layer.msg('收款成功',{icon:1,time:1000},function () {
+                            top.layer.closeAll("iframe");//关闭窗口
+                            parent.location.reload();//从新加载数据
+                        })
+                    }else{
+                        layer.msg(result.message,{icon:5});
+                    }
+                }
+            })
+            return false;
+        })
+
+    });
+</script>
+</body>
+</html>

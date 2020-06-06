@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>数据表格</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/layuimini/lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="/layuimini/css/public.css" media="all">
+    
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <fieldset class="table-search-fieldset">
+            <legend>搜索信息</legend>
+            <div style="margin: 10px 10px 10px 10px">
+                <form class="layui-form layui-form-pane" action="">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">权限名称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="permissionname" id="permissionname" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">角色</label>
+				 <div class="layui-input-inline">
+					<select name="roleId" lay-verify="required" id="roleId"
+						lay-filter="roleId">
+						<option value="">请选择</option>
+					</select>
+				</div> 
+                        </div>
+                        <div class="layui-inline">
+                            <button type="button" class="layui-btn" data-type="reload" id="search">搜索</button>
+                            <button type="reset" class="layui-btn">重置</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </fieldset>
+
+        <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>
+            </div>
+        </script>
+
+        <table class="layui-hide" id="permissionList" lay-filter="currentTableFilter"></table>
+
+        <script type="text/html" id="currentTableBar">
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="edit">状态管理</a>
+        </script>
+
+    </div>
+</div>
+<script src="/layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<script>
+function sotitle(roleId){
+    var rId = roleId;
+    var title;
+    $.ajax({
+        url:'/selectAllrole',//你的后台请求路径
+        dataType:'json',
+        async: false,//同步
+        success:function(data){
+                $.each(data,function (index, obj) {
+                    if(obj.roleId==rId){
+                        title=obj.roleName;
+                        //console.log(obj.brandId,obj.brandName);
+                    }
+                });
+        }
+    });
+    return title;
+};
+
+    layui.use(['form', 'table'], function () {
+        var $ = layui.jquery,
+            form = layui.form,
+            table = layui.table;
+
+        table.render({
+            elem: '#permissionList',
+            url: '/permissionlist',
+            page: true,  //开启分页
+            limits: [10,20,50],  //每页条数的选择项，默认：[10,20,30,40,50,60,70,80,90]。
+            limit: 10, //每页默认显示的数量
+            toolbar: '#toolbarDemo',
+            defaultToolbar: ['filter', 'exports', 'print', {
+                title: '提示',
+                layEvent: 'LAYTABLE_TIPS',
+                icon: 'layui-icon-tips'
+            }],
+            cols: [
+            	[
+                {field: 'permissionId', width: 80, title: 'ID', sort: true},
+                {field: 'permissionName', width: 300, title: '权限名', sort: true},
+                {field: 'roleId',title: '角色', width: 120 ,  templet:'<div>{{sotitle(d.roleId)}}</div>'},
+                {field: 'status', width: 120, title: '状态', sort: true},
+                {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
+            	]
+            ],
+            parseData:function (result) { //result是服务器端响应的数据
+                return {
+                    code:result.code ==200?0:result.code(),
+                    msg:result.message,
+                    data:result.data.list,
+                    count:result.data.total
+                }
+            }
+        });
+    
+         // 监听搜索操作
+        $('#search').on('click', function () {
+        var type = $(this).data('type');
+        active[type] ? active[type].call(this) : '';
+       }); 
+        var $ = layui.$, active = {
+        	    reload: function () {
+        	        var permissionname = $('#permissionname');
+                	        //执行重载
+        	        table.reload('permissionList', {
+        	            page: {
+        	                curr: 1 //重新从第 1 页开始
+        	            }
+        	            , where: {
+        	            	permissionname: permissionname.val(),
+        	            	roleId:$('#roleId').val()
+        	            }
+        	        }, 'data');
+        	    }
+        	};
+
+        /**
+         * toolbar监听事件
+         */
+        table.on('toolbar(currentTableFilter)', function (obj) {
+            if (obj.event === 'add') {  // 监听添加操作
+                var index = layer.open({
+                    title: '添加权限',
+                    area: ['550px','300px'],//定义宽高
+                    type: 2,
+                    shade: 0.2,
+                    maxmin:true,
+                    shadeClose: true,
+                    content: '/page/user_module/tableEdit/permissionadd.html',
+                    success: function(layero, index){
+                        var body=layer.getChildFrame('body',index);//少了这个是不能从父页面向子页面传值的
+            　　　　　　　　 var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象
+           //为弹框页面角色下拉框赋值
+ 		    $.ajax({
+ 				url : '/selectAllrole',
+ 				dataType : 'json',
+ 				type : 'post',
+ 				success : function(data) {
+ 					$.each(data, function(index, item) {
+ 							body.find('#roleId').append($("<option>").attr("value",item.roleId).text(item.roleName));
+ 					});
+ 					iframeWin.layui.form.render("select");
+ 				}
+ 			});
+             
+ 		   $.ajax({
+				url : '/selectAllpermission',
+				dataType : 'json',
+				type : 'post',
+				success : function(data) {
+					$.each(data, function(index, item) {
+							body.find('#perms').append($("<option>").attr("value",item.perms).text(item.permissionName));
+					});
+					iframeWin.layui.form.render("select");
+				}
+			});
+                    }
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+            } 
+        });
+
+      
+
+        table.on('tool(currentTableFilter)', function (obj) {
+        	var data1 = obj.data;
+            if (obj.event === 'edit') {
+
+                var index = layer.open({
+                    title: '修改权限状态',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin:true,
+                    shadeClose: true,
+                    area: ['550px','300px'],//定义宽高
+                    content: '/page/user_module/tableEdit/permissionedit.html',
+                    success: function(layero, index){
+                        var body=layer.getChildFrame('body',index);//少了这个是不能从父页面向子页面传值的
+            　　　　　　　　 var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象
+                        //获取子页面的元素，进行数据渲染
+                        body.contents().find("#permissionId").val(data1.permissionId);
+            　　　　　　  body.contents().find('#permissionName').val(data1.permissionName);　　
+		    body.find('input[name=status][value=启用]').attr("checked",data1.status=='启用' ? true : false);
+		    body.find('input[name=status][value=停用]').attr("checked",data1.status=='停用' ? true : false);
+
+		  }
+	});
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+                return false;
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>药品零售</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet"
+	th:href="@{/layuimini/lib/layui-v2.5.5/css/layui.css}" media="all">
+<link rel="stylesheet" th:href="@{/layuimini/css/public.css}"
+	media="all">
+
+<!-- 引入date日期组件 -->
+<script th:src="@{/layui/laydate/laydate.js} " charset="utf-8"></script>
+<script th:src="@{/layuimini/lib/layui-v2.5.5/layui.js}" charset="utf-8"></script>
+</head>
+<body>
+	<fieldset class="layui-elem-field layui-field-title"
+		style="margin-top: 20px;">
+		<legend style="color: blue;">药品零售</legend>
+	</fieldset>
+	<div class="layuimini-container">
+		<div class="layuimini-main">
+			<!-- <fieldset class="table-search-fieldset">
+				<legend>患者信息</legend>
+				<div style="margin: 10px 10px 10px 10px">
+					<form class="layui-form layui-form-pane" action="">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">患者姓名</label>
+								<div class="layui-input-inline">
+									<input type="text" name="medical_name" autocomplete="off"
+										class="layui-input" id="medical_name">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">患者卡号</label>
+								<div class="layui-input-inline">
+									<input type="text" name="medical_fee" autocomplete="off"
+										class="layui-input" id="medical_fee">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">患者年龄</label>
+								<div class="layui-input-inline">
+									<input type="text" name="medical_cost" autocomplete="off"
+										class="layui-input" id="medical_cost">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">性别</label>
+								<div class="layui-input-block">
+									<select name="gender" class="" id="gender">
+			                        <option value="0">男</option>
+			                        <option value="1">女</option>
+			                    </select>
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">手机号码</label>
+								<div class="layui-input-inline">
+									<input type="text" name="medical_founder" autocomplete="off"
+										class="layui-input" id="medical_founder">
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</fieldset> -->
+
+			 <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container demoTable">
+                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加药物 </button>
+				<button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="pay"> 收费 </button>
+            </div>
+        </script>
+
+        <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+        <script type="text/html" id="operate">
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="addone">增加</a>
+			 <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="reduceone">减少</a>
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+        </script>
+
+    </div>
+</div>
+<script src="/layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script>
+    layui.use(['table','util','jquery','layer','form','laypage','laytpl','laydate'], function () {
+    	var table = layui.table,
+        form = layui.form,
+        $ = layui.jquery,
+        laypage = layui.laypage,
+        layer = layui.layer,
+        laytpl = layui.laytpl,
+        laydate = layui.laydate
+        var util = layui.util;
+
+        table.render({
+            elem: '#currentTableId',
+            url:'/retail/medicineslist',
+            toolbar: '#toolbarDemo',
+            defaultToolbar: ['filter', 'exports', 'print', {
+                title: '提示',
+                layEvent: 'LAYTABLE_TIPS',
+                icon: 'layui-icon-tips'
+            }],
+            cols: [
+            	[
+            		{type: "numbers", title: '序号', align: 'center'}
+                    ,{field: 'drug_sn', title: '药品编号', align: 'center',width:200}
+                    ,{field: 'name', title: '药品名', align: 'center',width:200}
+                    ,{field: 'retail_amount', title: '零售价', align: 'center',width:200}
+                    ,{field: 'retail_medicine_number', title: '数量', align: 'center',width:200}
+                    ,{fixed: 'right', title: '操作', align: 'center', toolbar: '#operate',width:200}
+            	]
+            ],
+            limits: [8, 16, 24, 32, 40, 48],
+            limit: 8,
+            page: true,
+            skin: 'line',
+             parseData:function (result) {//result是服务器端响应的数据
+                return {
+                    code:result.code ==0?0:result.code(),
+                    msg:result.message,
+                    data:result.data.list,
+                    count:result.data.total
+                }
+            } 
+        });
+
+        // 监听搜索操作
+        /* form.on('submit(data-search-btn)', function (data) {
+            var medical_name = $("#medical_name").val();
+            var medical_fee = $("#medical_fee").val();
+            var medical_cost = $("#medical_cost").val();
+            var medical_date = $("#medical_date").val();
+            var medical_founder = $("#medical_founder").val();
+            var medical_state = $("#medical_state").val();
+            //执行搜索重载
+            table.reload('currentTableId', {
+                page: {
+                    curr: 1 //从第一页开始
+                }
+                , where: {//这里向后台传参
+                	medical_name: medical_name,
+                	medical_fee: medical_fee,
+                	medical_cost: medical_cost,
+                	medical_date: medical_date,
+                	medical_founder: medical_founder,
+                	medical_state: medical_state
+                },
+                 parseData:function (result) {//result是服务器端响应的数据
+                    return {
+                        code:result.code ==0?0:result.code(),
+                        msg:result.message,
+                        data:result.data.list,
+                        count:result.data.total
+                    }
+                } 
+            }, 'data');
+
+            return false;
+        }); */
+
+        /**
+         * toolbar监听事件    添加药物
+         */
+        table.on('toolbar(currentTableFilter)', function (obj) {
+            if (obj.event === 'add') {  // 监听添加操作
+                var index = layer.open({
+                    title: '添加药物',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin:true,
+                    shadeClose: true,
+                    area: ['80%', '80%'],
+                    content: '/retail/medicines'
+                });
+                $(window).on("resize", function () {
+                    //layer.full(index);
+                });
+            } else if (obj.event === 'pay') {  // 监听支付操作
+                var index = layer.open({
+                    title: '支付',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin:true,
+                    shadeClose: true,
+                    area: ['100%', '100%'],
+                    content: '/retail/pay'
+                });
+                $(window).on("resize", function () {
+                    //layer.full(index);
+                });
+            }
+        });
+        
+
+      //批量
+        /* $(".batchDel").click(function () {
+            //获取选中的行
+            var checkStatus = table.checkStatus('currentTableId');//table中定义的id
+            var data = checkStatus.data;
+            if(data.length == 0){
+                layer.msg('请选择数据',{icon:5});
+                return ;
+            }
+            var medical_ids = "";
+            $.each(data,function (index,obj) { //jquery中的foreach函数
+            	medical_ids += obj.medical_id+",";
+            })
+            medical_ids = medical_ids.substring(0,medical_ids.length-1);//剪切掉最后一个逗号字符串变为1,2,3,4,
+            layer.confirm('确认删除？',function (index) {
+                $.ajax({
+                    url:'/updateTMedicalFeesStateByIdsajax/'+medical_ids,
+                    type:'delete',
+                    dataType:'json',
+                    success:function (result) {
+                        if(result.code == 0){
+                            layer.msg('删除成功',{icon:1},function () {
+                                location.reload();//刷新数据
+                            });
+                        }else{
+                            layer.msg('删除失败');
+                        }
+                    }
+                });
+                layer.close(index);//关闭当前提示框
+            })
+
+        }); */
+
+      
+      //编辑   单个 删除
+        table.on('tool(currentTableFilter)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'edit') {
+
+                var index = layer.open({
+                    title: '编辑用户',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin:true,
+                    shadeClose: true,
+                    area: ['100%', '100%'],
+                    content: '/editTMedicalFees/'+data.medical_id,
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+                return false;
+            }  else if (obj.event === 'delete') {
+                 /* layer.confirm('真的删除行么', function (index) {
+                    obj.del();
+                    layer.close(index); 
+                    
+                }); */
+                layer.confirm('确认删除',function (index) {
+                    $.ajax({
+                        url:'/retail/delete/'+data.drug_sn,
+                        type:'delete',
+                        dataType:'json',
+                        success:function (result) {
+                            if(result.code == 0){
+                                layer.msg("删除成功",{icon:1});
+                                location.reload();
+                            }else{
+                                layer.msg("删除失败",{icon:5});
+                            }
+                        }
+                    })
+
+                    layer.close(index);
+                })
+            } else if (obj.event === 'addone') {
+                $.ajax({
+                    url:'/retail/addone/'+data.drug_sn,
+                    type:'delete',
+                    dataType:'json',
+                    success:function (result) {
+                        if(result.code == 0){
+                            layer.msg("增加成功",{icon:1});
+                            location.reload();
+                        }else{
+                            layer.msg("增加失败",{icon:5});
+                        }
+                    }
+                })       
+        } else if (obj.event === 'reduceone') {
+            $.ajax({
+                url:'/retail/reduceone/'+data.drug_sn,
+                type:'delete',
+                dataType:'json',
+                success:function (result) {
+                    if(result.code == 0){
+                        layer.msg("减少成功",{icon:1});
+                        location.reload();
+                    }else{
+                        layer.msg("减少失败",{icon:5});
+                    }
+                }
+            })
+    } 
+            
+        });
+        
+    });
+    
+    //日期时间设置
+    layui.use('laydate', function(){
+    	  var laydate = layui.laydate;
+    	  
+    	  //执行一个laydate实例
+    	  laydate.render({
+    	    elem: '#medical_date' //指定元素
+    	  });
+    	});
+    
+</script>
+	
+
+</body>
+</html>
