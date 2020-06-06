@@ -31,33 +31,6 @@
         .captcha-img img {height:34px;border:1px solid #e6e6e6;height:36px;width:100%;}
     </style>
 </head>
-<script>
-    $(document).ready(function(){
-        if($.cookie("password") != ''){
-              $("#password").val($.cookie("password"));
-        }
-        if($.cookie("username") != ''){
-              $("#username").val($.cookie("username"));
-        }
-    })
-
-    function check(){  
-        //记住我功能使用
-        //写入cookie
-        if ($("#rememberMe").prop("checked") == true) {
-            var name = $("#username").val();
-            var password = $("#password").val();
-            //alert(passWord);
-            $.cookie("username", name);
-            $.cookie("password", password,{ expires: 7 }); // 存储一个带7天期限的 cookie 如果{ expires: 7 } 不写则cookie只相当回话效果
-        } else {
-            $.cookie("username", "");
-            $.cookie("password", "");
-        }
-    } 
-
-</script>
-
 <body>
 <div class="layui-container">
     <div class="admin-login-background">
@@ -66,16 +39,16 @@
                 <div class="layui-form-item logo-title">
                     <h1>诊所系统后台登录</h1>
                 </div>
-                <span class="layui-form-item" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></span><br/>
+                <span class="layui-form-item" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}" style="color: red"></span><br/>
                 <div class="layui-form-item">
                     <label class="layui-icon layui-icon-username" for="username"></label>
-                    <input type="text" name="username" lay-verify="required|account" placeholder="用户名或手机号" autocomplete="off" class="layui-input" >
-                    <span  th:if="${errors}" th:text="${errors.get('unameerror')}" >用户格式验证</span>
+                    <input type="text" id="username" name="username" lay-verify="required|account" placeholder="用户名或手机号" autocomplete="off" class="layui-input" >
+                    <span  th:if="${errors}" th:text="${errors.get('unameerror')}" style="color: red">用户格式验证</span>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-icon layui-icon-password" for="password"></label>
-                    <input type="password" name="password" lay-verify="required|password" placeholder="密码" autocomplete="off" class="layui-input" >
-                    <span  th:text="${errors.get('pwderror')}" th:if="${errors}">密码格式验证</span>
+                    <input type="password" id="password" name="password" lay-verify="required|password" placeholder="密码" autocomplete="off" class="layui-input" >
+                    <span  th:text="${errors.get('pwderror')}" th:if="${errors}" style="color: red">密码格式验证</span>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-icon layui-icon-vercode" for="captcha"></label>
@@ -84,10 +57,10 @@
                         <img id="captchaPic" src="/img">
                         <a href="javascript:chanageImage()">看不清，换一张</a><br/><br/>
                     </div><br/>
-                    <span  th:text="${errors.get('verifycodeerror')}" th:if="${errors}">验证码验证</span>
+                    <span  th:text="${errors.get('verifycodeerror')}" th:if="${errors}" style="color: red">验证码验证</span>
                 </div>
                 <div class="layui-form-item">
-                <input type="checkbox" name="rememberMe" value="true" lay-skin="primary" title="记住账号">
+                <input type="checkbox" name="rememberMe" id="rememberMe" lay-skin="primary" title="记住账号">
                             
                 </div>
                 <div class="layui-form-item">
@@ -102,12 +75,37 @@
 </div>
 <script src="/layuimini/lib/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
 <script src="/layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="/layuimini/lib/jquery-3.4.1/jquery.cookie.js" ></script>
 <script src="/layuimini/lib/jq-module/jquery.particleground.min.js" charset="utf-8"></script>
 <script>
 
+$(document).ready(function(){
+    if($.cookie("password") != ''){
+          $("#password").val($.cookie("password"));
+    }
+    if($.cookie("username") != ''){
+          $("#username").val($.cookie("username"));
+    }
+})
+
+function check(){  
+    //记住我功能使用
+    //写入cookie
+    if ($("#rememberMe").prop("checked") == true) {
+        var name = $("#username").val();
+        var password = $("#password").val();
+        //alert(passWord);
+        $.cookie("username", name);
+        $.cookie("password", password,{ expires: 7 }); // 存储一个带7天期限的 cookie 如果{ expires: 7 } 不写则cookie只相当回话效果
+    } else {
+        $.cookie("username", "");
+        $.cookie("password", "");
+    }
+} 
     layui.use(['form'], function () {
         var form = layui.form,
             layer = layui.layer;
+        
 
         // 登录过期的时候，跳出ifram框架
         if (top.location != self.location) top.location = self.location;

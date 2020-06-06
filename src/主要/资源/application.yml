@@ -26,10 +26,10 @@ mybatis:
   mapper-locations:
   - classpath:/mybatis/mapper/*Mapper.xml
 alisms:
-  accessKeyId: LTAI4GK2k6xdC67JEerPghZp
-  accessSecret: yXHhWt7ZJxXZiOmun4kNPmX1fZ7rD2
-  signName: 诊所管理项目
-  templateCode: SMS_189026410
+  accessKeyId: 
+  accessSecret: 
+  signName: 
+  templateCode: 
 
 
 

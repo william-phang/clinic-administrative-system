@@ -1,12 +1,9 @@
 package com.woniuxy.clinic.mapper;
 
-
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
-
 import com.woniuxy.clinic.entity.TPermission;
 import com.woniuxy.clinic.entity.TPermissionExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface TPermissionMapper {
     int countByExample(TPermissionExample example);
@@ -23,7 +20,7 @@ public interface TPermissionMapper {
 
     TPermission selectByPrimaryKey(Integer permissionId);
     
-    TPermission selectByname(String permission_name);
+    TPermission selectByperms(String perms);
 
     int updateByExampleSelective(@Param("record") TPermission record, @Param("example") TPermissionExample example);
 

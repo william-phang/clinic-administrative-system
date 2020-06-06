@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageInfo;
 import com.woniuxy.clinic.entity.TPermission;
+import com.woniuxy.clinic.entity.TRole;
 import com.woniuxy.clinic.entity.TStaff;
 import com.woniuxy.clinic.entity.TUser;
 import com.woniuxy.clinic.service.PermissionService;
@@ -50,19 +52,30 @@ public class PermissionController {
     }
 	}
 	
+	@ResponseBody
+    @RequestMapping("/selectAllpermission")
+    public List<TPermission> selectass(Model model,TPermission permission) {   		
+    	  
+		return permissionService.selectall(permission);
+
+    	}
 	@RequiresPermissions("permission:add")
 	@ResponseBody
     @RequestMapping("/addPermission")
     public int addFinances(Integer permissionId,String permissionName,int roleId,
-    		HttpSession session){ 
-		TPermission permission_name = permissionService.selectTRolebyTPermission_name(permissionName);
-		if(permission_name==null) {
-           TPermission permission=new TPermission();
-           permission.setPermissionId(permissionId);
-           permission.setPermissionName(permissionName);
-           permission.setRoleId(roleId);
-            
-            return permissionService.addTPermission(permission);
+    		String perms,String status,HttpSession session){ 
+		TPermission permission = permissionService.selectTRolebyTPerms(perms);
+		String name = permission.getPermissionName();
+		System.out.println(permission.getRoleId()==roleId);
+		if(permission.getRoleId()!=roleId) {
+		   status="启用";
+           TPermission tpermission=new TPermission();
+           tpermission.setPermissionId(permissionId);
+           tpermission.setPermissionName(name);
+           tpermission.setRoleId(roleId);
+           tpermission.setStatus(status);
+           tpermission.setPerms(perms);
+            return permissionService.addTPermission(tpermission);
 		}else {
 			return 404;
 		}

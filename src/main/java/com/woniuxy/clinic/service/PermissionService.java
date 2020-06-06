@@ -10,7 +10,7 @@ import com.woniuxy.clinic.entity.TPermission;
 public interface PermissionService {
 
 	TPermission selectTRolebyTPermission_id(int permission_id);
-	TPermission selectTRolebyTPermission_name(String permission_name);//查询单个角色
+	TPermission selectTRolebyTPerms(String perms);//查询单个角色
 	void deleteTPermissionbyTPermission_id(int permission_id);//删除角色
 	int updateTPermissionbyTPermission_id(TPermission permission);//修改角色
 	int addTPermission(TPermission permission);//添加角色

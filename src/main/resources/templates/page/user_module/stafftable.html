@@ -19,12 +19,17 @@
                 <form class="layui-form layui-form-pane" action="">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label">用户姓名</label>
+                            <label class="layui-form-label">员工姓名</label>
                             <div class="layui-input-inline">
                                 <input type="text" name="staffname" id="staffname" autocomplete="off" class="layui-input">
                             </div>
                         </div>
-                        
+                        <div class="layui-inline">
+                            <label class="layui-form-label">员工工号</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="staffCard" id="staffCard" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
                         <div class="layui-inline">
                             <button type="button" class="layui-btn" data-type="reload" id="search">搜索</button>
                             <button type="reset" class="layui-btn">重置</button>
@@ -144,13 +149,15 @@ function sortitle(roleId){
         var $ = layui.$, active = {
         	    reload: function () {
         	        var staffname = $('#staffname');
+        	       
                 	        //执行重载
         	        table.reload('staffList', {
         	            page: {
         	                curr: 1 //重新从第 1 页开始
         	            }
         	            , where: {
-        	                staffname: staffname.val()
+        	                staffname: staffname.val(),
+        	                staffCard: $('#staffCard').val()
         	            }
         	        }, 'data');
         	    }

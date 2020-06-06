@@ -39,7 +39,7 @@ class ClinicAdministrativeSystemApplicationTests {
 	@Test
 	void contextLoads() {
 		TStaff staff=new TStaff();
-		staff.setStaffName("阿达");
+		staff.setStaffCard("110001");
 		 PageInfo info = null;
 		Integer currentPage=1;
 		Integer pageSize=5;
@@ -52,10 +52,8 @@ class ClinicAdministrativeSystemApplicationTests {
 	@Test
 	void contextLoad01() {
 		TPermission permission=new TPermission();
-		Integer currentPage=1;
-		Integer pageSize=5;
-		 PageInfo<TPermission> selectallTPermission = permissionService.selectallTPermission(currentPage, pageSize, permission);
-		System.out.println(selectallTPermission);
+		List<TPermission> selectall = permissionService.selectall(permission);
+		System.out.println(selectall);
 	
 	}
 	
