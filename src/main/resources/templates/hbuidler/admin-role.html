@@ -43,128 +43,259 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="layui-card-header">
-                            <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-                            <button class="layui-btn" onclick="xadmin.open('添加用户','./role-add.html',600,400)"><i class="layui-icon"></i>添加</button>
-                        </div>
+                        <script type="text/html" id="toolbarDemo">
+                                    <div class="layui-btn-container">
+                                        <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>
+                                    </div>
+                                </script>
                         <div class="layui-card-body ">
-                            <table class="layui-table layui-form">
-                              <thead>
-                                <tr>
-                                  <th>
-                                    <input type="checkbox" name=""  lay-skin="primary">
-                                  </th>
-                                  <th>ID</th>
-                                  <th>角色名</th>
-                                  <th>拥有权限规则</th>
-                                  <th>描述</th>
-                                  <th>状态</th>
-                                  <th>操作</th>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>
-                                    <input type="checkbox" name=""  lay-skin="primary">
-                                  </td>
-                                  <td>1</td>
-                                  <td>超级管理员</td>
-                                  <td>会员列表，问题列表</td>
-                                  <td>具有至高无上的权利</td>
-                                  <td class="td-status">
-                                    <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>
-                                  <td class="td-manage">
-                                    <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
-                                      <i class="layui-icon">&#xe601;</i>
-                                    </a>
-                                    <a title="编辑"  onclick="xadmin.open('编辑','role-add.html')" href="javascript:;">
-                                      <i class="layui-icon">&#xe642;</i>
-                                    </a>
-                                    <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                                      <i class="layui-icon">&#xe640;</i>
-                                    </a>
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                        </div>
-                        <div class="layui-card-body ">
-                            <div class="page">
-                                <div>
-                                  <a class="prev" href="">&lt;&lt;</a>
-                                  <a class="num" href="">1</a>
-                                  <span class="current">2</span>
-                                  <a class="num" href="">3</a>
-                                  <a class="num" href="">489</a>
-                                  <a class="next" href="">&gt;&gt;</a>
-                                </div>
-                            </div>
-                        </div>
+                            <table class="layui-hide" id="roleList" lay-filter="currentTableFilter">
+                            					   
+                            					   </table>
+                                       <script type="text/html" id="currentTableBar">
+                            			   {{#  if(d.isenable == 1){ }}
+                                        <a lay-event="no" href="javascript:;"  title="启用">
+                                          <i class="layui-icon">&#xe601;</i>
+                                        </a>
+                            			{{#  } else if(d.isenable == 0) { }}
+                            			<a lay-event="no" href="javascript:;"  title="启用">
+                            			  <i class="layui-icon">&#xe62f;</i>
+                            			</a>
+                            			{{#  } }}
+                                        <a title="编辑" lay-event="edit"  href="javascript:;">
+                                          <i class="layui-icon">&#xe642;</i>
+                                        </a>
+                                        <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+                                          <i class="layui-icon">&#xe640;</i>
+                                        </a>
+                                    </script>
+                            		<script type="text/html" id="currentTable">
+                            			{{#  if(d.isenable == 1){ }}
+                            		    <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span>
+                            			{{#  } else if(d.isenable == 0) { }}
+                            			<span class="layui-btn layui-btn-disabled layui-btn-normal layui-btn-mini">已停用</span>
+                            			{{#  } }}
+                            		</script>
+                                        </div>
                     </div>
                 </div>
             </div>
         </div> 
     </body>
     <script>
-      layui.use(['laydate','form'], function(){
-        var laydate = layui.laydate;
-        var form = layui.form;
-        
-        //执行一个laydate实例
-        laydate.render({
-          elem: '#start' //指定元素
-        });
-
-        //执行一个laydate实例
-        laydate.render({
-          elem: '#end' //指定元素
-        });
-      });
-
-       /*用户-停用*/
-      function member_stop(obj,id){
-          layer.confirm('确认要停用吗？',function(index){
-
-              if($(obj).attr('title')=='启用'){
-
-                //发异步把用户状态进行更改
-                $(obj).attr('title','停用')
-                $(obj).find('i').html('&#xe62f;');
-
-                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
-                layer.msg('已停用!',{icon: 5,time:1000});
-
-              }else{
-                $(obj).attr('title','启用')
-                $(obj).find('i').html('&#xe601;');
-
-                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-                layer.msg('已启用!',{icon: 5,time:1000});
-              }
-              
-          });
-      }
-
-      /*用户-删除*/
-      function member_del(obj,id){
-          layer.confirm('确认要删除吗？',function(index){
-              //发异步删除数据
-              $(obj).parents("tr").remove();
-              layer.msg('已删除!',{icon:1,time:1000});
-          });
-      }
-
-
-
-      function delAll (argument) {
-
-        var data = tableCheck.getData();
-  
-        layer.confirm('确认要删除吗？'+data,function(index){
-            //捉到所有被选中的，发异步进行删除
-            layer.msg('删除成功', {icon: 1});
-            $(".layui-form-checked").not('.header').parents('tr').remove();
-        });
-      }
+    							
+                                layui.use(['laydate','form','table'], function(){
+                                  var laydate = layui.laydate;
+                                  var form = layui.form;
+                                		var table = layui.table;
+                            			var localStorage=window.localStorage;
+                            			var token=localStorage.getItem("token");
+                            			console.log(token);
+                            			
+                                		
+                                		 table.render({
+                                		            elem: '#roleList',
+                                		            url: 'http://localhost:9091/provider-account/role/showallrole',
+                            						headers:{"token":token},
+                                		            page:true,
+                                		            limit:10,
+                                		            limits:[10,20,30],
+                                		            toolbar: '#toolbarDemo',
+                                		            defaultToolbar: ['filter', 'exports', 'print', {
+                                		                title: '提示',
+                                		                layEvent: 'LAYTABLE_TIPS',
+                                		                icon: 'layui-icon-tips'
+                                		            }],
+                                		            cols: [
+                                		            	[
+    													{field: 'id',title: '角色ID', width: 120,  sort: true},
+                                		                {field: 'name', width: 200, title: '角色名', sort: true},
+                                		                {field: 'description',title: '角色描述', width: 120},
+    													{field: 'createtime',title: '创建时间', width: 200, sort: true},
+                                		                {title: '状态', minWidth: 120, toolbar: '#currentTable', align: "center", sort: true},
+                                		                {title: '操作', minWidth: 120, toolbar: '#currentTableBar', align: "center"}
+                                		            	]
+                                		            ],
+                                		            parseData:function (result) {//result是服务器端响应的数据
+                                		                return {
+                                		                    code:result.stateCode ==200?0:result.stateCode(),
+                                		                    msg:result.message,
+                                		                    data:result.data.list,
+                                		                    count:result.data.total,
+                                		                }
+                                		            },
+                                		        });
+                            
+                            
+                                    // 监听全选
+                                    form.on('checkbox(checkall)', function(data){
+                            
+                                        if(data.elem.checked){
+                                            $('tbody input').prop('checked',true);
+                                        }else{
+                                            $('tbody input').prop('checked',false);
+                                        }
+                                        form.render('checkbox');
+                                    });
+                            
+                                    //执行一个laydate实例
+                                    laydate.render({
+                                        elem: '#start' //指定元素
+                                    });
+                            
+                                    //执行一个laydate实例
+                                    laydate.render({
+                                        elem: '#end' //指定元素
+                                    });
+                                      table.on('checkbox(currentTableFilter)', function (obj) {
+                                           console.log(obj)
+                                       });
+                               
+                                       table.on('tool(currentTableFilter)', function (obj) {
+                            			   var data = obj.data;
+                                /*用户-停用*/
+                                
+    							});
+                                /*用户-删除*/
+                                
+    							/**
+    							         * toolbar监听事件
+    							         */
+    							        table.on('toolbar(currentTableFilter)', function (obj) {
+    							        	var data = obj.data;
+    							            if (obj.event === 'add') {  // 监听添加操作
+    							                var index = layer.open({
+    							                    title: '添加账号',
+    							                    type: 2,
+    							                    shade: 0.2,
+    							                    maxmin:true,
+    							                    shadeClose: true,
+    							                    area: ['80%', '80%'],
+    							                    content: '/1/role-add.html',
+    							                    success: function(layero, index){
+    							                        var body=layer.getChildFrame('body',index);//少了这个是不能从父页面向子页面传值的
+    							            　　　　　　　　 var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象
+    							                  
+    							        		    //为弹框页面角色下拉框赋值
+    							        		    $.ajax({
+    							        				url : 'http://localhost:9091/provider-account/role/showall',
+    							        				dataType : 'json',
+    							        				type : 'get',
+    													headers:{"token":token},
+    							        				success : function(data) {
+    							        					$.each(data, function(index, item) {
+    							        							body.find('#role').append($("<option>").attr("value",item.id).text(item.name));
+    							        					});
+    							        					iframeWin.layui.form.render("select");
+    							        				}
+    							        			});
+    							                    }
+    							                });
+    											 $(window).on("resize", function () {
+    											                    layer.full(index);
+    											                });
+    											            } else if (obj.event === 'delete') {  // 监听删除操作
+    											                var checkStatus = table.checkStatus('currentTableId')
+    											                    , data = checkStatus.data;
+    											                layer.alert(JSON.stringify(data));
+    											            }
+    											        });
+    
+                            table.on('tool(currentTableFilter)', function (obj) {
+                                        var data1 = obj.data;
+                                        if (obj.event === 'edit') {
+                            
+                                            var index = layer.open({
+                                                title: '修改员工信息',
+                                                type: 2,
+                                                shade: 0.2,
+                                                maxmin:true,
+                                                shadeClose: true,
+                                                area: ['50%', '50%'],
+                                                content: '/1/role-edit.html',
+                                                success: function(layero, index){
+                                                    var body=layer.getChildFrame('body',index);//少了这个是不能从父页面向子页面传值的
+                                        　　　　　　　　 var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象
+                                                    //获取子页面的元素，进行数据渲染
+                                                    body.contents().find("#account").val(data1.account);
+                                                   body.contents().find("#accountId").val(data1.accountId);
+                            
+                            		    //为弹框页面角色下拉框赋值
+                            		    $.ajax({
+                            				url : 'http://localhost:9091/provider-account/role/showall',
+                            				dataType : 'json',
+    										headers:{"token":token},
+                            				type : 'get',
+                            				success : function(data) {
+                            					$.each(data, function(index, item) {
+                            						if (item.id == data1.role) {
+                            							body.find('#role').append($("<option>").attr("value",item.id).attr("selected","selected").text(item.name));
+                            						}else  {
+                            							body.find('#role').append($("<option>").attr("value",item.id).text(item.name));
+                            						}
+                            					});
+                            					iframeWin.layui.form.render("select");
+                            				}
+                            			});
+                            		  }
+                            	});
+                                            $(window).on("resize", function () {
+                                                layer.full(index);
+                                            });
+                                            return false;
+                                        } else if (obj.event === 'delete') {
+                                            layer.confirm('真的删除行么', function (index) {
+                                                obj.del();
+                                                layer.close(index);
+                                            });
+                                        }else if (obj.event === 'no') {  // 监听添加操作
+                                    layer.confirm('确认要修改吗？',function(index){
+                                        if(data1.flag==1){
+                            				$.ajax({
+                            				   url:"http://localhost:9091/provider-account/account/updateflag0/",
+                            				   data:{
+                            					   "accountId":data1.accountId
+                            					   },
+                            				   headers:{"token":token},
+                            				    	              success:function (result) {
+                            										  if(result.stateCode==200){
+                            											  layer.msg('已停用!',{icon: 5,time:1000});
+    																	  setTimeout( function(){
+    																	      //window.parent.location.href = 'list.do'; 或者
+    																	      location.reload();//刷新父页面
+    																	  }, 8 * 100 );//延迟500毫秒
+                            										  }else{
+                            											  layer.msg('修改失败',{icon: 5,time:1000});
+                            										  }
+                            									  }
+                            
+                                            })
+                            
+                                        }else if(data1.flag==0){
+                                            $.ajax({
+                            				   url:"http://localhost:9091/provider-account/account/updateflag1/",
+                            				   data:{
+                            				   					   "accountId":data1.accountId
+                            				   					   },
+                            				   headers:{"token":token},
+                            				    	              success:function (result) {
+                            										  if(result.stateCode==200){
+                            											   layer.msg('已启用!',{icon: 6,time:1000});
+                            											  setTimeout( function(){
+                            											      //window.parent.location.href = 'list.do'; 或者
+                            											      location.reload();//刷新父页面
+                            											  }, 8 * 100 );//延迟500毫秒
+                            										  }else{
+                            											  layer.msg('修改失败',{icon: 5,time:1000});
+                            										  }
+                            									  }
+                                            }) 
+                                        }
+                            
+                                    });
+                                }
+                                    });
+                                });
     </script>
     <script>var _hmt = _hmt || []; (function() {
         var hm = document.createElement("script");

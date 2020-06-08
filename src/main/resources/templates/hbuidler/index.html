@@ -10,94 +10,66 @@
         <link rel="stylesheet" href="./css/font.css">
         <link rel="stylesheet" href="./css/index.css">
         <link rel="stylesheet" href="./css/iconfont.css">
+		<link rel="stylesheet" href="./layui/css/layui.css">
+		    <link rel="stylesheet" href="./css/main.css">
+		    <link rel="stylesheet" href="//at.alicdn.com/t/font_tnyc012u2rlwstt9.css" media="all" />
         <script src="./lib/layui/layui.js" charset="utf-8"></script>
         <script type="text/javascript" src="./js/index.js"></script>
 
+<style>
+	iframe{
+		height: 600px;
+		width: 1350px;
+	}
+	.logo{
+		font-size: 30px;
+	}
+	.top_menu{
+		float: right;
+	}
+</style>
     </head>
-    <body class="index">
+    <body >
         <!-- 顶部开始 -->
-        <div class="container">
-            <div class="logo">
-                <a href="./index.html">后台管理系统</a></div>
-            <div class="left_open">
-                <a><i title="展开左侧栏" class="iconfont">&#xe699;</i></a>
+        <div class="layui-layout layui-layout-admin">
+            <!-- 顶部 -->
+            <div class="layui-header header">
+                <div class="layui-main" style="height: 100%;">
+                    <a href="#" class="logo">后台管理系统</a>
+                    <!-- 显示/隐藏菜单 -->
+
+                    <!-- 顶部右侧菜单 -->
+                    <ul class="layui-nav top_menu">
+                       
+                        
+                        <li class="layui-nav-item" pc>
+                            <a href="javascript:;">
+                                <i class="layui-icon">&#xe612;</i>
+                                <cite id="1">
+                                    <!--<shiro:principal property="fullname"/>  -->
+                                </cite>
+                            </a>
+                            <dl class="layui-nav-child" style="float:right">
+                                <dd><a href="javascript:;" onclick="msg()"><i class="iconfont icon-zhanghu" data-icon="icon-zhanghu"></i><cite>个人资料</cite></a></dd>
+								<input type="hidden" id="name" name="name"/>
+                                <dd><a href="javascript:;" onclick="upass()"><i class="iconfont icon-shezhi1" data-icon="icon-shezhi1"></i><cite>修改密码</cite></a></dd>
+                                <dd><a href="javascript:;" onclick="logout()"><i class="iconfont icon-loginout"></i><cite>退出</cite></a></dd>
+                            </dl>
+                        </li>
+						 <li class="layui-nav-item to-index">
+						                    <a href="/">前台首页</a></li>
+                    </ul>
+                </div>
             </div>
-
-            <ul class="layui-nav right" lay-filter="">
-                <li class="new-nav" id="gonggao">
-                    <i></i>
-                    <a href="#"><i class="iconfont">&#xe6bc;</i><span class="layui-badge">4</span></a>
-                    <!--<dl class="layui-nav-child">-->
-                    <ul class="news" id="gonggaos" style="display: none;">
-                        <li class="dropdown-header"><i class="iconfont">&#xe6bc;</i>4条公告</li>
-                        <li> <a href="javascript:;" onclick="xadmin.add_tab('统计页面','notice-list.html')">
-                            <div class="clearfix">
-                                <span class="pull-left"> <i class="btn btn-pink iconfont">&#xe6bc;</i> 系统公告 </span>
-                                <span class="pull-right badge badge-info">+12</span>
-                            </div> </a> </li>
-                        <li> <a href="javascript:;" onclick="xadmin.add_tab('统计页面','notice-list.html')"> <i class="btn btn-primary iconfont">&#xe6bc;</i> 商城公告 </a> </li>
-
-                        <li> <a href="javascript:;" onclick="xadmin.add_tab('统计页面','notice-list.html')">查看所有公告 <i class="iconfont">&#xe69b;</i> </a> </li>
-                    </ul>
-                    <!--</dl>-->
-
-                </li>
-                <li class="new-nav" id="new-nav">
-                    <i></i>
-                    <a href="#"><i class="iconfont">&#xe713;</i><span class="layui-badge">9</span></a>
-                    <!--<dl class="layui-nav-child">-->
-                    <ul class="news" id="news" style="display: none;">
-                        <li class="dropdown-header"><i class="iconfont">&#xe6bc;</i>8条通知</li>
-                        <li> <a href="#">
-                            <div class="clearfix">
-                                <span class="pull-left"> <i class="btn btn-pink iconfont">&#xe69b;</i> 新闻评论 </span>
-                                <span class="pull-right badge badge-info">+12</span>
-                            </div> </a> </li>
-                        <li> <a href="#"> <i class="btn btn-primary iconfont">&#xe696;</i> 切换为编辑登录.. </a> </li>
-                        <li> <a href="#">
-                            <div class="clearfix">
-                                <span class="pull-left"> <i class="iconfont btn btn-success">&#xe723;</i> 新订单 </span>
-                                <span class="pull-right badge badge-success">+8</span>
-                            </div> </a> </li>
-                        <li> <a href="#">
-                            <div class="clearfix">
-                                <span class="pull-left"> <i class="iconfont btn btn-info">&#xe6ba;</i> 粉丝 </span>
-                                <span class="pull-right badge badge-info">+11</span>
-                            </div> </a> </li>
-                        <li> <a href="javascript:;" onclick="xadmin.add_tab('统计页面','email.html')"> 查看所有消息 <i class="iconfont">&#xe69b;</i> </a> </li>
-                    </ul>
-                    <!--</dl>-->
-
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;" id="1">未知</a>
-					<input type="hidden" id="name"/>
-                    <dl class="layui-nav-child">
-                        <!-- 二级菜单 -->
-                        <dd>
-                            <a href="javascript:;" onclick="msg()" >个人信息</a></dd>
-						<dd>
-							<a href="javascript:;" onclick="upass()" >修改密码</a></dd>
-                        <dd>
-                            <a href="./login.html">退出</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item to-index">
-                    <a href="/">前台首页</a></li>
-            </ul>
-
-
-
-        </div>
         <!-- 顶部结束 -->
         <!-- 中部开始 -->
         <!-- 左侧菜单开始 -->
-        <div class="left-nav">
-            <div id="side-nav">
+       <!-- <div class="left-nav ">
+            <div id="side-nav ">
                 <ul id="nav">
                     <li>
                         <a href="javascript:;" onclick="xadmin.add_tab('我的桌面','welcome.html')">
-                            <i class="layui-icon left-nav-li" lay-tips="首页">&#xe68e;</i>
+                            <i class="layui-icon left-nav-li " lay-tips="首页">&#xe68e;</i>
                             <cite>首页</cite>
                             <i class="iconfont nav_right">&#xe697;</i></a>
 
@@ -122,7 +94,7 @@
                         </ul>
 
 
-                    </li>
+                    </li> -->
                     <!-- <li class="layui-nav-item">
                         <a href="javascript:;">
                             <i class="iconfont left-nav-li" lay-tips="公告管理">&#xe6c0;</i>
@@ -141,7 +113,7 @@
                             </li>
                         </ul>
                     </li> -->
-                    <li>
+                    <!-- <li>
                         <a href="javascript:;">
                             <i class="iconfont left-nav-li" lay-tips="栏目管理">&#xe604;</i>
                             <cite>栏目管理</cite>
@@ -154,7 +126,7 @@
                             </li>
                         </ul>
                     </li>
-                    <!--<li>
+                    <li>
                         <a href="javascript:;">
                             <i class="iconfont left-nav-li" lay-tips="城市联动">&#xe723;</i>
                             <cite>城市联动</cite>
@@ -166,8 +138,8 @@
                                     <cite>三级地区联动</cite></a>
                             </li>
                         </ul>
-                    </li>-->
-                    <li>
+                    </li> -->
+                    <!-- <li>
                         <a href="javascript:;">
                             <i class="iconfont left-nav-li" lay-tips="管理员管理">&#xe726;</i>
                             <cite>管理员管理</cite>
@@ -246,7 +218,7 @@
 
 
                         </ul>
-                    </li>
+                    </li> -->
                     <!-- <li>
                         <a href="javascript:;">
                             <i class="iconfont left-nav-li" lay-tips="友情连接">&#xe636;</i>
@@ -260,7 +232,7 @@
                             </li>
                         </ul>
                     </li> -->
-                    <li>
+                    <!-- <li>
                         <a href="javascript:;">
                             <i class="iconfont left-nav-li" lay-tips="便签管理">&#xe6c5;</i>
                             <cite>便签管理</cite>
@@ -272,7 +244,7 @@
                                     <cite>便签列表</cite></a>
                             </li>
                         </ul>
-                    </li>
+                    </li> -->
                     <!-- <li>
                         <a href="javascript:;">
                             <i class="iconfont left-nav-li" lay-tips="邮件管理">&#xe64a;</i>
@@ -287,7 +259,7 @@
                         </ul>
                     </li> -->
 
-                    <li>
+                    <!-- <li>
                         <a href="javascript:;">
                             <i class="iconfont left-nav-li" lay-tips="平台维护">&#xe6b4;</i>
                             <cite>平台维护</cite>
@@ -330,7 +302,7 @@
 									</ul>
                             </li>
                         </ul>
-                    </li>
+                    </li> -->
 
 
                     <!-- <li>
@@ -356,42 +328,56 @@
                             </li>
                         </ul>
                     </li> -->
-                </ul>
+                <!-- </ul>
             </div>
-        </div>
-        <!-- <div class="x-slide_left"></div> -->
+        </div> -->
+		
+		<div class="layui-side layui-bg-black">
+		        <div id="side-nav" >
+				<div class="navBar"  layui-side-scroll></div>	
+				</div>
+				
+		    </div>
+			<div class="page-content-bg"></div>
+			<style id="theme_style"></style>
         <!-- 左侧菜单结束 -->
         <!-- 右侧主体开始 -->
-        <div class="page-content">
-            <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
-                <ul class="layui-tab-title">
-                    <li class="home">
-                        <i class="layui-icon">&#xe68e;</i>我的桌面</li></ul>
-                <div class="layui-unselect layui-form-select layui-form-selected" id="tab_right">
-                    <dl>
-                        <dd data-type="this">关闭当前</dd>
-                        <dd data-type="other">关闭其它</dd>
-                        <dd data-type="all">关闭全部</dd></dl>
-                </div>
-                <div class="layui-tab-content">
-                    <div class="layui-tab-item layui-show">
-                        <iframe src='./welcome.html' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+        <div class="layui-body layui-form">
+                <!-- 内容主体区域 -->
+                <div class="layui-tab marg0" lay-filter="bodyTab" id="top_tabs_box">
+                    <ul class="layui-tab-title top_tab" id="top_tabs">
+                        <li class="layui-this" lay-id=""><i class="iconfont icon-computer"></i> <cite>后台首页</cite></li>
+						</li>
+                    </ul>
+                    <!-- 当前页面操作 -->
+                    <ul class="layui-nav closeBox">
+                        <li class="layui-nav-item" pc>
+                            <a href="javascript:;"><i class="iconfont icon-caozuo"></i> 页面操作</a>
+                            <dl class="layui-nav-child">
+                                <dd><a href="javascript:;" class="refresh refreshThis"><i class="layui-icon">&#xe669;</i> 刷新当前</a></dd>
+                                <dd><a href="javascript:;" class="closePageOther"><i class="iconfont icon-prohibit"></i> 关闭其他</a></dd>
+                                <dd><a href="javascript:;" class="closePageAll"><i class="iconfont icon-guanbi"></i> 关闭全部</a></dd>
+                            </dl>
+                        </li>
+                    </ul>
+                    <div class="layui-tab-content clildFrame" style="height: 800px;width: 100%;">
+                        <div class="layui-tab-item layui-show" style="width: 100%;height: 100%;">
+                            <!--默认嵌入main.html-->
+                            <iframe src="./welcome.html" style="width: 100%;height: 100%;"></iframe>
+                        </div>
                     </div>
                 </div>
-                <div id="tab_show"></div>
+        
             </div>
-        </div>
-        <div class="page-content-bg"></div>
-        <style id="theme_style"></style>
+        
         <!-- 右侧主体结束 -->
         <!-- 中部结束 -->
 
     </body>
     <script src="js/jquery.min.js">
 		
-		
 	</script>
-	
+	<script src="src/app/leftNav.js"></script>
 
 </html>
 
@@ -450,14 +436,13 @@
 
             }
         })
-		
-		
-		
-		
-    $("#deltoken").click(function () {
-            window.localStorage.removeItem("token");
-        })
     });
+	function logout() {
+		var localStorage=window.localStorage;
+		var token=localStorage.getItem("token");
+	        window.localStorage.removeItem("token");
+			window.location.href="login.html"
+	    }
         function msg(){
 			var localStorage=window.localStorage;
 			var token=localStorage.getItem("token");
@@ -488,7 +473,7 @@
 								        shade: 0.2,
 								        maxmin:true,
 								        shadeClose: true,
-								        area: ['50%', '50%'],
+								        area: ['80%', '80%'],
 								        content: '/1/one_set.html',
 								        success: function(layero, index){
 								var body=layer.getChildFrame('body',index);//少了这个是不能从父页面向子页面传值的
@@ -550,6 +535,148 @@
 			    }
 		});
 		}
-
+		layui.config({
+			base : "src/app/"
+		}).use(['form','element','layer','jquery','bodyTab'],function(){
+			var localStorage=window.localStorage;
+			var token=localStorage.getItem("token");
+			var form = layui.form,
+				layer = layui.layer,
+				element = layui.element;
+				$ = layui.jquery;
+				tab = layui.bodyTab({
+					openTabNum : "50", //最大可打开窗口数量
+					url:"http://localhost:9091/auth/menus/getMenus/"+token
+				});
+			//退出
+			$(".signOut").click(function(){
+				window.sessionStorage.removeItem("menu");
+				menu = [];
+				window.sessionStorage.removeItem("curmenu");
+			})
+		
+			//隐藏左侧导航
+			$(".hideMenu").click(function(){
+				$(".layui-layout-admin").toggleClass("showMenu");
+				//渲染顶部窗口
+				tab.tabMove();
+			})
+			//渲染左侧菜单
+			tab.render();
+		
+			// 添加新窗口
+			$("body").on("click",".layui-nav .layui-nav-item a",function(){
+				//如果不存在子级
+				if($(this).siblings().length == 0){
+					addTab($(this));
+					$('body').removeClass('site-mobile');  //移动端点击菜单关闭菜单层
+				}
+				$(this).parent("li").siblings().removeClass("layui-nav-itemed");
+			})
+		
+			//刷新后还原打开的窗口
+			if(window.sessionStorage.getItem("menu") != null){
+				menu = JSON.parse(window.sessionStorage.getItem("menu"));
+				curmenu = window.sessionStorage.getItem("curmenu");
+				var openTitle = '';
+				for(var i=0;i<menu.length;i++){
+					openTitle = '';
+					if(menu[i].css){
+						if(menu[i].css.split("-")[0] == 'icon'){
+							openTitle += '<i class="iconfont '+menu[i].css+'"></i>';
+						}else{
+							openTitle += '<i class="layui-icon">'+menu[i].css+'</i>';
+						}
+					}
+					openTitle += '<cite>'+menu[i].name+'</cite>';
+					openTitle += '<i class="layui-icon layui-unselect layui-tab-close" data-id="'+menu[i].layId+'">&#x1006;</i>';
+					element.tabAdd("bodyTab",{
+						title : openTitle,
+				        content :"<iframe src='"+menu[i].href+"' data-id='"+menu[i].layId+"'></frame>",
+				        id : menu[i].layId
+					})
+					//定位到刷新前的窗口
+					if(curmenu != "undefined"){
+						if(curmenu == '' || curmenu == "null"){  //定位到后台首页
+							element.tabChange("bodyTab",'');
+						}else if(JSON.parse(curmenu).name == menu[i].name){  //定位到刷新前的页面
+							element.tabChange("bodyTab",menu[i].layId);
+						}
+					}else{
+						element.tabChange("bodyTab",menu[menu.length-1].layId);
+					}
+				}
+				//渲染顶部窗口
+				tab.tabMove();
+			}
+		
+			//刷新当前
+			$(".refresh").on("click",function(){  //此处添加禁止连续点击刷新一是为了降低服务器压力，另外一个就是为了防止超快点击造成chrome本身的一些js文件的报错(不过貌似这个问题还是存在，不过概率小了很多)
+				if($(this).hasClass("refreshThis")){
+					$(this).removeClass("refreshThis");
+					$(".clildFrame .layui-tab-item.layui-show").find("iframe")[0].contentWindow.location.reload(true);
+					setTimeout(function(){
+						$(".refresh").addClass("refreshThis");
+					},2000)
+				}else{
+					layer.msg("您点击的速度超过了服务器的响应速度，还是等两秒再刷新吧！");
+				}
+			})
+		
+			//关闭其他
+			$(".closePageOther").on("click",function(){
+				if($("#top_tabs li").length>2 && $("#top_tabs li.layui-this cite").text()!="后台首页"){
+					var menu = JSON.parse(window.sessionStorage.getItem("menu"));
+					$("#top_tabs li").each(function(){
+						if($(this).attr("lay-id") != '' && !$(this).hasClass("layui-this")){
+							element.tabDelete("bodyTab",$(this).attr("lay-id")).init();
+							//此处将当前窗口重新获取放入session，避免一个个删除来回循环造成的不必要工作量
+							for(var i=0;i<menu.length;i++){
+								if($("#top_tabs li.layui-this cite").text() == menu[i].title){
+									menu.splice(0,menu.length,menu[i]);
+									window.sessionStorage.setItem("menu",JSON.stringify(menu));
+								}
+							}
+						}
+					})
+				}else if($("#top_tabs li.layui-this cite").text()=="后台首页" && $("#top_tabs li").length>1){
+					$("#top_tabs li").each(function(){
+						if($(this).attr("lay-id") != '' && !$(this).hasClass("layui-this")){
+							element.tabDelete("bodyTab",$(this).attr("lay-id")).init();
+							window.sessionStorage.removeItem("menu");
+							menu = [];
+							window.sessionStorage.removeItem("curmenu");
+						}
+					})
+				}else{
+					layer.msg("没有可以关闭的窗口了!");
+				}
+				//渲染顶部窗口
+				tab.tabMove();
+			})
+			//关闭全部
+			$(".closePageAll").on("click",function(){
+				if($("#top_tabs li").length > 1){
+					$("#top_tabs li").each(function(){
+						if($(this).attr("lay-id") != ''){
+							element.tabDelete("bodyTab",$(this).attr("lay-id")).init();
+							window.sessionStorage.removeItem("menu");
+							menu = [];
+							window.sessionStorage.removeItem("curmenu");
+						}
+					})
+				}else{
+					layer.msg("没有可以关闭的窗口了!");
+				}
+				//渲染顶部窗口
+				tab.tabMove();
+			})
+		})
+		
+		//打开新窗口
+		function addTab(_this){
+			tab.tabAdd(_this);
+		}
 </script>
+
 

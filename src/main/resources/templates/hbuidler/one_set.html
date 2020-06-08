@@ -34,9 +34,9 @@
 <div class="x-body">
     <form class="layui-form layui-form-pane" action="" id="add">
         <blockquote class="layui-elem-quote">
-            <input type="hidden" name="id" value="8">
+            <input type="hidden" id="id" name="id"/>
             <div >
-                <input class="layui-upload " type="file" accept="undefined" id="previewImg" name="images"  onchange="upload(this,8)">
+                <input class="layui-upload " type="file" accept="undefined" id="previewImg" name="file"  onchange="upload(this,$('#id').val())">
                 <img src="./images/tp.jpg" class="layui-circle" style="width:50px;height:50px;float:left" id="pimages" name="pimages"   alt="个人头像" >
                 <input id="avatar" id="image"  name="image" required="" type="hidden" value="" >
                 <dl style="margin-left:80px; color:#019688">
@@ -51,7 +51,7 @@
 
             <div class="layui-tab-content" >
                 <div class="layui-tab-item layui-show">
-					<input type="hidden" id="id" name="id"/>
+					
 
 
                     <div class="layui-form-item">
@@ -108,9 +108,8 @@
                         <label class="layui-form-label">
                             <span class='x-red'></span>生日
                         </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="birthday" name="birthday" value="" autocomplete="off" placeholder="新密码为空则不修改"
-                                   class="layui-input">
+                        <div class="layui-inline layui-show-xs-block">
+                            <input class="layui-input" name="birthday" id="birthday" autocomplete="off" placeholder="点击选择日期" >
                         </div>
                     </div>
 					
@@ -142,11 +141,12 @@
 
 
 <script>
-    layui.use(['element','layer','form'], function(){
+    layui.use(['laydate','element','layer','form'], function(){
         $ = layui.jquery;//jquery
          var lement = layui.element;//面包导航
          varlayer = layui.layer;//弹出层
        var form = layui.form;
+	   var laydate = layui.laydate;
 
 
 
@@ -158,7 +158,21 @@
             $('#LAY_demo_upload').attr('src',res.url);
           }
         });*/
-
+		form.on('checkbox(checkall)', function(data){
+		                            
+		    if(data.elem.checked){
+		        $('tbody input').prop('checked',true);
+		    }else{
+		        $('tbody input').prop('checked',false);
+		    }
+		    form.render('checkbox');
+		});
+		//执行一个laydate实例
+		laydate.render({
+		    elem: '#birthday' //指定元素
+		});
+		                            
+		
 
         //监听提交
         form.on('submit(add)', function(data){
@@ -212,14 +226,17 @@
 <script>
     function upload(obj,id){
         var formData = new FormData();
-        formData.append('images', $('#previewImg')[0].files[0]);
+		var localStorage=window.localStorage;
+		var token=localStorage.getItem("token");
+        formData.append('file', $('#previewImg')[0].files[0]);
         formData.append('id', id);
         layer.msg('图片上传中', {icon: 16});
         $.ajax({
             type:"post",
             processData: false,
             contentType: false,
-            url:"xxx",
+            url:"http://localhost:9091/provider-account/fileUpload",
+			headers:{"token":token},
             data:formData,
             success:function(data){
                 if(data.status == 1){
