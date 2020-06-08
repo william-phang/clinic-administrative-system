@@ -217,26 +217,9 @@
                                                     var body=layer.getChildFrame('body',index);//少了这个是不能从父页面向子页面传值的
                                         　　　　　　　　 var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象
                                                     //获取子页面的元素，进行数据渲染
-                                                    body.contents().find("#account").val(data1.account);
-                                                   body.contents().find("#accountId").val(data1.accountId);
-                            
-                            		    //为弹框页面角色下拉框赋值
-                            		    $.ajax({
-                            				url : 'http://localhost:9091/provider-account/role/showall',
-                            				dataType : 'json',
-    										headers:{"token":token},
-                            				type : 'get',
-                            				success : function(data) {
-                            					$.each(data, function(index, item) {
-                            						if (item.id == data1.role) {
-                            							body.find('#role').append($("<option>").attr("value",item.id).attr("selected","selected").text(item.name));
-                            						}else  {
-                            							body.find('#role').append($("<option>").attr("value",item.id).text(item.name));
-                            						}
-                            					});
-                            					iframeWin.layui.form.render("select");
-                            				}
-                            			});
+                                                    body.contents().find("#name").val(data1.name);
+                                                   body.contents().find("#description").val(data1.description);
+												   body.contents().find("#id").val(data1.id);
                             		  }
                             	});
                                             $(window).on("resize", function () {

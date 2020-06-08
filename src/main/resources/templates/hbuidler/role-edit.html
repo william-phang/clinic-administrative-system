@@ -18,26 +18,23 @@
                 <form class="layui-form">
                   <div class="layui-form-item">
                       <label for="account" class="layui-form-label">
-                          <span class="x-red">*</span>登录名
+                          <span class="x-red">*</span>角色名
                       </label>
                       <div class="layui-input-inline">
-                          <input type="text" id="account" name="account" required="" lay-verify="account"
+                          <input type="text" id="name" name="name" required="" lay-verify="name"
                           autocomplete="off" class="layui-input">
-						  <input type="hidden" id="accountId" name="accountId" lay-verify="accountId"/>
-                      </div>
-                      <div class="layui-form-mid layui-word-aux">
-                          <span class="x-red">*</span>将会成为您唯一的登入名
+						  <input type="hidden" id="id" name="id" lay-verify="id"/>
                       </div>
                   </div>
-                  <div class="layui-form-item">
-                  				<label class="layui-form-label">角色</label>
-                  				<div class="layui-input-inline">
-                  					<select name="role" lay-verify="required" id="role"
-                  						lay-filter="role">
-                  						<option value="">请选择</option>
-                  					</select>
-                  				</div>
-                  			</div>
+				  <div class="layui-form-item">
+				      <label for="account" class="layui-form-label">
+				          <span class="x-red">*</span>角色描述
+				      </label>
+				      <div class="layui-input-inline">
+				          <input type="text" id="description" name="description" required="" lay-verify="description"
+				          autocomplete="off" class="layui-input">
+				      </div>
+				  </div>
                   
                       <div class="layui-form-item">
                   <div class="layui-form-item">
@@ -60,9 +57,9 @@
 
                 //自定义验证规则
                 form.verify({
-                    account: function(value) {
-                        if (value.length < 5) {
-                            return '昵称至少得5个字符啊';
+                    name: function(value) {
+                        if (value.length > 5) {
+                            return '角色名字太长啦';
                         }
                     }
                 });
@@ -75,9 +72,8 @@
                                     url: 'http://localhost:9091/provider-account/account/update',
                     				headers:{"token":token},
                                     data:{
-										accountId:$('#accountId').val(),
-                                    	account:$('#account').val(),
-                                    	role:$('#role').val(),
+										id:$('#id').val(),
+                                    	name:$('#name').val(),
                                     }, success: function (pos) {
                                         if (pos.data>0) {
                                              layer.msg("操作成功!");

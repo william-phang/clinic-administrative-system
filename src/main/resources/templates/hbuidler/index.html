@@ -20,6 +20,8 @@
 	iframe{
 		height: 600px;
 		width: 1350px;
+		border:none;
+
 	}
 	.logo{
 		font-size: 30px;
@@ -581,14 +583,14 @@
 				var openTitle = '';
 				for(var i=0;i<menu.length;i++){
 					openTitle = '';
-					if(menu[i].css){
-						if(menu[i].css.split("-")[0] == 'icon'){
-							openTitle += '<i class="iconfont '+menu[i].css+'"></i>';
+					if(menu[i].icon){
+						if(menu[i].icon.split("-")[0] == 'icon'){
+							openTitle += '<i class="iconfont '+menu[i].icon+'"></i>';
 						}else{
-							openTitle += '<i class="layui-icon">'+menu[i].css+'</i>';
+							openTitle += '<i class="layui-icon">'+menu[i].icon+'</i>';
 						}
 					}
-					openTitle += '<cite>'+menu[i].name+'</cite>';
+					openTitle += '<cite>'+menu[i].title+'</cite>';
 					openTitle += '<i class="layui-icon layui-unselect layui-tab-close" data-id="'+menu[i].layId+'">&#x1006;</i>';
 					element.tabAdd("bodyTab",{
 						title : openTitle,
@@ -599,7 +601,7 @@
 					if(curmenu != "undefined"){
 						if(curmenu == '' || curmenu == "null"){  //定位到后台首页
 							element.tabChange("bodyTab",'');
-						}else if(JSON.parse(curmenu).name == menu[i].name){  //定位到刷新前的页面
+						}else if(JSON.parse(curmenu).title == menu[i].title){  //定位到刷新前的页面
 							element.tabChange("bodyTab",menu[i].layId);
 						}
 					}else{
