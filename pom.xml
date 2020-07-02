@@ -35,7 +35,7 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 			<!-- 修改版本可以不用在配置文件中写上海时间 -->
-			<version>5.1.13</version>
+			<version>8.0.16</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
